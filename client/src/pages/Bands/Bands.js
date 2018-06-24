@@ -65,7 +65,7 @@ class Bands extends Component {
     return (
       <Container fluid>
         <Row>
-          <Col size="md-6">
+          <Col size="md-12">
             <Jumbotron>
               <h1>BandBase</h1>
               <h2>Description text</h2>
@@ -111,8 +111,12 @@ class Bands extends Component {
               </FormBtn>
             </form>
           </Col>
+        </Row>
 
-          <Col size="md-6 sm-12">
+        <Row>
+          <Col size="md-12">
+          <center><h2>Find Bands...</h2></center>
+          <br/><br/>
             {/* <Jumbotron>
               <h1>Books On My List</h1>
             </Jumbotron> */}
@@ -130,8 +134,9 @@ class Bands extends Component {
                 ))}
               </List>
             ) : (
-              <h3>No Results to Display</h3>
+              <center><h3>No Results to Display</h3></center>
             )}
+            <br/><br/><br/>
           </Col>
         </Row>
       </Container>

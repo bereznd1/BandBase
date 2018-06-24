@@ -10,7 +10,7 @@ router.route("/")
 router
   .route("/:id")
   .get(bandsController.findById)
-  .put(bandsController.update)
-  .delete(bandsController.remove);
+  // .put(bandsController.update)
+  // .delete(bandsController.remove);
 
 module.exports = router;
