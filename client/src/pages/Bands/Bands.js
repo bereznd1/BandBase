@@ -49,7 +49,12 @@ class Bands extends Component {
 
   handleFormSubmit = event => {
     event.preventDefault();
-    if (this.state.name && this.state.location && this.state.genre && this.state.availibility) {
+    if (
+      this.state.name &&
+      this.state.location &&
+      this.state.genre &&
+      this.state.availibility
+    ) {
       API.saveBand({
         name: this.state.name,
         location: this.state.location,
@@ -104,7 +109,14 @@ class Bands extends Component {
                 placeholder="Synopsis (Optional)"
               /> */}
               <FormBtn
-                disabled={!(this.state.name && this.state.location && this.state.genre && this.state.availibility)}
+                disabled={
+                  !(
+                    this.state.name &&
+                    this.state.location &&
+                    this.state.genre &&
+                    this.state.availibility
+                  )
+                }
                 onClick={this.handleFormSubmit}
               >
                 Submit Band
@@ -115,28 +127,52 @@ class Bands extends Component {
 
         <Row>
           <Col size="md-12">
-          <center><h2>Find Bands...</h2></center>
-          <br/><br/>
+            <center>
+              <h2>Find Bands...</h2>
+            </center>
+            <br />
+            <br />
             {/* <Jumbotron>
               <h1>Books On My List</h1>
             </Jumbotron> */}
             {this.state.bands.length ? (
-              <List>
-                {this.state.bands.map(band => (
-                  <ListItem key={band._id}>
-                    {/* <Link to={"/band/" + band._id}> */}
-                      <strong>
-                        {band.name} || {band.location} || {band.genre} || {band.availibility}
-                      </strong>
-                    {/* </Link> */}
-                    {/* <DeleteBtn onClick={() => this.deleteBand(band._id)} /> */}
-                  </ListItem>
-                ))}
-              </List>
+              <table class="table table-striped table-dark">
+                <thead>
+                  <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Location</th>
+                    <th scope="col">Genre</th>
+                    <th scope="col">Availibility</th>
+                  </tr>
+                </thead>
+                <tbody>
+         
+                  {this.state.bands.map(band => (
+        
+                    <tr>
+                      {/* <Link to={"/band/" + band._id}> */}
+
+                      <td>{band.name}</td>
+                      <td>{band.location}</td>
+                      <td>{band.genre}</td>
+                      <td>{band.availibility}</td>
+
+                      {/* </Link> */}
+                      {/* <DeleteBtn onClick={() => this.deleteBand(band._id)} /> */}
+                      {/* </ListItem> */}
+                    </tr>
+                  ))}
+               
+                </tbody>
+              </table>
             ) : (
-              <center><h3>No Results to Display</h3></center>
+              <center>
+                <h3>No Results to Display</h3>
+              </center>
             )}
-            <br/><br/><br/>
+            <br />
+            <br />
+            <br />
           </Col>
         </Row>
       </Container>
