@@ -10,10 +10,15 @@ import { Input, TextArea, FormBtn } from "../../components/Form";
 class Bands extends Component {
   state = {
     bands: [],
+    filteredBands: [],
     name: "",
     location: "",
     genre: "",
-    availibility: ""
+    availibility: "",
+    namesearch: "",
+    locationsearch: "",
+    genresearch: "",
+    availibilitysearch: ""
   };
 
   componentDidMount() {
@@ -25,6 +30,7 @@ class Bands extends Component {
       .then(res =>
         this.setState({
           bands: res.data,
+          filteredBands: res.data,
           name: "",
           location: "",
           genre: "",
@@ -65,6 +71,62 @@ class Bands extends Component {
         .catch(err => console.log(err));
     }
   };
+
+  handleNameFilterChange = event => {
+    const { name, value } = event.target;
+    this.setState({[name]: value});
+    const filteredBands = this.state.bands.filter(band => {
+      return band.name.toLowerCase().indexOf(value.toLowerCase()) !== -1;
+    });
+    this.setState({filteredBands: filteredBands})
+  }
+
+  handleLocationFilterChange = event => {
+    const { name, value } = event.target;
+    this.setState({[name]: value});
+    const filteredBands = this.state.bands.filter(band => {
+      return band.location.toLowerCase().indexOf(value.toLowerCase()) !== -1;
+    });
+    this.setState({filteredBands: filteredBands})
+  }
+
+  handleGenreFilterChange = event => {
+    const { name, value } = event.target;
+    this.setState({[name]: value});
+    const filteredBands = this.state.bands.filter(band => {
+      return band.genre.toLowerCase().indexOf(value.toLowerCase()) !== -1;
+    });
+    this.setState({filteredBands: filteredBands})
+  }
+
+  handleAvailibilityFilterChange = event => {
+    const { name, value } = event.target;
+    this.setState({[name]: value});
+    const filteredBands = this.state.bands.filter(band => {
+      return band.availibility.toLowerCase().indexOf(value.toLowerCase()) !== -1;
+    });
+    this.setState({filteredBands: filteredBands})
+  }
+
+  
+
+  // handleFilterSubmit = event => {
+  //   event.preventDefault();
+  //   if (
+  //     this.state.namesearch ||
+  //     this.state.locationsearch ||
+  //     this.state.genresearch ||
+  //     this.state.availibilitysearch
+  //   ) {
+
+  //     API.
+
+  //   }
+
+
+
+
+  // };
 
   render() {
     return (
@@ -132,11 +194,50 @@ class Bands extends Component {
             </center>
             <br />
             <br />
+            <Row>
+
+              <Col size="md-3">
+                <Input
+                  value={this.state.namesearch}
+                  onChange={this.handleNameFilterChange}
+                  name="namesearch"
+                  placeholder="Filter by name"
+                />
+              </Col>
+
+              <Col size="md-3">
+                <Input
+                  value={this.state.locationsearch}
+                  onChange={this.handleLocationFilterChange}
+                  name="locationsearch"
+                  placeholder="Filter by location"
+                />
+              </Col>
+
+              <Col size="md-3">
+                <Input
+                  value={this.state.genresearch}
+                  onChange={this.handleGenreFilterChange}
+                  name="genresearch"
+                  placeholder="Filter by genre"
+                />
+              </Col>
+
+              <Col size="md-3">
+                <Input
+                  value={this.state.availibilitysearch}
+                  onChange={this.handleAvailibilityFilterChange}
+                  name="availibilitysearch"
+                  placeholder="Filter by availibility"
+                />
+              </Col>
+
+            </Row>
             {/* <Jumbotron>
               <h1>Books On My List</h1>
             </Jumbotron> */}
             {this.state.bands.length ? (
-              <table class="table table-striped table-dark">
+              <table className="table table-striped table-dark">
                 <thead>
                   <tr>
                     <th scope="col">Name</th>
@@ -146,10 +247,8 @@ class Bands extends Component {
                   </tr>
                 </thead>
                 <tbody>
-         
-                  {this.state.bands.map(band => (
-        
-                    <tr>
+                  {this.state.filteredBands.map(band => (
+                    <tr key={band._id}>
                       {/* <Link to={"/band/" + band._id}> */}
 
                       <td>{band.name}</td>
@@ -162,7 +261,6 @@ class Bands extends Component {
                       {/* </ListItem> */}
                     </tr>
                   ))}
-               
                 </tbody>
               </table>
             ) : (

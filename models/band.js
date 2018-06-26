@@ -25,6 +25,11 @@ const bandSchema = new Schema({
   availibility: {
     type: String,
     required: "Please select your availibility."
+  },
+
+  datePosted: {
+    type: Date,
+    default: Date.now
   }
 
   // // 'comment' is an array of comment objects that stores each comment's ID
