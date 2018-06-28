@@ -6,21 +6,20 @@ import { Link } from "react-router-dom";
 import { Col, Row, Container } from "../../components/Grid";
 import { List, ListItem } from "../../components/List";
 import { Input, TextArea, FormBtn } from "../../components/Form";
-import "./Bands.css";
 
 class Bands extends Component {
-  state = {
-    bands: [],
-    filteredBands: [],
-    name: "",
-    location: "",
-    genre: "",
-    availability: "",
-    namesearch: "",
-    locationsearch: "",
-    genresearch: "",
-    availabilitysearch: ""
-  };
+    state = {
+        bands: [],
+        filteredBands: [],
+        name: "",
+        location: "",
+        genre: "",
+        availability: "",
+        namesearch: "",
+        locationsearch: "",
+        genresearch: "",
+        availabilitysearch: ""
+      };
 
   componentDidMount() {
     this.loadBands();
@@ -31,7 +30,7 @@ class Bands extends Component {
       .then(res =>
         this.setState({
           bands: res.data,
-          //filteredBands: res.data,
+          filteredBands: res.data,
           name: "",
           location: "",
           genre: "",
@@ -47,31 +46,31 @@ class Bands extends Component {
   //     .catch(err => console.log(err));
   // };
 
-  handleInputChange = event => {
-    const { name, value } = event.target;
-    this.setState({
-      [name]: value
-    });
-  };
+//   handleInputChange = event => {
+//     const { name, value } = event.target;
+//     this.setState({
+//       [name]: value
+//     });
+//   };
 
-  handleFormSubmit = event => {
-    event.preventDefault();
-    if (
-      this.state.name &&
-      this.state.location &&
-      this.state.genre &&
-      this.state.availability
-    ) {
-      API.saveBand({
-        name: this.state.name,
-        location: this.state.location,
-        genre: this.state.genre,
-        availability: this.state.availability
-      })
-        .then(res => this.loadBands())
-        .catch(err => console.log(err));
-    }
-  };
+//   handleFormSubmit = event => {
+//     event.preventDefault();
+//     if (
+//       this.state.name &&
+//       this.state.location &&
+//       this.state.genre &&
+//       this.state.availability
+//     ) {
+//       API.saveBand({
+//         name: this.state.name,
+//         location: this.state.location,
+//         genre: this.state.genre,
+//         availability: this.state.availability
+//       })
+//         .then(res => this.loadBands())
+//         .catch(err => console.log(err));
+//     }
+//   };
 
   handleNameFilterChange = event => {
     const { name, value } = event.target;
@@ -86,7 +85,7 @@ class Bands extends Component {
     }
 
     if (value === "") {
-      this.setState({ filteredBands: [] });
+      this.setState({ filteredBands: this.state.bands });
     }
   };
 
@@ -103,7 +102,7 @@ class Bands extends Component {
     }
 
     if (value === "") {
-      this.setState({ filteredBands: [] });
+      this.setState({ filteredBands: this.state.bands });
     }
   };
 
@@ -120,7 +119,7 @@ class Bands extends Component {
     }
 
     if (value === "") {
-      this.setState({ filteredBands: [] });
+      this.setState({ filteredBands: this.state.bands });
     }
   };
 
@@ -139,11 +138,9 @@ class Bands extends Component {
     }
 
     if (value === "") {
-      this.setState({ filteredBands: [] });
+      this.setState({ filteredBands: this.state.bands });
     }
   };
-
-
 
   // handleFilterSubmit = event => {
   //   event.preventDefault();
@@ -169,18 +166,17 @@ class Bands extends Component {
               <h1>BandBase</h1>
               <h2>Description text</h2>
             </Jumbotron>
+   
           </Col>
         </Row>
 
         <Row>
           <Col size="md-12">
             <center>
-              <h2>Filter Bands By Keyword...</h2>
+              <h2>List of All Bands...</h2>
             </center>
-            <br />
-            <center>
-              <a href="/allbands">View All Bands!</a>
-            </center>
+            <br/>
+            <center><a href="/">Go Back!</a></center>
             <br />
             <Row>
               <Col size="md-3">
@@ -222,7 +218,7 @@ class Bands extends Component {
             {/* <Jumbotron>
               <h1>Books On My List</h1>
             </Jumbotron> */}
-            {this.state.filteredBands.length ? (
+            {this.state.bands.length ? (
               <table className="table table-striped table-dark">
                 <thead>
                   <tr>
@@ -251,73 +247,10 @@ class Bands extends Component {
               </table>
             ) : (
               <center>
-                <br />
-                <h5>Type A Keyword To See Results!</h5>
+                <h3>No Results to Display</h3>
               </center>
             )}
             <br />
-            <br />
-            <br />
-          </Col>
-        </Row>
-
-        <Row>
-          <Col size="md-12">
-            {/* Input new band form */}
-
-              <center>
-              <div className="submit-form">
-                <center>
-                  <h2>Submit A New Band!</h2>
-                </center>
-                <br />
-                <form>
-                  <Input
-                    value={this.state.name}
-                    onChange={this.handleInputChange}
-                    name="name"
-                    placeholder="Band Name (required)"
-                  />
-                  <Input
-                    value={this.state.location}
-                    onChange={this.handleInputChange}
-                    name="location"
-                    placeholder="Location (required)"
-                  />
-                  <Input
-                    value={this.state.genre}
-                    onChange={this.handleInputChange}
-                    name="genre"
-                    placeholder="Genre (required)"
-                  />
-                  <Input
-                    value={this.state.availability}
-                    onChange={this.handleInputChange}
-                    name="availability"
-                    placeholder="Availability (required)"
-                  />
-                  {/* <TextArea
-                value={this.state.synopsis}
-                onChange={this.handleInputChange}
-                name="synopsis"
-                placeholder="Synopsis (Optional)"
-              /> */}
-                  <FormBtn
-                    disabled={
-                      !(
-                        this.state.name &&
-                        this.state.location &&
-                        this.state.genre &&
-                        this.state.availability
-                      )
-                    }
-                    onClick={this.handleFormSubmit}
-                  >
-                    Submit Band
-                  </FormBtn>
-                </form>
-              </div>
-            </center>
             <br />
             <br />
           </Col>
