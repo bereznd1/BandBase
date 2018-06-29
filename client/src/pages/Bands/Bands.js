@@ -76,7 +76,7 @@ class Bands extends Component {
   handleNameFilterChange = event => {
     const { name, value } = event.target;
 
-    this.setState({ [name]: value });
+    this.setState({ [name]: value, locationsearch: "", genresearch: "", availabilitysearch: "" });
 
     if (value !== "") {
       const filteredBands = this.state.bands.filter(band => {
@@ -93,7 +93,7 @@ class Bands extends Component {
   handleLocationFilterChange = event => {
     const { name, value } = event.target;
 
-    this.setState({ [name]: value });
+    this.setState({ [name]: value, namesearch: "", genresearch: "", availabilitysearch: "" });
 
     if (value !== "") {
       const filteredBands = this.state.bands.filter(band => {
@@ -110,7 +110,7 @@ class Bands extends Component {
   handleGenreFilterChange = event => {
     const { name, value } = event.target;
 
-    this.setState({ [name]: value });
+    this.setState({ [name]: value, namesearch: "", locationsearch: "", availabilitysearch: "" });
 
     if (value !== "") {
       const filteredBands = this.state.bands.filter(band => {
@@ -127,7 +127,7 @@ class Bands extends Component {
   handleAvailabilityFilterChange = event => {
     const { name, value } = event.target;
 
-    this.setState({ [name]: value });
+    this.setState({ [name]: value, namesearch: "", locationsearch: "", genresearch: "" });
 
     if (value !== "") {
       const filteredBands = this.state.bands.filter(band => {

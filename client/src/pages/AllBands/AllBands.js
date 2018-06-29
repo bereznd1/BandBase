@@ -72,10 +72,10 @@ class Bands extends Component {
 //     }
 //   };
 
-  handleNameFilterChange = event => {
+handleNameFilterChange = event => {
     const { name, value } = event.target;
 
-    this.setState({ [name]: value });
+    this.setState({ [name]: value, locationsearch: "", genresearch: "", availabilitysearch: "" });
 
     if (value !== "") {
       const filteredBands = this.state.bands.filter(band => {
@@ -85,14 +85,14 @@ class Bands extends Component {
     }
 
     if (value === "") {
-      this.setState({ filteredBands: this.state.bands });
+      this.setState({ filteredBands: [] });
     }
   };
 
   handleLocationFilterChange = event => {
     const { name, value } = event.target;
 
-    this.setState({ [name]: value });
+    this.setState({ [name]: value, namesearch: "", genresearch: "", availabilitysearch: "" });
 
     if (value !== "") {
       const filteredBands = this.state.bands.filter(band => {
@@ -102,14 +102,14 @@ class Bands extends Component {
     }
 
     if (value === "") {
-      this.setState({ filteredBands: this.state.bands });
+      this.setState({ filteredBands: [] });
     }
   };
 
   handleGenreFilterChange = event => {
     const { name, value } = event.target;
 
-    this.setState({ [name]: value });
+    this.setState({ [name]: value, namesearch: "", locationsearch: "", availabilitysearch: "" });
 
     if (value !== "") {
       const filteredBands = this.state.bands.filter(band => {
@@ -119,14 +119,14 @@ class Bands extends Component {
     }
 
     if (value === "") {
-      this.setState({ filteredBands: this.state.bands });
+      this.setState({ filteredBands: [] });
     }
   };
 
   handleAvailabilityFilterChange = event => {
     const { name, value } = event.target;
 
-    this.setState({ [name]: value });
+    this.setState({ [name]: value, namesearch: "", locationsearch: "", genresearch: "" });
 
     if (value !== "") {
       const filteredBands = this.state.bands.filter(band => {
@@ -138,7 +138,7 @@ class Bands extends Component {
     }
 
     if (value === "") {
-      this.setState({ filteredBands: this.state.bands });
+      this.setState({ filteredBands: [] });
     }
   };
 
