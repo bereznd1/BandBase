@@ -11,6 +11,7 @@ const bandSchema = new Schema({
   password: {
     type:String
   },
+  
   name: {
     type: String,
     trim: true,
