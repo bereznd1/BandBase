@@ -10,6 +10,7 @@ import Jumbotron from "../../components/Jumbotron";
 import API from "../../utils/API";
 import { Link } from "react-router-dom";
 import { Col, Row, Container } from "../../components/Grid";
+import AboutModal from "../../components/AboutModal";
 import { List, ListItem } from "../../components/List";
 import { Input, TextArea, Select, FormBtn } from "../../components/Form";
 import "./Bands.css";
@@ -36,6 +37,7 @@ class Bands extends Component {
     genresearch: "",
     availabilitysearch: ""
   };
+
 
   componentDidMount() {
     this.loadBands();
@@ -206,9 +208,8 @@ class Bands extends Component {
       <Container fluid>
         <Row>
           <Col size="md-12">
-            <Jumbotron>
-              <h1>BandBase</h1>
-              <h2>Description text</h2>
+          <Jumbotron>
+            <AboutModal />
             </Jumbotron>
           </Col>
         </Row>
