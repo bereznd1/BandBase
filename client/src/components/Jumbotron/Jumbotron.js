@@ -1,8 +1,17 @@
 import React from "react";
 
+const BackgroundJumbotron = 'banner.jpg';
+
+const style = {
+  backgroundImage: `url(${BackgroundJumbotron})`,
+  backgroundSize: `cover`,
+  backgroundPosition: `center`,
+  backgroundRepeat: `no-repeat`,
+}
+
 const Jumbotron = ({ children }) => (
   <div
-    style={{ height: 300, clear: "both", paddingTop: 120, textAlign: "center" }}
+    style={style}
     className="jumbotron"
   >
     {children}
