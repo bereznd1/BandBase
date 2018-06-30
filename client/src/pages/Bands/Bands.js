@@ -4,6 +4,7 @@ import Jumbotron from "../../components/Jumbotron";
 import API from "../../utils/API";
 import { Link } from "react-router-dom";
 import { Col, Row, Container } from "../../components/Grid";
+import AboutModal from "../../components/AboutModal";
 import { List, ListItem } from "../../components/List";
 import { Input, TextArea, FormBtn } from "../../components/Form";
 
@@ -20,6 +21,7 @@ class Bands extends Component {
     genresearch: "",
     availibilitysearch: ""
   };
+
 
   componentDidMount() {
     this.loadBands();
@@ -74,41 +76,41 @@ class Bands extends Component {
 
   handleNameFilterChange = event => {
     const { name, value } = event.target;
-    this.setState({[name]: value});
+    this.setState({ [name]: value });
     const filteredBands = this.state.bands.filter(band => {
       return band.name.toLowerCase().indexOf(value.toLowerCase()) !== -1;
     });
-    this.setState({filteredBands: filteredBands})
+    this.setState({ filteredBands: filteredBands })
   }
 
   handleLocationFilterChange = event => {
     const { name, value } = event.target;
-    this.setState({[name]: value});
+    this.setState({ [name]: value });
     const filteredBands = this.state.bands.filter(band => {
       return band.location.toLowerCase().indexOf(value.toLowerCase()) !== -1;
     });
-    this.setState({filteredBands: filteredBands})
+    this.setState({ filteredBands: filteredBands })
   }
 
   handleGenreFilterChange = event => {
     const { name, value } = event.target;
-    this.setState({[name]: value});
+    this.setState({ [name]: value });
     const filteredBands = this.state.bands.filter(band => {
       return band.genre.toLowerCase().indexOf(value.toLowerCase()) !== -1;
     });
-    this.setState({filteredBands: filteredBands})
+    this.setState({ filteredBands: filteredBands })
   }
 
   handleAvailibilityFilterChange = event => {
     const { name, value } = event.target;
-    this.setState({[name]: value});
+    this.setState({ [name]: value });
     const filteredBands = this.state.bands.filter(band => {
       return band.availibility.toLowerCase().indexOf(value.toLowerCase()) !== -1;
     });
-    this.setState({filteredBands: filteredBands})
+    this.setState({ filteredBands: filteredBands })
   }
 
-  
+
 
   // handleFilterSubmit = event => {
   //   event.preventDefault();
@@ -133,11 +135,9 @@ class Bands extends Component {
       <Container fluid>
         <Row>
           <Col size="md-12">
-            <Jumbotron>
-              <h1>BandBase</h1>
-              <h2>Description text</h2>
+          <Jumbotron>
+            <AboutModal />
             </Jumbotron>
-
             {/* Input new band form */}
             <form>
               <Input
@@ -264,10 +264,10 @@ class Bands extends Component {
                 </tbody>
               </table>
             ) : (
-              <center>
-                <h3>No Results to Display</h3>
-              </center>
-            )}
+                <center>
+                  <h3>No Results to Display</h3>
+                </center>
+              )}
             <br />
             <br />
             <br />
