@@ -1,11 +1,17 @@
 import React, { Component } from "react";
+// import Select2 from "react-select";
+// import "react-select/dist/react-select.css";
+
+import cities from "../../utils/cities.json";
+import genres from "../../utils/genres.json";
+
 import DeleteBtn from "../../components/DeleteBtn";
 import Jumbotron from "../../components/Jumbotron";
 import API from "../../utils/API";
 import { Link } from "react-router-dom";
 import { Col, Row, Container } from "../../components/Grid";
 import { List, ListItem } from "../../components/List";
-import { Input, TextArea, FormBtn } from "../../components/Form";
+import { Input, TextArea, Select, FormBtn } from "../../components/Form";
 import "./Bands.css";
 
 class Bands extends Component {
@@ -14,6 +20,15 @@ class Bands extends Component {
     filteredBands: [],
     name: "",
     location: "",
+    sortedcities: cities.sort(function(a, b) {
+      var cityA = a.city.toLowerCase(),
+        cityB = b.city.toLowerCase();
+      if (cityA < cityB)
+        //sort string ascending
+        return -1;
+      if (cityA > cityB) return 1;
+      return 0; //default return value (no sorting)
+    }),
     genre: "",
     availability: "",
     namesearch: "",
@@ -54,6 +69,14 @@ class Bands extends Component {
     });
   };
 
+  // handleChange = (selectedOption) => {
+  //   this.setState({ selectedOption });
+  //   // selectedOption can be null when the `x` (close) button is clicked
+  //   if (selectedOption) {
+  //     console.log(`Selected: ${selectedOption.label}`);
+  //   }
+  // }
+
   handleFormSubmit = event => {
     event.preventDefault();
     if (
@@ -76,7 +99,12 @@ class Bands extends Component {
   handleNameFilterChange = event => {
     const { name, value } = event.target;
 
-    this.setState({ [name]: value, locationsearch: "", genresearch: "", availabilitysearch: "" });
+    this.setState({
+      [name]: value,
+      locationsearch: "",
+      genresearch: "",
+      availabilitysearch: ""
+    });
 
     if (value !== "") {
       const filteredBands = this.state.bands.filter(band => {
@@ -93,7 +121,12 @@ class Bands extends Component {
   handleLocationFilterChange = event => {
     const { name, value } = event.target;
 
-    this.setState({ [name]: value, namesearch: "", genresearch: "", availabilitysearch: "" });
+    this.setState({
+      [name]: value,
+      namesearch: "",
+      genresearch: "",
+      availabilitysearch: ""
+    });
 
     if (value !== "") {
       const filteredBands = this.state.bands.filter(band => {
@@ -110,7 +143,12 @@ class Bands extends Component {
   handleGenreFilterChange = event => {
     const { name, value } = event.target;
 
-    this.setState({ [name]: value, namesearch: "", locationsearch: "", availabilitysearch: "" });
+    this.setState({
+      [name]: value,
+      namesearch: "",
+      locationsearch: "",
+      availabilitysearch: ""
+    });
 
     if (value !== "") {
       const filteredBands = this.state.bands.filter(band => {
@@ -127,7 +165,12 @@ class Bands extends Component {
   handleAvailabilityFilterChange = event => {
     const { name, value } = event.target;
 
-    this.setState({ [name]: value, namesearch: "", locationsearch: "", genresearch: "" });
+    this.setState({
+      [name]: value,
+      namesearch: "",
+      locationsearch: "",
+      genresearch: ""
+    });
 
     if (value !== "") {
       const filteredBands = this.state.bands.filter(band => {
@@ -142,8 +185,6 @@ class Bands extends Component {
       this.setState({ filteredBands: [] });
     }
   };
-
-
 
   // handleFilterSubmit = event => {
   //   event.preventDefault();
@@ -265,7 +306,7 @@ class Bands extends Component {
           <Col size="md-12">
             {/* Input new band form */}
 
-              <center>
+            <center>
               <div className="submit-form">
                 <center>
                   <h2>Submit A New Band!</h2>
@@ -278,24 +319,71 @@ class Bands extends Component {
                     name="name"
                     placeholder="Band Name (required)"
                   />
-                  <Input
+                  {/* <Input
                     value={this.state.location}
                     onChange={this.handleInputChange}
                     name="location"
                     placeholder="Location (required)"
-                  />
-                  <Input
+                  /> */}
+                  <Select
                     value={this.state.genre}
                     onChange={this.handleInputChange}
                     name="genre"
-                    placeholder="Genre (required)"
-                  />
-                  <Input
+                  >
+                    <option value="" hidden>
+                      Select Genre (required)
+                    </option>
+
+                    {genres.map(genre => (
+                      <option key={genre}>
+                        {genre}
+                      </option>
+                    ))}
+                  </Select>
+
+                  <Select
+                    value={this.state.location}
+                    onChange={this.handleInputChange}
+                    name="location"
+                  >
+                    {/* placeholder="Filter by availability" */}
+
+                    <option value="" hidden>
+                      Select Nearest City (required)
+                    </option>
+
+                    {this.state.sortedcities.map(city => (
+                      <option key={city.city}>
+                        {city.city}, {city.state}
+                      </option>
+                    ))}
+                  </Select>
+
+                  <Select
                     value={this.state.availability}
                     onChange={this.handleInputChange}
                     name="availability"
-                    placeholder="Availability (required)"
-                  />
+                  >
+                    {/* placeholder="Filter by availability" */}
+
+                    <option value="" hidden>
+                      Select Availability (required)
+                    </option>
+                    <option>On Tour Currently</option>
+                    <option>On Hiatus</option>
+                    <option>Available for Shows</option>
+                  </Select>
+
+                  {/* <Select2
+                    name="location2"
+                    value={this.state.location2}
+                    onChange={this.handleInputChange}
+                    options={[
+                      { value: "one", label: "One" },
+                      { value: "two", label: "Two" }
+                    ]}
+                  /> */}
+
                   {/* <TextArea
                 value={this.state.synopsis}
                 onChange={this.handleInputChange}

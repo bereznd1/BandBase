@@ -1,12 +1,18 @@
 .submit-form {
-    width: 60%;
-    border-style: solid;
-    border-width: 2px;
-    border-radius: 20px;
-    padding: 20px 20px 60px 20px;
-    background-color: #000000;
-} 
+  width: 60%;
+  border-style: solid;
+  border-width: 2px;
+  border-radius: 20px;
+  padding: 20px 20px 60px 20px;
+  background-color: #000000;
+}
 
 .submit-form h2 {
-    color: #ffffff;
+  color: #ffffff;
 }
+
+
+option[value='""'][disabled] {
+  display: none;
+}
+

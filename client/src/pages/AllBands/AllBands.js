@@ -78,14 +78,14 @@ handleNameFilterChange = event => {
     this.setState({ [name]: value, locationsearch: "", genresearch: "", availabilitysearch: "" });
 
     if (value !== "") {
-      const filteredBands = this.state.bands.filter(band => {
+      const filteredBands = this.state.filteredBands.filter(band => {
         return band.name.toLowerCase().indexOf(value.toLowerCase()) !== -1;
       });
       this.setState({ filteredBands: filteredBands });
     }
 
     if (value === "") {
-      this.setState({ filteredBands: [] });
+      this.setState({ filteredBands: this.state.bands });
     }
   };
 
@@ -95,14 +95,14 @@ handleNameFilterChange = event => {
     this.setState({ [name]: value, namesearch: "", genresearch: "", availabilitysearch: "" });
 
     if (value !== "") {
-      const filteredBands = this.state.bands.filter(band => {
+      const filteredBands = this.state.filteredBands.filter(band => {
         return band.location.toLowerCase().indexOf(value.toLowerCase()) !== -1;
       });
       this.setState({ filteredBands: filteredBands });
     }
 
     if (value === "") {
-      this.setState({ filteredBands: [] });
+      this.setState({ filteredBands: this.state.bands });
     }
   };
 
@@ -112,14 +112,14 @@ handleNameFilterChange = event => {
     this.setState({ [name]: value, namesearch: "", locationsearch: "", availabilitysearch: "" });
 
     if (value !== "") {
-      const filteredBands = this.state.bands.filter(band => {
+      const filteredBands = this.state.filteredBands.filter(band => {
         return band.genre.toLowerCase().indexOf(value.toLowerCase()) !== -1;
       });
       this.setState({ filteredBands: filteredBands });
     }
 
     if (value === "") {
-      this.setState({ filteredBands: [] });
+      this.setState({ filteredBands: this.state.bands });
     }
   };
 
@@ -129,7 +129,7 @@ handleNameFilterChange = event => {
     this.setState({ [name]: value, namesearch: "", locationsearch: "", genresearch: "" });
 
     if (value !== "") {
-      const filteredBands = this.state.bands.filter(band => {
+      const filteredBands = this.state.filteredBands.filter(band => {
         return (
           band.availability.toLowerCase().indexOf(value.toLowerCase()) !== -1
         );
@@ -138,7 +138,7 @@ handleNameFilterChange = event => {
     }
 
     if (value === "") {
-      this.setState({ filteredBands: [] });
+      this.setState({ filteredBands: this.state.bands });
     }
   };
 
