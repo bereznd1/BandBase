@@ -1,8 +1,16 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
+const bcrypt = require("bcryptjs")
 
 const bandSchema = new Schema({
+  username: {
+    type: String,
+    index:true
+  },
 
+  password: {
+    type:String
+  },
   name: {
     type: String,
     trim: true,
@@ -45,6 +53,17 @@ const bandSchema = new Schema({
   //   }
   // ]
 });
+
+// methods ======================
+// generating a hash
+bandSchema.methods.generateHash = function(password) {
+  return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
+};
+
+// checking if password is valid
+bandSchema.methods.validPassword = function(password) {
+  return bcrypt.compareSync(password, this.local.password);
+};
 
 const Band = mongoose.model("Band", bandSchema);
 

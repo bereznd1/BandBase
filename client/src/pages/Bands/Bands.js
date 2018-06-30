@@ -31,6 +31,8 @@ class Bands extends Component {
         this.setState({
           bands: res.data,
           filteredBands: res.data,
+          username: "",
+          password: "",
           name: "",
           location: "",
           genre: "",
@@ -56,12 +58,16 @@ class Bands extends Component {
   handleFormSubmit = event => {
     event.preventDefault();
     if (
+      this.state.username &&
+      this.state.password &&
       this.state.name &&
       this.state.location &&
       this.state.genre &&
       this.state.availibility
     ) {
       API.saveBand({
+        username: this.state.username,
+        password: this.state.password,
         name: this.state.name,
         location: this.state.location,
         genre: this.state.genre,
@@ -141,6 +147,18 @@ class Bands extends Component {
             {/* Input new band form */}
             <form>
               <Input
+                value={this.state.username}
+                onChange={this.handleInputChange}
+                name="username"
+                placeholder="User Name (required)"
+              />
+              <Input
+                value={this.state.password}
+                onChange={this.handleInputChange}
+                name="password"
+                placeholder="Password (required)"
+              />
+              <Input
                 value={this.state.name}
                 onChange={this.handleInputChange}
                 name="name"
@@ -173,6 +191,8 @@ class Bands extends Component {
               <FormBtn
                 disabled={
                   !(
+                    this.state.username &&
+                    this.state.password &&
                     this.state.name &&
                     this.state.location &&
                     this.state.genre &&
