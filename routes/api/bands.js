@@ -7,7 +7,7 @@ const bandsController = require("../../controllers/bandsController");
 
 var passport = require('passport');
 var flash    = require('connect-flash');
-var session      = require('express-session');
+var session  = require('express-session');
 
 //-----------------PASSPORT VALIDATION--------------------------//
 
@@ -32,6 +32,8 @@ passport.use(new LocalStrategy(
   }
 ));
 //-----------------PASSPORT CONFIGURATION----------------------//
+
+//https://github.com/tinkerstash/node-react-passport/blob/master/backend/controllers/user.js
 
 // Matches with "/api/books"
 router.route("/")
