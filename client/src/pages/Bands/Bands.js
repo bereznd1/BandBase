@@ -4,6 +4,7 @@ import React, { Component } from "react";
 
 import cities from "../../utils/cities.json";
 import genres from "../../utils/genres.json";
+import availabilities from "../../utils/availability.json";
 
 import DeleteBtn from "../../components/DeleteBtn";
 import Jumbotron from "../../components/Jumbotron";
@@ -370,9 +371,22 @@ class Bands extends Component {
                     <option value="" hidden>
                       Select Availability (required)
                     </option>
+
+                    
+                    {availabilities.map(availability => (
+                      <option key={availability}>
+                        {availability}
+                      </option>
+                    ))}
+
+
+
+                    {/* <option value="" hidden>
+                      Select Availability (required)
+                    </option>
                     <option>On Tour Currently</option>
                     <option>On Hiatus</option>
-                    <option>Available for Shows</option>
+                    <option>Available for Shows</option> */}
                   </Select>
 
                   {/* <Select2
