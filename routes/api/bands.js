@@ -47,4 +47,8 @@ router
   // .put(bandsController.update)
   // .delete(bandsController.remove);
 
+router
+  .route("/login")
+  .post(/*do passport stuff here*/)
+
 module.exports = router;

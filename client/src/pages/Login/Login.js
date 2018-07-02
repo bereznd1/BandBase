@@ -41,6 +41,7 @@ class Login extends Component {
         password: this.state.password
       })
         .then(res =>{
+          console.log("logging in sir")
           window.location.href = "/";
         })
         .catch(err => console.log(err));
@@ -142,7 +143,7 @@ class Login extends Component {
                 }
                 onClick={this.handleFormSubmit}
               >
-                Submit Band
+                Login
               </FormBtn>
             </form>
           </Col>
