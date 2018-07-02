@@ -3,10 +3,9 @@ const bandsController = require("../../controllers/bandsController");
 
 router
   .route("/")
-
+    .post(bandsController.findByUserName)
   router
   .route("/:username")
-    .post(bandsController.findByUserName)
     .get(bandsController.findByUserName);
 
 

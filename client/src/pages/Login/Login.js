@@ -43,7 +43,7 @@ class Login extends Component {
         .then(res =>{
           console.log("logging in sir")
           console.log(res.data);
-          window.location.href = "/";
+          window.location.href = "/login";
         })
         .catch(err => console.log(err));
     }
@@ -136,12 +136,12 @@ class Login extends Component {
                 placeholder="Synopsis (Optional)"
               /> */}
               <FormBtn
-                disabled={
-                  !(
-                    this.state.username &&
-                    this.state.password
-                  )
-                }
+                // disabled={
+                //   !(
+                //     this.state.username &&
+                //     this.state.password
+                //   )
+                // }
                 onClick={this.handleFormSubmit}
               >
                 Login
