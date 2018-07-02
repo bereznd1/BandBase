@@ -37,11 +37,13 @@ class Login extends Component {
       this.state.password
     ) {
       API.userLogin({
-        name: this.state.username,
+        username: this.state.username,
         password: this.state.password
       })
         .then(res =>{
-          window.location.href = "/";
+          console.log("logging in sir")
+          console.log(res.data);
+          window.location.href = "/login";
         })
         .catch(err => console.log(err));
     }
@@ -134,15 +136,15 @@ class Login extends Component {
                 placeholder="Synopsis (Optional)"
               /> */}
               <FormBtn
-                disabled={
-                  !(
-                    this.state.username &&
-                    this.state.password
-                  )
-                }
+                // disabled={
+                //   !(
+                //     this.state.username &&
+                //     this.state.password
+                //   )
+                // }
                 onClick={this.handleFormSubmit}
               >
-                Submit Band
+                Login
               </FormBtn>
             </form>
           </Col>
