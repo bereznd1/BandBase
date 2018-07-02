@@ -1,5 +1,6 @@
 import React from "react";
 import "./Nav.css";
+import AboutModal from "../../components/AboutModal";
 
 const Background = 'darkness.png';
 const style = {
@@ -14,6 +15,7 @@ const Nav = () => (
       <a className="navbar-brand" href="/">BandBase</a>
     </div>
     <ul className="nav navbar-nav navbar-right">
+    <li><AboutModal/></li>
       <li><a href="#"><span className ="glyphicon glyphicon-user"></span> Sign Up</a></li>
       <li><a href="#"><span className ="glyphicon glyphicon-log-in"></span> Login</a></li>
     </ul>

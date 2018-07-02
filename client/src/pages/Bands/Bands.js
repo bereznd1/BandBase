@@ -208,9 +208,7 @@ class Bands extends Component {
       <Container fluid>
         <Row>
           <Col size="md-12">
-          <Jumbotron>
-            <AboutModal />
-            </Jumbotron>
+          <Jumbotron/>
           </Col>
         </Row>
 
