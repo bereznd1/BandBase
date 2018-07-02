@@ -37,11 +37,12 @@ class Login extends Component {
       this.state.password
     ) {
       API.userLogin({
-        name: this.state.username,
+        username: this.state.username,
         password: this.state.password
       })
         .then(res =>{
           console.log("logging in sir")
+          console.log(res.data);
           window.location.href = "/";
         })
         .catch(err => console.log(err));
