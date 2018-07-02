@@ -30,9 +30,9 @@ const bandSchema = new Schema({
     required: "Please enter your genre."
   },
 
-  availibility: {
+  availability: {
     type: String,
-    required: "Please select your availibility."
+    required: "Please select your availability."
   },
 
   datePosted: {
