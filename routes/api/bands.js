@@ -14,8 +14,5 @@ router
   // .put(bandsController.update)
   // .delete(bandsController.remove);
 
-router
-  .post(bandsController.findByUserName)
-  .get(bandsController.findByUserName);
 
 module.exports = router;
