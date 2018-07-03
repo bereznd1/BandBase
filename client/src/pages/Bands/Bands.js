@@ -39,7 +39,6 @@ class Bands extends Component {
     availabilitysearch: ""
   };
 
-
   componentDidMount() {
     this.loadBands();
   }
@@ -177,9 +176,8 @@ class Bands extends Component {
 
     if (value !== "") {
       const filteredBands = this.state.bands.filter(band => {
-        return (
-          band.availability.toLowerCase().indexOf(value.toLowerCase()) !== -1
-        );
+        return;
+        band.availability.toLowerCase().indexOf(value.toLowerCase()) !== -1;
       });
       this.setState({ filteredBands: filteredBands });
     }
@@ -209,8 +207,8 @@ class Bands extends Component {
       <Container fluid>
         <Row>
           <Col size="md-12">
-          <Jumbotron>
-            <AboutModal />
+            <Jumbotron>
+              <AboutModal />
             </Jumbotron>
           </Col>
         </Row>
@@ -336,11 +334,7 @@ class Bands extends Component {
                       Select Genre (required)
                     </option>
 
-                    {genres.map(genre => (
-                      <option key={genre}>
-                        {genre}
-                      </option>
-                    ))}
+                    {genres.map(genre => <option key={genre}>{genre}</option>)}
                   </Select>
 
                   <Select
@@ -372,14 +366,9 @@ class Bands extends Component {
                       Select Availability (required)
                     </option>
 
-                    
                     {availabilities.map(availability => (
-                      <option key={availability}>
-                        {availability}
-                      </option>
+                      <option key={availability}>{availability}</option>
                     ))}
-
-
 
                     {/* <option value="" hidden>
                       Select Availability (required)
