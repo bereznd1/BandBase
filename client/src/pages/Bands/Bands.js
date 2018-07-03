@@ -361,22 +361,18 @@ class Bands extends Component {
                   >
                     {/* placeholder="Filter by availability" */}
 
-                    <option value="" hidden>
+                    {/* <option value="" hidden>
                       Select Availability (required)
                     </option>
 
-                    {availabilities.map(availability => <option key={availability}>{availability}</option>)}
+                    {availabilities.map(availability => <option key={availability}>{availability}</option>)} */}
 
-                    {/* {availabilities.map(availability => (
-                      <option key={availability}>{availability}</option>
-                    ))} */}
-
-                    {/* <option value="" hidden>
+                    <option value="" hidden>
                       Select Availability (required)
                     </option>
                     <option>On Tour Currently</option>
                     <option>On Hiatus</option>
-                    <option>Available for Shows</option> */}
+                    <option>Available for Shows</option>
                   </Select>
 
                   {/* <Select2
