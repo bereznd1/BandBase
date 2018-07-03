@@ -176,8 +176,7 @@ class Bands extends Component {
 
     if (value !== "") {
       const filteredBands = this.state.bands.filter(band => {
-        return;
-        band.availability.toLowerCase().indexOf(value.toLowerCase()) !== -1;
+        return band.availability.toLowerCase().indexOf(value.toLowerCase()) !== -1;
       });
       this.setState({ filteredBands: filteredBands });
     }
