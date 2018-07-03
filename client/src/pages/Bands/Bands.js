@@ -365,9 +365,11 @@ class Bands extends Component {
                       Select Availability (required)
                     </option>
 
-                    {availabilities.map(availability => (
+                    {availabilities.map(availability => <option key={availability}>{availability}</option>)}
+
+                    {/* {availabilities.map(availability => (
                       <option key={availability}>{availability}</option>
-                    ))}
+                    ))} */}
 
                     {/* <option value="" hidden>
                       Select Availability (required)
