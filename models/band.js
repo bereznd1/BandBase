@@ -7,24 +7,24 @@ const bandSchema = new Schema({
     type: String,
     trim: true,
     unique: true,
-    required: "Please enter artist name."
+    required: true
   },
 
   location: {
     type: String,
     trim: true,
-    required: "Please enter your location."
+    required: true
   },
 
   genre: {
     type: String,
     trim: true,
-    required: "Please enter your genre."
+    required: true
   },
 
   availability: {
     type: String,
-    required: "Please select your availability."
+    required: true
   },
 
   datePosted: {
