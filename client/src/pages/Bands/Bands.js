@@ -259,6 +259,14 @@ class Bands extends Component {
                 />
               </Col>
             </Row>
+          </Col>
+        </Row>
+
+            <Row>
+              <Col size="md-2">
+              </Col>
+
+              <Col size="md-8">
             {/* <Jumbotron>
               <h1>Books On My List</h1>
             </Jumbotron> */}
@@ -298,6 +306,9 @@ class Bands extends Component {
             <br />
             <br />
             <br />
+          </Col>
+
+          <Col size="md-2">
           </Col>
         </Row>
 
