@@ -12,13 +12,11 @@ const bandSchema = new Schema({
 
   location: {
     type: String,
-    trim: true,
     required: true
   },
 
   genre: {
     type: String,
-    trim: true,
     required: true
   },
 
