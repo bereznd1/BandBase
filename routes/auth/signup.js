@@ -9,17 +9,24 @@ const User = require('../../models/band')
 
 
 router.post('/', (req, res) => {
-	const { username, password } = req.body
+	const { username, password, name, location, genre, availability } = req.body
 	// ADD VALIDATION
+	
 	User.findOne({ 'username': username }, (err, userMatch) => {
 		if (userMatch) {
 			return res.json({
 				error: `Sorry, already a user with the username: ${username}`
+
 			})
 		}
 		const newUser = new User({
 			'username': username,
-			'password': password
+            'password': password,
+            'name' : name,
+            'location': location,
+            'genre': genre,
+            'availability':availability,
+
 		})
 		newUser.save((err, savedUser) => {
 			if (err) return res.json(err)
