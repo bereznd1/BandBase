@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import DeleteBtn from "../../components/DeleteBtn";
+// import DeleteBtn from "../../components/DeleteBtn";
 import Jumbotron from "../../components/Jumbotron";
 import API from "../../utils/API";
 import { Link } from "react-router-dom";
@@ -8,18 +8,18 @@ import { List, ListItem } from "../../components/List";
 import { Input, TextArea, FormBtn } from "../../components/Form";
 
 class Bands extends Component {
-    state = {
-        bands: [],
-        filteredBands: [],
-        name: "",
-        location: "",
-        genre: "",
-        availability: "",
-        namesearch: "",
-        locationsearch: "",
-        genresearch: "",
-        availabilitysearch: ""
-      };
+  state = {
+    bands: [],
+    filteredBands: [],
+    name: "",
+    location: "",
+    genre: "",
+    availability: "",
+    namesearch: "",
+    locationsearch: "",
+    genresearch: "",
+    availabilitysearch: ""
+  };
 
   componentDidMount() {
     this.loadBands();
@@ -46,36 +46,41 @@ class Bands extends Component {
   //     .catch(err => console.log(err));
   // };
 
-//   handleInputChange = event => {
-//     const { name, value } = event.target;
-//     this.setState({
-//       [name]: value
-//     });
-//   };
+  //   handleInputChange = event => {
+  //     const { name, value } = event.target;
+  //     this.setState({
+  //       [name]: value
+  //     });
+  //   };
 
-//   handleFormSubmit = event => {
-//     event.preventDefault();
-//     if (
-//       this.state.name &&
-//       this.state.location &&
-//       this.state.genre &&
-//       this.state.availability
-//     ) {
-//       API.saveBand({
-//         name: this.state.name,
-//         location: this.state.location,
-//         genre: this.state.genre,
-//         availability: this.state.availability
-//       })
-//         .then(res => this.loadBands())
-//         .catch(err => console.log(err));
-//     }
-//   };
+  //   handleFormSubmit = event => {
+  //     event.preventDefault();
+  //     if (
+  //       this.state.name &&
+  //       this.state.location &&
+  //       this.state.genre &&
+  //       this.state.availability
+  //     ) {
+  //       API.saveBand({
+  //         name: this.state.name,
+  //         location: this.state.location,
+  //         genre: this.state.genre,
+  //         availability: this.state.availability
+  //       })
+  //         .then(res => this.loadBands())
+  //         .catch(err => console.log(err));
+  //     }
+  //   };
 
-handleNameFilterChange = event => {
+  handleNameFilterChange = event => {
     const { name, value } = event.target;
 
-    this.setState({ [name]: value, locationsearch: "", genresearch: "", availabilitysearch: "" });
+    this.setState({
+      [name]: value,
+      locationsearch: "",
+      genresearch: "",
+      availabilitysearch: ""
+    });
 
     if (value !== "") {
       const filteredBands = this.state.filteredBands.filter(band => {
@@ -92,7 +97,12 @@ handleNameFilterChange = event => {
   handleLocationFilterChange = event => {
     const { name, value } = event.target;
 
-    this.setState({ [name]: value, namesearch: "", genresearch: "", availabilitysearch: "" });
+    this.setState({
+      [name]: value,
+      namesearch: "",
+      genresearch: "",
+      availabilitysearch: ""
+    });
 
     if (value !== "") {
       const filteredBands = this.state.filteredBands.filter(band => {
@@ -109,7 +119,12 @@ handleNameFilterChange = event => {
   handleGenreFilterChange = event => {
     const { name, value } = event.target;
 
-    this.setState({ [name]: value, namesearch: "", locationsearch: "", availabilitysearch: "" });
+    this.setState({
+      [name]: value,
+      namesearch: "",
+      locationsearch: "",
+      availabilitysearch: ""
+    });
 
     if (value !== "") {
       const filteredBands = this.state.filteredBands.filter(band => {
@@ -126,7 +141,12 @@ handleNameFilterChange = event => {
   handleAvailabilityFilterChange = event => {
     const { name, value } = event.target;
 
-    this.setState({ [name]: value, namesearch: "", locationsearch: "", genresearch: "" });
+    this.setState({
+      [name]: value,
+      namesearch: "",
+      locationsearch: "",
+      genresearch: ""
+    });
 
     if (value !== "") {
       const filteredBands = this.state.filteredBands.filter(band => {
@@ -166,7 +186,6 @@ handleNameFilterChange = event => {
               <h1>BandBase</h1>
               <h2>Description text</h2>
             </Jumbotron>
-   
           </Col>
         </Row>
 
@@ -175,8 +194,10 @@ handleNameFilterChange = event => {
             <center>
               <h2>List of All Bands...</h2>
             </center>
-            <br/>
-            <center><a href="/">Go Back!</a></center>
+            <br />
+            <center>
+              <a href="/">Go Back!</a>
+            </center>
             <br />
             <Row>
               <Col size="md-3">
@@ -215,6 +236,13 @@ handleNameFilterChange = event => {
                 />
               </Col>
             </Row>
+          </Col>
+        </Row>
+
+        <Row>
+          <Col size="md-2" />
+
+          <Col size="md-8">
             {/* <Jumbotron>
               <h1>Books On My List</h1>
             </Jumbotron> */}
@@ -254,6 +282,8 @@ handleNameFilterChange = event => {
             <br />
             <br />
           </Col>
+
+          <Col size="md-2" />
         </Row>
       </Container>
     );
