@@ -4,9 +4,9 @@ import React, { Component } from "react";
 
 import cities from "../../utils/cities.json";
 import genres from "../../utils/genres.json";
-import availabilities from "../../utils/availability.json";
+// import availabilities from "../../utils/availability.json";
 
-import DeleteBtn from "../../components/DeleteBtn";
+// import DeleteBtn from "../../components/DeleteBtn";
 import Jumbotron from "../../components/Jumbotron";
 import API from "../../utils/API";
 import { Link } from "react-router-dom";
@@ -97,6 +97,36 @@ class Bands extends Component {
         .catch(err => console.log(err));
     }
   };
+
+
+
+
+
+// //Trying to make it work with multiple filters
+//   handleFilterChange = event => {
+//     const { name, value } = event.target;
+
+//     const searchedName = [name];
+
+//     this.setState({
+//       [name]: value,
+//     });
+
+//     if (value !== "") {
+//       const filteredBands = this.state.bands.filter(band => {
+//         return band.searchedName.toLowerCase().indexOf(value.toLowerCase()) !== -1;
+//       });
+//       this.setState({ filteredBands: filteredBands });
+//     }
+
+//     if (value === "") {
+//       this.setState({ filteredBands: [] });
+//     }
+//   };
+
+
+
+
 
   handleNameFilterChange = event => {
     const { name, value } = event.target;
@@ -271,6 +301,7 @@ class Bands extends Component {
               <h1>Books On My List</h1>
             </Jumbotron> */}
             {this.state.filteredBands.length ? (
+
               <table className="table table-striped table-dark">
                 <thead>
                   <tr>
@@ -297,6 +328,7 @@ class Bands extends Component {
                   ))}
                 </tbody>
               </table>
+            
             ) : (
               <center>
                 <br />
@@ -359,7 +391,7 @@ class Bands extends Component {
                     </option>
 
                     {this.state.sortedcities.map(city => (
-                      <option key={city.city}>
+                      <option key={city.rank}>
                         {city.city}, {city.state}
                       </option>
                     ))}
