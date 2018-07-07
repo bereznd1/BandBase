@@ -48,7 +48,7 @@ class Bands extends Component {
       .then(res =>
         this.setState({
           bands: res.data,
-          filteredBands: res.data,
+          // filteredBands: res.data,
           username: "",
           password: "",
           name: "",
@@ -104,35 +104,27 @@ class Bands extends Component {
     }
   };
 
+  // //Trying to make it work with multiple filters
+  //   handleFilterChange = event => {
+  //     const { name, value } = event.target;
 
+  //     const searchedName = [name];
 
+  //     this.setState({
+  //       [name]: value,
+  //     });
 
+  //     if (value !== "") {
+  //       const filteredBands = this.state.bands.filter(band => {
+  //         return band.searchedName.toLowerCase().indexOf(value.toLowerCase()) !== -1;
+  //       });
+  //       this.setState({ filteredBands: filteredBands });
+  //     }
 
-// //Trying to make it work with multiple filters
-//   handleFilterChange = event => {
-//     const { name, value } = event.target;
-
-//     const searchedName = [name];
-
-//     this.setState({
-//       [name]: value,
-//     });
-
-//     if (value !== "") {
-//       const filteredBands = this.state.bands.filter(band => {
-//         return band.searchedName.toLowerCase().indexOf(value.toLowerCase()) !== -1;
-//       });
-//       this.setState({ filteredBands: filteredBands });
-//     }
-
-//     if (value === "") {
-//       this.setState({ filteredBands: [] });
-//     }
-//   };
-
-
-
-
+  //     if (value === "") {
+  //       this.setState({ filteredBands: [] });
+  //     }
+  //   };
 
   handleNameFilterChange = event => {
     const { name, value } = event.target;
@@ -212,7 +204,9 @@ class Bands extends Component {
 
     if (value !== "") {
       const filteredBands = this.state.bands.filter(band => {
-        return band.availability.toLowerCase().indexOf(value.toLowerCase()) !== -1;
+        return (
+          band.availability.toLowerCase().indexOf(value.toLowerCase()) !== -1
+        );
       });
       this.setState({ filteredBands: filteredBands });
     }
@@ -247,7 +241,7 @@ class Bands extends Component {
             </Jumbotron>
 
             {/* Input new band form */}
-            <form>
+            {/* <form>
               <Input
                 value={this.state.username}
                 onChange={this.handleInputChange}
@@ -284,12 +278,6 @@ class Bands extends Component {
                 name="availibility"
                 placeholder="Availibility (required)"
               />
-              {/* <TextArea
-                value={this.state.synopsis}
-                onChange={this.handleInputChange}
-                name="synopsis"
-                placeholder="Synopsis (Optional)"
-              /> */}
               <FormBtn
                 disabled={
                   !(
@@ -305,7 +293,7 @@ class Bands extends Component {
               >
                 Submit Band
               </FormBtn>
-            </form>
+            </form> */}
           </Col>
         </Row>
 
@@ -359,16 +347,14 @@ class Bands extends Component {
           </Col>
         </Row>
 
-            <Row>
-              <Col size="md-2">
-              </Col>
+        <Row>
+          <Col size="md-2" />
 
-              <Col size="md-8">
+          <Col size="md-8">
             {/* <Jumbotron>
               <h1>Books On My List</h1>
             </Jumbotron> */}
             {this.state.filteredBands.length ? (
-
               <table className="table table-striped table-dark">
                 <thead>
                   <tr>
@@ -395,7 +381,6 @@ class Bands extends Component {
                   ))}
                 </tbody>
               </table>
-            
             ) : (
               <center>
                 <br />
@@ -407,8 +392,7 @@ class Bands extends Component {
             <br />
           </Col>
 
-          <Col size="md-2">
-          </Col>
+          <Col size="md-2" />
         </Row>
 
         <Row>
@@ -422,6 +406,18 @@ class Bands extends Component {
                 </center>
                 <br />
                 <form>
+                  <Input
+                    value={this.state.username}
+                    onChange={this.handleInputChange}
+                    name="username"
+                    placeholder="User Name (required)"
+                  />
+                  <Input
+                    value={this.state.password}
+                    onChange={this.handleInputChange}
+                    name="password"
+                    placeholder="Password (required)"
+                  />
                   <Input
                     value={this.state.name}
                     onChange={this.handleInputChange}
@@ -504,6 +500,8 @@ class Bands extends Component {
                   <FormBtn
                     disabled={
                       !(
+                        this.state.username &&
+                        this.state.password &&
                         this.state.name &&
                         this.state.location &&
                         this.state.genre &&
