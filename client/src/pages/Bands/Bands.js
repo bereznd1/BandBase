@@ -4,8 +4,9 @@ import React, { Component } from "react";
 
 import cities from "../../utils/cities.json";
 import genres from "../../utils/genres.json";
+// import availabilities from "../../utils/availability.json";
 
-import DeleteBtn from "../../components/DeleteBtn";
+// import DeleteBtn from "../../components/DeleteBtn";
 import Jumbotron from "../../components/Jumbotron";
 import Footer from "../../components/Footer";
 import API from "../../utils/API";
@@ -39,7 +40,6 @@ class Bands extends Component {
     availabilitysearch: ""
   };
 
-
   componentDidMount() {
     this.loadBands();
   }
@@ -49,7 +49,9 @@ class Bands extends Component {
       .then(res =>
         this.setState({
           bands: res.data,
-          //filteredBands: res.data,
+          // filteredBands: res.data,
+          username: "",
+          password: "",
           name: "",
           location: "",
           genre: "",
@@ -83,12 +85,16 @@ class Bands extends Component {
   handleFormSubmit = event => {
     event.preventDefault();
     if (
+      this.state.username &&
+      this.state.password &&
       this.state.name &&
       this.state.location &&
       this.state.genre &&
       this.state.availability
     ) {
       API.saveBand({
+        username: this.state.username,
+        password: this.state.password,
         name: this.state.name,
         location: this.state.location,
         genre: this.state.genre,
@@ -98,6 +104,28 @@ class Bands extends Component {
         .catch(err => console.log(err));
     }
   };
+
+  // //Trying to make it work with multiple filters
+  //   handleFilterChange = event => {
+  //     const { name, value } = event.target;
+
+  //     const searchedName = [name];
+
+  //     this.setState({
+  //       [name]: value,
+  //     });
+
+  //     if (value !== "") {
+  //       const filteredBands = this.state.bands.filter(band => {
+  //         return band.searchedName.toLowerCase().indexOf(value.toLowerCase()) !== -1;
+  //       });
+  //       this.setState({ filteredBands: filteredBands });
+  //     }
+
+  //     if (value === "") {
+  //       this.setState({ filteredBands: [] });
+  //     }
+  //   };
 
   handleNameFilterChange = event => {
     const { name, value } = event.target;
@@ -209,7 +237,10 @@ class Bands extends Component {
       <Container fluid>
         <Row>
           <Col size="md-12">
-            <Jumbotron />
+            <Jumbotron>
+            <h1>BandBase</h1>
+              <h2>Description text</h2>
+              </Jumbotron>
           </Col>
         </Row>
 
@@ -260,6 +291,13 @@ class Bands extends Component {
                 />
               </Col>
             </Row>
+          </Col>
+        </Row>
+
+        <Row>
+          <Col size="md-2" />
+
+          <Col size="md-8">
             {/* <Jumbotron>
               <h1>Books On My List</h1>
             </Jumbotron> */}
@@ -300,6 +338,8 @@ class Bands extends Component {
             <br />
             <br />
           </Col>
+
+          <Col size="md-2" />
         </Row>
 
         <Row>
@@ -314,6 +354,18 @@ class Bands extends Component {
                 </center>
                 <br />
                 <form>
+                  <Input
+                    value={this.state.username}
+                    onChange={this.handleInputChange}
+                    name="username"
+                    placeholder="User Name (required)"
+                  />
+                  <Input
+                    value={this.state.password}
+                    onChange={this.handleInputChange}
+                    name="password"
+                    placeholder="Password (required)"
+                  />
                   <Input
                     value={this.state.name}
                     onChange={this.handleInputChange}
@@ -335,11 +387,7 @@ class Bands extends Component {
                       Select Genre (required)
                     </option>
 
-                    {genres.map(genre => (
-                      <option key={genre}>
-                        {genre}
-                      </option>
-                    ))}
+                    {genres.map(genre => <option key={genre}>{genre}</option>)}
                   </Select>
 
                   <Select
@@ -354,7 +402,7 @@ class Bands extends Component {
                     </option>
 
                     {this.state.sortedcities.map(city => (
-                      <option key={city.city}>
+                      <option key={city.rank}>
                         {city.city}, {city.state}
                       </option>
                     ))}
@@ -366,6 +414,12 @@ class Bands extends Component {
                     name="availability"
                   >
                     {/* placeholder="Filter by availability" */}
+
+                    {/* <option value="" hidden>
+                      Select Availability (required)
+                    </option>
+
+                    {availabilities.map(availability => <option key={availability}>{availability}</option>)} */}
 
                     <option value="" hidden>
                       Select Availability (required)
@@ -394,6 +448,8 @@ class Bands extends Component {
                   <FormBtn
                     disabled={
                       !(
+                        this.state.username &&
+                        this.state.password &&
                         this.state.name &&
                         this.state.location &&
                         this.state.genre &&
