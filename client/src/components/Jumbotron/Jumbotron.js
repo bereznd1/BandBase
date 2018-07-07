@@ -1,5 +1,5 @@
 import React from "react";
-
+import "./Jumbotron.css";
 const BackgroundJumbotron = 'banner.jpg';
 
 const style = {
