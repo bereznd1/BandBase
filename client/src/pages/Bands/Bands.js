@@ -4,9 +4,9 @@ import React, { Component } from "react";
 
 import cities from "../../utils/cities.json";
 import genres from "../../utils/genres.json";
-import availabilities from "../../utils/availability.json";
+// import availabilities from "../../utils/availability.json";
 
-import DeleteBtn from "../../components/DeleteBtn";
+// import DeleteBtn from "../../components/DeleteBtn";
 import Jumbotron from "../../components/Jumbotron";
 import API from "../../utils/API";
 import { Link } from "react-router-dom";
@@ -38,7 +38,6 @@ class Bands extends Component {
     genresearch: "",
     availabilitysearch: ""
   };
-
 
   componentDidMount() {
     this.loadBands();
@@ -104,6 +103,36 @@ class Bands extends Component {
         .catch(err => console.log(err));
     }
   };
+
+
+
+
+
+// //Trying to make it work with multiple filters
+//   handleFilterChange = event => {
+//     const { name, value } = event.target;
+
+//     const searchedName = [name];
+
+//     this.setState({
+//       [name]: value,
+//     });
+
+//     if (value !== "") {
+//       const filteredBands = this.state.bands.filter(band => {
+//         return band.searchedName.toLowerCase().indexOf(value.toLowerCase()) !== -1;
+//       });
+//       this.setState({ filteredBands: filteredBands });
+//     }
+
+//     if (value === "") {
+//       this.setState({ filteredBands: [] });
+//     }
+//   };
+
+
+
+
 
   handleNameFilterChange = event => {
     const { name, value } = event.target;
@@ -183,9 +212,7 @@ class Bands extends Component {
 
     if (value !== "") {
       const filteredBands = this.state.bands.filter(band => {
-        return (
-          band.availability.toLowerCase().indexOf(value.toLowerCase()) !== -1
-        );
+        return band.availability.toLowerCase().indexOf(value.toLowerCase()) !== -1;
       });
       this.setState({ filteredBands: filteredBands });
     }
@@ -215,8 +242,8 @@ class Bands extends Component {
       <Container fluid>
         <Row>
           <Col size="md-12">
-          <Jumbotron>
-            <AboutModal />
+            <Jumbotron>
+              <AboutModal />
             </Jumbotron>
 
             {/* Input new band form */}
@@ -329,10 +356,19 @@ class Bands extends Component {
                 />
               </Col>
             </Row>
+          </Col>
+        </Row>
+
+            <Row>
+              <Col size="md-2">
+              </Col>
+
+              <Col size="md-8">
             {/* <Jumbotron>
               <h1>Books On My List</h1>
             </Jumbotron> */}
             {this.state.filteredBands.length ? (
+
               <table className="table table-striped table-dark">
                 <thead>
                   <tr>
@@ -359,6 +395,7 @@ class Bands extends Component {
                   ))}
                 </tbody>
               </table>
+            
             ) : (
               <center>
                 <br />
@@ -368,6 +405,9 @@ class Bands extends Component {
             <br />
             <br />
             <br />
+          </Col>
+
+          <Col size="md-2">
           </Col>
         </Row>
 
@@ -403,11 +443,7 @@ class Bands extends Component {
                       Select Genre (required)
                     </option>
 
-                    {genres.map(genre => (
-                      <option key={genre}>
-                        {genre}
-                      </option>
-                    ))}
+                    {genres.map(genre => <option key={genre}>{genre}</option>)}
                   </Select>
 
                   <Select
@@ -422,7 +458,7 @@ class Bands extends Component {
                     </option>
 
                     {this.state.sortedcities.map(city => (
-                      <option key={city.city}>
+                      <option key={city.rank}>
                         {city.city}, {city.state}
                       </option>
                     ))}
@@ -435,25 +471,18 @@ class Bands extends Component {
                   >
                     {/* placeholder="Filter by availability" */}
 
-                    <option value="" hidden>
+                    {/* <option value="" hidden>
                       Select Availability (required)
                     </option>
 
-                    
-                    {availabilities.map(availability => (
-                      <option key={availability}>
-                        {availability}
-                      </option>
-                    ))}
+                    {availabilities.map(availability => <option key={availability}>{availability}</option>)} */}
 
-
-
-                    {/* <option value="" hidden>
+                    <option value="" hidden>
                       Select Availability (required)
                     </option>
                     <option>On Tour Currently</option>
                     <option>On Hiatus</option>
-                    <option>Available for Shows</option> */}
+                    <option>Available for Shows</option>
                   </Select>
 
                   {/* <Select2
