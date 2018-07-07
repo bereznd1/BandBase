@@ -1,66 +1,228 @@
-import React from "react";
+import React, { Component } from "react";
 import "./SignForm.css";
-import Form from "../../components/Form";
-import { FormGroup, FormControl, HelpBlock, ControlLabel, OverlayTrigger} from 'react-bootstrap';
+import cities from "../../utils/cities.json";
+import genres from "../../utils/genres.json";
+// import availabilities from "../../utils/availability.json";
+
+// import DeleteBtn from "../../components/DeleteBtn";
+
+import API from "../../utils/API";
+import { Link } from "react-router-dom";
+// import { Col, Row, Container } from "../../components/Grid";
+// import SignInModal from "../../components/SignInModal";
+import { Input, TextArea, Select, FormBtn } from "../Form";
+
 
 class SignForm extends React.Component {
-    constructor(props, context) {
-      super(props, context);
+    // constructor(props, context) {
+    //   super(props, context);
   
-      // this.handleChange = this.handleChange.bind(this);
+    //   // this.handleChange = this.handleChange.bind(this);
   
-      this.state = {
-        userName: '',
-        password:''
+    //   this.state = {
+    //     userName: '',
+    //     password:''
        
-      };
-    }
+    //   };
+    // }
+
+    state = {
+      name: "",
+      location: "",
+      sortedcities: cities.sort(function (a, b) {
+        var cityA = a.city.toLowerCase(),
+          cityB = b.city.toLowerCase();
+        if (cityA < cityB)
+          //sort string ascending
+          return -1;
+        if (cityA > cityB) return 1;
+        return 0; //default return value (no sorting)
+      }),
+      genre: "",
+      availability: ""
+    };
+
+
+
+    handleInputChange = event => {
+      const { name, value } = event.target;
+      this.setState({
+        [name]: value
+      });
+    };
+  
+
+    handleFormSubmit = event => {
+      event.preventDefault();
+      if (
+        this.state.username &&
+        this.state.password &&
+        this.state.name &&
+        this.state.location &&
+        this.state.genre &&
+        this.state.availability
+      ) {
+        API.saveBand({
+          username: this.state.username,
+          password: this.state.password,
+          name: this.state.name,
+          location: this.state.location,
+          genre: this.state.genre,
+          availability: this.state.availability
+        })
+          .then(res => this.loadBands())
+          .catch(err => console.log(err));
+      }
+
+      if (this.props.onSubmit)
+      {
+        this.props.onSubmit();
+      }
+    };
+
+
   
     render() {
       return (
+        // <form>
+        //   <FormGroup
+        //     controlId="formBasicText"
+        //     // validationState={this.getValidationState()}
+        //   >
+        //     <ControlLabel>UserName</ControlLabel>
+        //     <FormControl
+        //       type="text"
+        //       userName={this.state.userName}
+        //       placeholder="UserName"
+        //       onChange={this.handleChange}
+        //     />
+            
+        //     <ControlLabel>Password</ControlLabel>
+        //     <FormControl
+        //       type="text"
+        //       password={this.state.password}
+        //       placeholder="Password"
+        //       onChange={this.handleChange}
+        //     />
+
+        //      <ControlLabel>Verify Password</ControlLabel>
+        //     <FormControl
+        //       type="text"
+        //       verify={this.state.verify}
+        //       placeholder="Enter text"
+        //       onChange={this.handleChange}
+        //     />
+
+        //      <ControlLabel>Email</ControlLabel>
+        //     <FormControl
+        //       type="text"
+        //       email={this.state.email}
+        //       placeholder="Enter text"
+        //       onChange={this.handleChange}
+        //     />
+
+            
+
+        //     <FormControl.Feedback />
+        //     {/* <HelpBlock>Validation is based on string length.</HelpBlock> */}
+        //   </FormGroup>
+        // </form>
+
+
         <form>
-          <FormGroup
-            controlId="formBasicText"
-            // validationState={this.getValidationState()}
-          >
-            <ControlLabel>UserName</ControlLabel>
-            <FormControl
-              type="text"
-              userName={this.state.userName}
-              placeholder="UserName"
-              onChange={this.handleChange}
-            />
-            
-            <ControlLabel>Password</ControlLabel>
-            <FormControl
-              type="text"
-              password={this.state.password}
-              placeholder="Password"
-              onChange={this.handleChange}
-            />
+        <Input
+          value={this.state.username}
+          onChange={this.handleInputChange}
+          name="username"
+          placeholder="User Name (required)"
+        />
+        <Input
+          value={this.state.password}
+          onChange={this.handleInputChange}
+          name="password"
+          placeholder="Password (required)"
+        />
+        <Input
+          value={this.state.name}
+          onChange={this.handleInputChange}
+          name="name"
+          placeholder="Band Name (required)"
+        />
+        {/* <Input
+          value={this.state.location}
+          onChange={this.handleInputChange}
+          name="location"
+          placeholder="Location (required)"
+        /> */}
+        <Select
+          value={this.state.genre}
+          onChange={this.handleInputChange}
+          name="genre"
+        >
+          <option value="" hidden>
+            Select Genre (required)
+          </option>
 
-             <ControlLabel>Verify Password</ControlLabel>
-            <FormControl
-              type="text"
-              verify={this.state.verify}
-              placeholder="Enter text"
-              onChange={this.handleChange}
-            />
+          {genres.map(genre => <option key={genre}>{genre}</option>)}
+        </Select>
 
-             <ControlLabel>Email</ControlLabel>
-            <FormControl
-              type="text"
-              email={this.state.email}
-              placeholder="Enter text"
-              onChange={this.handleChange}
-            />
+        <Select
+          value={this.state.location}
+          onChange={this.handleInputChange}
+          name="location"
+        >
+          {/* placeholder="Filter by availability" */}
 
-            
+          <option value="" hidden>
+            Select Nearest City (required)
+          </option>
 
-            <FormControl.Feedback />
-            {/* <HelpBlock>Validation is based on string length.</HelpBlock> */}
-          </FormGroup>
-        </form>
+          {this.state.sortedcities.map(city => (
+            <option key={city.rank}>
+              {city.city}, {city.state}
+            </option>
+          ))}
+        </Select>
+
+        <Select
+          value={this.state.availability}
+          onChange={this.handleInputChange}
+          name="availability"
+        >
+          {/* placeholder="Filter by availability" */}
+
+          {/* <option value="" hidden>
+            Select Availability (required)
+          </option>
+
+          {availabilities.map(availability => <option key={availability}>{availability}</option>)} */}
+
+          <option value="" hidden>
+            Select Availability (required)
+          </option>
+          <option>On Tour Currently</option>
+          <option>On Hiatus</option>
+          <option>Available for Shows</option>
+        </Select>
+
+        <FormBtn
+          disabled={
+            !(
+              this.state.username &&
+              this.state.password &&
+              this.state.name &&
+              this.state.location &&
+              this.state.genre &&
+              this.state.availability
+            )
+          }
+          onClick={this.handleFormSubmit}
+        >
+          Submit Band
+        </FormBtn>
+      
+      </form>
+
       );
     }
   }
