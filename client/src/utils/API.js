@@ -16,5 +16,8 @@ export default {
   // Saves a book to the database
   saveBand: function(bandData) {
     return axios.post("/api/bands", bandData);
+  },
+  userLogin: function(userData) {
+    return axios.post("/auth/login", userData);
   }
 };

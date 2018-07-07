@@ -1,6 +1,6 @@
 const db = require("../models");
 
-// Defining methods for the booksController
+// Defining methods for the bandsController
 module.exports = {
   findAll: function(req, res) {
     db.Band
@@ -12,6 +12,12 @@ module.exports = {
   findById: function(req, res) {
     db.Band
       .findById(req.params.id)
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.status(422).json(err));
+  },
+  findByUserName: function(req, res) {
+    db.Band
+      .findOne({ username : req.params.username})
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },

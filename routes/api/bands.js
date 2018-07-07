@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const bandsController = require("../../controllers/bandsController");
 
+
 // Matches with "/api/books"
 router.route("/")
   .get(bandsController.findAll)
@@ -12,5 +13,6 @@ router
   .get(bandsController.findById)
   // .put(bandsController.update)
   // .delete(bandsController.remove);
+
 
 module.exports = router;

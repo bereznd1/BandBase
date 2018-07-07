@@ -48,7 +48,9 @@ class Bands extends Component {
       .then(res =>
         this.setState({
           bands: res.data,
-          //filteredBands: res.data,
+          filteredBands: res.data,
+          username: "",
+          password: "",
           name: "",
           location: "",
           genre: "",
@@ -82,12 +84,16 @@ class Bands extends Component {
   handleFormSubmit = event => {
     event.preventDefault();
     if (
+      this.state.username &&
+      this.state.password &&
       this.state.name &&
       this.state.location &&
       this.state.genre &&
       this.state.availability
     ) {
       API.saveBand({
+        username: this.state.username,
+        password: this.state.password,
         name: this.state.name,
         location: this.state.location,
         genre: this.state.genre,
@@ -239,6 +245,67 @@ class Bands extends Component {
             <Jumbotron>
               <AboutModal />
             </Jumbotron>
+
+            {/* Input new band form */}
+            <form>
+              <Input
+                value={this.state.username}
+                onChange={this.handleInputChange}
+                name="username"
+                placeholder="User Name (required)"
+              />
+              <Input
+                value={this.state.password}
+                onChange={this.handleInputChange}
+                name="password"
+                placeholder="Password (required)"
+              />
+              <Input
+                value={this.state.name}
+                onChange={this.handleInputChange}
+                name="name"
+                placeholder="Band Name (required)"
+              />
+              <Input
+                value={this.state.location}
+                onChange={this.handleInputChange}
+                name="location"
+                placeholder="Location (required)"
+              />
+              <Input
+                value={this.state.genre}
+                onChange={this.handleInputChange}
+                name="genre"
+                placeholder="Genre (required)"
+              />
+              <Input
+                value={this.state.availibility}
+                onChange={this.handleInputChange}
+                name="availibility"
+                placeholder="Availibility (required)"
+              />
+              {/* <TextArea
+                value={this.state.synopsis}
+                onChange={this.handleInputChange}
+                name="synopsis"
+                placeholder="Synopsis (Optional)"
+              /> */}
+              <FormBtn
+                disabled={
+                  !(
+                    this.state.username &&
+                    this.state.password &&
+                    this.state.name &&
+                    this.state.location &&
+                    this.state.genre &&
+                    this.state.availibility
+                  )
+                }
+                onClick={this.handleFormSubmit}
+              >
+                Submit Band
+              </FormBtn>
+            </form>
           </Col>
         </Row>
 
