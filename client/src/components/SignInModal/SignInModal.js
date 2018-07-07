@@ -41,16 +41,13 @@ class SignInModal extends React.Component {
 
 
 
-        <Modal show={this.state.show} onHide={this.handleClose}>
+        <Modal show={this.state.show} onHide={this.handleClose} className="modal-main">
           <Modal.Header closeButton>
             <Modal.Title>Sign Up</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <SignForm />
+            <SignForm onSubmit={this.handleClose.bind(this)} />
           </Modal.Body>
-          <Modal.Footer>
-            <Button onClick={this.handleClose}>Submit</Button>
-          </Modal.Footer>
         </Modal>
       </div>
     );
