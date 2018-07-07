@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import DeleteBtn from "../../components/DeleteBtn";
 import Jumbotron from "../../components/Jumbotron";
+import Footer from "../../components/Footer";
 import API from "../../utils/API";
 import { Link } from "react-router-dom";
 import { Col, Row, Container } from "../../components/Grid";
@@ -162,11 +163,7 @@ handleNameFilterChange = event => {
       <Container fluid>
         <Row>
           <Col size="md-12">
-            <Jumbotron>
-              <h1>BandBase</h1>
-              <h2>Description text</h2>
-            </Jumbotron>
-   
+            <Jumbotron/>
           </Col>
         </Row>
 
@@ -255,7 +252,9 @@ handleNameFilterChange = event => {
             <br />
           </Col>
         </Row>
+        <Footer/>
       </Container>
+
     );
   }
 }

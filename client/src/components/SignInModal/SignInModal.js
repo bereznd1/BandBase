@@ -3,7 +3,6 @@ import "./SignInModal.css";
 import { Modal, Button, Popover, Tooltip, OverlayTrigger } from 'react-bootstrap';
 import SignForm from "../../components/SignForm";
 
-
 class SignInModal extends React.Component {
   constructor(props, context) {
     super(props, context);

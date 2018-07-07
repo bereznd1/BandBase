@@ -7,10 +7,11 @@ import genres from "../../utils/genres.json";
 
 import DeleteBtn from "../../components/DeleteBtn";
 import Jumbotron from "../../components/Jumbotron";
+import Footer from "../../components/Footer";
 import API from "../../utils/API";
 import { Link } from "react-router-dom";
 import { Col, Row, Container } from "../../components/Grid";
-import AboutModal from "../../components/AboutModal";
+import SignInModal from "../../components/SignInModal";
 import { List, ListItem } from "../../components/List";
 import { Input, TextArea, Select, FormBtn } from "../../components/Form";
 import "./Bands.css";
@@ -21,7 +22,7 @@ class Bands extends Component {
     filteredBands: [],
     name: "",
     location: "",
-    sortedcities: cities.sort(function(a, b) {
+    sortedcities: cities.sort(function (a, b) {
       var cityA = a.city.toLowerCase(),
         cityB = b.city.toLowerCase();
       if (cityA < cityB)
@@ -208,7 +209,7 @@ class Bands extends Component {
       <Container fluid>
         <Row>
           <Col size="md-12">
-          <Jumbotron/>
+            <Jumbotron />
           </Col>
         </Row>
 
@@ -290,11 +291,11 @@ class Bands extends Component {
                 </tbody>
               </table>
             ) : (
-              <center>
-                <br />
-                <h5>Type A Keyword To See Results!</h5>
-              </center>
-            )}
+                <center>
+                  <br />
+                  <h5>Type A Keyword To See Results!</h5>
+                </center>
+              )}
             <br />
             <br />
             <br />
@@ -307,6 +308,7 @@ class Bands extends Component {
 
             <center>
               <div className="submit-form">
+           
                 <center>
                   <h2>Submit A New Band!</h2>
                 </center>
@@ -402,16 +404,21 @@ class Bands extends Component {
                   >
                     Submit Band
                   </FormBtn>
+                
                 </form>
+            
               </div>
+             
             </center>
             <br />
             <br />
           </Col>
         </Row>
+      
       </Container>
     );
   }
 }
+
 
 export default Bands;
