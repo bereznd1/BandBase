@@ -4,7 +4,7 @@ const router = require("express").Router();
 const User = require('../../models/band')
 const passport = require('../../passport')
 
-router.post('/logout', (req, res) => {
+router.post('/', (req, res) => {
 	if (req.user) {
 		req.session.destroy()
 		res.clearCookie('connect.sid') // clean up!
