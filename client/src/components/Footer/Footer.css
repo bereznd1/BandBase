@@ -1,5 +1,9 @@
 h1{
     text-align:center;
-    background-color:black;
+
     font-size:17px;
+}
+
+.footer{
+    background-color:black;
 }
