@@ -8,10 +8,11 @@ import genres from "../../utils/genres.json";
 
 // import DeleteBtn from "../../components/DeleteBtn";
 import Jumbotron from "../../components/Jumbotron";
+import Footer from "../../components/Footer";
 import API from "../../utils/API";
 import { Link } from "react-router-dom";
 import { Col, Row, Container } from "../../components/Grid";
-import AboutModal from "../../components/AboutModal";
+import SignInModal from "../../components/SignInModal";
 import { List, ListItem } from "../../components/List";
 import { Input, TextArea, Select, FormBtn } from "../../components/Form";
 import "./Bands.css";
@@ -22,7 +23,7 @@ class Bands extends Component {
     filteredBands: [],
     name: "",
     location: "",
-    sortedcities: cities.sort(function(a, b) {
+    sortedcities: cities.sort(function (a, b) {
       var cityA = a.city.toLowerCase(),
         cityB = b.city.toLowerCase();
       if (cityA < cityB)
@@ -237,63 +238,9 @@ class Bands extends Component {
         <Row>
           <Col size="md-12">
             <Jumbotron>
-              <AboutModal />
-            </Jumbotron>
-
-            {/* Input new band form */}
-            {/* <form>
-              <Input
-                value={this.state.username}
-                onChange={this.handleInputChange}
-                name="username"
-                placeholder="User Name (required)"
-              />
-              <Input
-                value={this.state.password}
-                onChange={this.handleInputChange}
-                name="password"
-                placeholder="Password (required)"
-              />
-              <Input
-                value={this.state.name}
-                onChange={this.handleInputChange}
-                name="name"
-                placeholder="Band Name (required)"
-              />
-              <Input
-                value={this.state.location}
-                onChange={this.handleInputChange}
-                name="location"
-                placeholder="Location (required)"
-              />
-              <Input
-                value={this.state.genre}
-                onChange={this.handleInputChange}
-                name="genre"
-                placeholder="Genre (required)"
-              />
-              <Input
-                value={this.state.availibility}
-                onChange={this.handleInputChange}
-                name="availibility"
-                placeholder="Availibility (required)"
-              />
-              <FormBtn
-                disabled={
-                  !(
-                    this.state.username &&
-                    this.state.password &&
-                    this.state.name &&
-                    this.state.location &&
-                    this.state.genre &&
-                    this.state.availibility
-                  )
-                }
-                onClick={this.handleFormSubmit}
-              >
-                Submit Band
-              </FormBtn>
-            </form> */}
+            <h1>BandBase</h1>
+              <h2>Description text</h2>
+              </Jumbotron>
           </Col>
         </Row>
 
@@ -382,11 +329,11 @@ class Bands extends Component {
                 </tbody>
               </table>
             ) : (
-              <center>
-                <br />
-                <h5>Type A Keyword To See Results!</h5>
-              </center>
-            )}
+                <center>
+                  <br />
+                  <h5>Type A Keyword To See Results!</h5>
+                </center>
+              )}
             <br />
             <br />
             <br />
@@ -401,6 +348,7 @@ class Bands extends Component {
 
             <center>
               <div className="submit-form">
+           
                 <center>
                   <h2>Submit A New Band!</h2>
                 </center>
@@ -512,16 +460,21 @@ class Bands extends Component {
                   >
                     Submit Band
                   </FormBtn>
+                
                 </form>
+            
               </div>
+             
             </center>
             <br />
             <br />
           </Col>
         </Row>
+      
       </Container>
     );
   }
 }
+
 
 export default Bands;

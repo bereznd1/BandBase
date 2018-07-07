@@ -1,5 +1,8 @@
 import React from "react";
 import "./Nav.css";
+import AboutModal from "../../components/AboutModal";
+import SignInModal from "../../components/SignInModal";
+import LogInModal from "../../components/LogInModal";
 
 const Background = 'darkness.png';
 const style = {
@@ -14,8 +17,9 @@ const Nav = () => (
       <a className="navbar-brand" href="/">BandBase</a>
     </div>
     <ul className="nav navbar-nav navbar-right">
-      <li><a href="#"><span className ="glyphicon glyphicon-user"></span> Sign Up</a></li>
-      <li><a href="#"><span className ="glyphicon glyphicon-log-in"></span> Login</a></li>
+    <li><AboutModal/></li>
+      <li><SignInModal/></li>
+      <li><LogInModal/></li>
     </ul>
   </div>
 </nav>

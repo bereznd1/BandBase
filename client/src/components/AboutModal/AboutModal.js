@@ -2,10 +2,6 @@ import React from "react";
 import "./AboutModal.css";
 import { Modal, Button, Popover, Tooltip, OverlayTrigger} from 'react-bootstrap';
 
-const text ={
-  textAlign: `center`
-}
-
 class AboutModal extends React.Component {
     constructor(props, context) {
       super(props, context);
@@ -36,9 +32,11 @@ class AboutModal extends React.Component {
   
       return (
         <div>
-          <Button bsStyle="primary" bsSize="large" style={text} onClick={this.handleShow}>
+
+          <a href="#" onClick={this.handleShow}>About</a>
+          {/* <Button bsStyle="primary" bsSize="large" style={text} >
             About
-          </Button>
+          </Button> */}
   
           <Modal show={this.state.show} onHide={this.handleClose}>
             <Modal.Header closeButton>
