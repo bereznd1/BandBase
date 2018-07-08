@@ -35,6 +35,21 @@ const bandSchema = new Schema({
     required: true
   },
 
+  facebook: {
+    type: String,
+    trim: true
+  },
+
+  email: {
+    type: String,
+    trim: true
+  },
+
+  phone: {
+    type: String,
+    trim: true
+  },
+
   datePosted: {
     type: Date,
     default: Date.now

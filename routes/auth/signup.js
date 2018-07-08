@@ -9,7 +9,7 @@ const User = require('../../models/band')
 
 
 router.post('/', (req, res) => {
-	const { username, password, name, location, genre, availability } = req.body
+	const { username, password, name, location, genre, availability, facebook, email, phone } = req.body
 	// ADD VALIDATION
 	
 	User.findOne({ 'username': username }, (err, userMatch) => {
@@ -25,7 +25,10 @@ router.post('/', (req, res) => {
             'name' : name,
             'location': location,
             'genre': genre,
-            'availability':availability,
+			'availability':availability,
+			'facebook': facebook,
+			'email': email,
+			'phone': phone
 
 		})
 		newUser.save((err, savedUser) => {

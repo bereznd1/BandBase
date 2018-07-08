@@ -39,7 +39,10 @@ class SignForm extends React.Component {
         return 0; //default return value (no sorting)
       }),
       genre: "",
-      availability: ""
+      availability: "",
+      facebook: "",
+      email: "",
+      phone: ""
     };
 
 
@@ -60,7 +63,8 @@ class SignForm extends React.Component {
         this.state.name &&
         this.state.location &&
         this.state.genre &&
-        this.state.availability
+        this.state.availability &&
+        (this.state.facebook || this.state.email || this.state.phone)
       ) {
         API.saveBand({
           username: this.state.username,
@@ -68,9 +72,12 @@ class SignForm extends React.Component {
           name: this.state.name,
           location: this.state.location,
           genre: this.state.genre,
-          availability: this.state.availability
+          availability: this.state.availability,
+          facebook: this.state.facebook,
+          email: this.state.email,
+          phone: this.state.phone
         })
-          .then(res => this.loadBands())
+          .then(window.location = "/")
           .catch(err => console.log(err));
       }
 
@@ -148,12 +155,6 @@ class SignForm extends React.Component {
           name="name"
           placeholder="Band Name (required)"
         />
-        {/* <Input
-          value={this.state.location}
-          onChange={this.handleInputChange}
-          name="location"
-          placeholder="Location (required)"
-        /> */}
         <Select
           value={this.state.genre}
           onChange={this.handleInputChange}
@@ -205,6 +206,29 @@ class SignForm extends React.Component {
           <option>Available for Shows</option>
         </Select>
 
+        <p><strong>Please enter at least one contact method:</strong></p>
+
+        <Input
+          value={this.state.facebook}
+          onChange={this.handleInputChange}
+          name="facebook"
+          placeholder="Facebook URL"
+        />
+
+        <Input
+          value={this.state.email}
+          onChange={this.handleInputChange}
+          name="email"
+          placeholder="Email Address"
+        />
+
+        <Input
+          value={this.state.phone}
+          onChange={this.handleInputChange}
+          name="phone"
+          placeholder="Phone Number"
+        />
+
         <FormBtn
           disabled={
             !(
@@ -213,7 +237,10 @@ class SignForm extends React.Component {
               this.state.name &&
               this.state.location &&
               this.state.genre &&
-              this.state.availability
+              this.state.availability &&
+              (this.state.facebook || this.state.email || this.state.phone)
+
+              
             )
           }
           onClick={this.handleFormSubmit}
