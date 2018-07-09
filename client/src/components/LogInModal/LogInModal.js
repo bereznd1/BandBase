@@ -47,7 +47,7 @@ class LogInModal extends React.Component {
             <LogForm/>
           </Modal.Body>
           <Modal.Footer>
-            <Button onClick={this.handleClose}>Submit</Button>
+ 
           </Modal.Footer>
         </Modal>
       </div>

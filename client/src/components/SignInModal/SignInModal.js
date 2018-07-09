@@ -34,7 +34,7 @@ class SignInModal extends React.Component {
     return (
       <div>
 
-        <li><a href="#" onClick={this.handleShow}><span className="glyphicon glyphicon-user"></span>Sign Up</a></li>
+        <a href="#" onClick={this.handleShow}><span className="glyphicon glyphicon-user"></span>Sign Up</a>
         {/* <Button bsStyle="primary" bsSize="large" style={text} >
             About
           </Button> */}
