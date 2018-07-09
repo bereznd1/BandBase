@@ -44,7 +44,7 @@ class LogInModal extends React.Component {
             <Modal.Title>Log In</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <LogForm/>
+            <LogForm onSubmit={this.handleClose.bind(this)}/>
           </Modal.Body>
           <Modal.Footer>
  

@@ -5,7 +5,6 @@ import API from "../../utils/API";
 
 class LogOutButton extends React.Component{
     handleLogout = event => {
-        console.log("firing");
         event.preventDefault();
         API.userLogout()
         .then(res => {

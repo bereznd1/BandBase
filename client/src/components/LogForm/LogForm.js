@@ -24,7 +24,6 @@ class LogForm extends React.Component {
       this.setState({
         [name]: value
       }); 
-      console.log(this.state);
     };
   
 
@@ -38,8 +37,15 @@ class LogForm extends React.Component {
           username: this.state.username,
           password: this.state.password
         })
-          .then(res => console.log(res))
-          .catch(err => console.log(err));
+          .then(res => {
+            console.log(res)
+            console.log("hello " + res.data.user.name + ". Thank you for logging in");
+          })
+          .catch(err => {
+            if(err === 401){
+              console.log("wrong username or password!");
+            }
+          });
       }
 
       if (this.props.onSubmit)
