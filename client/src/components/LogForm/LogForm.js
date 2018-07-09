@@ -24,6 +24,7 @@ class LogForm extends React.Component {
       this.setState({
         [name]: value
       }); 
+      console.log(this.state);
     };
   
 
@@ -39,7 +40,7 @@ class LogForm extends React.Component {
           username: this.state.username,
           password: this.state.password
         })
-          .then(res => this.loadBands())
+          // .then(res => this.loadBands())
           .catch(err => console.log(err));
       }
 
@@ -60,7 +61,8 @@ class LogForm extends React.Component {
             <ControlLabel>UserName</ControlLabel>
             <Input
               type="text"
-              username={this.state.username}
+              name="username"
+              value={this.state.username}
               placeholder="Enter text"
               onChange={this.handleInputChange}
             />
@@ -68,7 +70,8 @@ class LogForm extends React.Component {
             <ControlLabel>Password</ControlLabel>
             <Input
               type="text"
-              password={this.state.password}
+              name = "password"
+              value={this.state.password}
               placeholder="Enter text"
               onChange={this.handleInputChange}
             />
