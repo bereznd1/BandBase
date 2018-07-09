@@ -30,8 +30,6 @@ class LogForm extends React.Component {
 
     handleFormSubmit = event => {
       event.preventDefault();
-      console.log("it is firing");
-      console.log(this.state.password);
       if (
         this.state.username &&
         this.state.password
@@ -40,7 +38,7 @@ class LogForm extends React.Component {
           username: this.state.username,
           password: this.state.password
         })
-          // .then(res => this.loadBands())
+          .then(res => console.log(res))
           .catch(err => console.log(err));
       }
 
