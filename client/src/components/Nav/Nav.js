@@ -18,25 +18,13 @@ const Nav = () => (
           BandBase
         </a>
       </div>
-      <ul className="nav navbar-nav navbar-right">
-        <li>
-          <AboutModal />
-        </li>
-        <li>
-          <SignInModal />
-        </li>
-        <li>
-          <LogInModal />
-        </li>
-      </ul>
-    </div>
     <ul className="nav navbar-nav navbar-right">
     <li><AboutModal/></li>
       <li><SignInModal/></li>
       <li><LogInModal/></li>
       <li><LogOutButton/></li>
     </ul>
-  </div>
+    </div>
 </nav>
 );
 
