@@ -9,11 +9,11 @@ const passport = require('../../passport')
 router.get('/', (req,res) => {
     console.log("yeah");
     if (req.user) {
-        res.json(200);
+        res.status(200).json({});
         console.log("it works");
         console.log(req.user);
     } else {
-        res.json(401);
+        res.status(401).json({});
         console.log("it does not work");
     }
   })
