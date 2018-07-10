@@ -6,13 +6,13 @@ mongoose.promise = Promise;
 const bandSchema = new Schema({
   username: {
     type: String,
-    index:true
+    index: true
   },
 
   password: {
-    type:String
+    type: String
   },
-  
+
   name: {
     type: String,
     trim: true,
@@ -35,6 +35,36 @@ const bandSchema = new Schema({
     required: true
   },
 
+  facebook: {
+    type: String,
+    trim: true
+  },
+
+  email: {
+    type: String,
+    trim: true
+  },
+
+  phone: {
+    type: String,
+    trim: true
+  },
+
+  bandcamp: {
+    type: String,
+    trim: true
+  },
+
+  soundcloud: {
+    type: String,
+    trim: true
+  },
+
+  // img: {
+  //   data: Buffer,
+  //   contentType: String
+  // },
+
   datePosted: {
     type: Date,
     default: Date.now
@@ -54,29 +84,28 @@ const bandSchema = new Schema({
   // ]
 });
 
-
 // Define schema methods
 bandSchema.methods = {
-	checkPassword: function(inputPassword) {
-		return bcrypt.compareSync(inputPassword, this.password)
-	},
-	hashPassword: plainTextPassword => {
-		return bcrypt.hashSync(plainTextPassword, 10)
-	}
-}
+  checkPassword: function(inputPassword) {
+    return bcrypt.compareSync(inputPassword, this.password);
+  },
+  hashPassword: plainTextPassword => {
+    return bcrypt.hashSync(plainTextPassword, 10);
+  }
+};
 
 // Define hooks for pre-saving
-bandSchema.pre('save', function(next) {
-	if (!this.password) {
-		console.log('=======NO PASSWORD PROVIDED=======')
-		next()
-	} else {
-		this.password = this.hashPassword(this.password)
-		next()
-	}
-	// this.password = this.hashPassword(this.password)
-	// next()
-})
+bandSchema.pre("save", function(next) {
+  if (!this.password) {
+    console.log("=======NO PASSWORD PROVIDED=======");
+    next();
+  } else {
+    this.password = this.hashPassword(this.password);
+    next();
+  }
+  // this.password = this.hashPassword(this.password)
+  // next()
+});
 
 const Band = mongoose.model("Band", bandSchema);
 

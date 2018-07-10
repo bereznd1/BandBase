@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Router from 'react-router-dom';
 import "./SignForm.css";
 import cities from "../../utils/cities.json";
 import genres from "../../utils/genres.json";
@@ -39,7 +40,12 @@ class SignForm extends React.Component {
         return 0; //default return value (no sorting)
       }),
       genre: "",
-      availability: ""
+      availability: "",
+      facebook: "",
+      email: "",
+      phone: "",
+      bandcamp: "",
+      soundcloud: ""
     };
 
 
@@ -61,7 +67,9 @@ class SignForm extends React.Component {
         this.state.name &&
         this.state.location &&
         this.state.genre &&
-        this.state.availability
+        this.state.availability &&
+        (this.state.facebook || this.state.email || this.state.phone) &&
+        (this.state.bandcamp || this.state.soundcloud)
       ) {
         API.saveBand({
           username: this.state.username,
@@ -69,9 +77,16 @@ class SignForm extends React.Component {
           name: this.state.name,
           location: this.state.location,
           genre: this.state.genre,
-          availability: this.state.availability
+          availability: this.state.availability,
+          facebook: this.state.facebook,
+          email: this.state.email,
+          phone: this.state.phone,
+          bandcamp: this.state.bandcamp,
+          soundcloud: this.state.soundcloud
         })
-          .then(res => this.loadBands())
+          .then((res) => {
+            window.location.reload();
+          })
           .catch(err => console.log(err));
       }
 
@@ -149,12 +164,6 @@ class SignForm extends React.Component {
           name="name"
           placeholder="Band Name (required)"
         />
-        {/* <Input
-          value={this.state.location}
-          onChange={this.handleInputChange}
-          name="location"
-          placeholder="Location (required)"
-        /> */}
         <Select
           value={this.state.genre}
           onChange={this.handleInputChange}
@@ -206,6 +215,46 @@ class SignForm extends React.Component {
           <option>Available for Shows</option>
         </Select>
 
+        <p><strong>Please enter at least <em>1</em> contact method:</strong></p>
+
+        <Input
+          value={this.state.facebook}
+          onChange={this.handleInputChange}
+          name="facebook"
+          placeholder="Facebook URL"
+        />
+
+        <Input
+          value={this.state.email}
+          onChange={this.handleInputChange}
+          name="email"
+          placeholder="Email Address"
+        />
+
+        <Input
+          value={this.state.phone}
+          onChange={this.handleInputChange}
+          name="phone"
+          placeholder="Phone Number"
+        />
+
+        <p><strong>Please enter <em>embed code</em> for your music for at least <em>1</em> site:</strong></p>
+
+        <Input
+          value={this.state.bandcamp}
+          onChange={this.handleInputChange}
+          name="bandcamp"
+          placeholder="Bandcamp Embed Code"
+        />
+
+        <Input
+          value={this.state.soundcloud}
+          onChange={this.handleInputChange}
+          name="soundcloud"
+          placeholder="Soundcloud Embed Code"
+        />
+
+
         <FormBtn
           disabled={
             !(
@@ -214,7 +263,10 @@ class SignForm extends React.Component {
               this.state.name &&
               this.state.location &&
               this.state.genre &&
-              this.state.availability
+              this.state.availability &&
+              (this.state.facebook || this.state.email || this.state.phone) &&
+              (this.state.bandcamp || this.state.soundcloud)
+              
             )
           }
           onClick={this.handleFormSubmit}

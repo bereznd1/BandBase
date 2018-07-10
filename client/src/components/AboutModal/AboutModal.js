@@ -23,17 +23,12 @@ class AboutModal extends React.Component {
     }
   
     render() {
-      const popover = (
-        <Popover id="modal-popover" title="popover">
-          very popover. such engagement
-        </Popover>
-      );
-      const tooltip = <Tooltip id="modal-tooltip">wow.</Tooltip>;
+
   
       return (
         <div>
 
-          <a href="#" onClick={this.handleShow}>About</a>
+          <a href="#/" onClick={this.handleShow}>About</a>
           {/* <Button bsStyle="primary" bsSize="large" style={text} >
             About
           </Button> */}
