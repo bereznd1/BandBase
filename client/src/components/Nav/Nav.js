@@ -3,6 +3,7 @@ import "./Nav.css";
 import AboutModal from "../../components/AboutModal";
 import SignInModal from "../../components/SignInModal";
 import LogInModal from "../../components/LogInModal";
+import LogOutButton from "../../components/LogOutButton";
 
 const Background = "darkness.png";
 const style = {
@@ -17,19 +18,14 @@ const Nav = () => (
           BandBase
         </a>
       </div>
-      <ul className="nav navbar-nav navbar-right">
-        <li>
-          <AboutModal />
-        </li>
-        <li>
-          <SignInModal />
-        </li>
-        <li>
-          <LogInModal />
-        </li>
-      </ul>
+    <ul className="nav navbar-nav navbar-right">
+    <li><AboutModal/></li>
+      <li><SignInModal/></li>
+      <li><LogInModal/></li>
+      <li><LogOutButton/></li>
+    </ul>
     </div>
-  </nav>
+</nav>
 );
 
 export default Nav;
