@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-// import DeleteBtn from "../../components/DeleteBtn";
+import Profile from "../Profile";
+
 import Jumbotron from "../../components/Jumbotron";
 import Footer from "../../components/Footer";
 import API from "../../utils/API";
@@ -180,6 +181,8 @@ class Bands extends Component {
 
   render() {
     return (
+      
+    <div>
       <Container fluid>
         <Row>
           <Col size="md-12">
@@ -197,7 +200,7 @@ class Bands extends Component {
             </center>
             <br />
             <center>
-              <a href="/">Go Back!</a>
+              <Link to="/">Go Back!</Link>
             </center>
             <br />
             <Row>
@@ -260,9 +263,8 @@ class Bands extends Component {
                 <tbody>
                   {this.state.filteredBands.map(band => (
                     <tr key={band._id}>
-                      {/* <Link to={"/band/" + band._id}> */}
 
-                      <td>{band.name}</td>
+                      <td><Link to={"/api/bands/" + band._id}>{band.name}</Link></td>
                       <td>{band.location}</td>
                       <td>{band.genre}</td>
                       <td>{band.availability}</td>
@@ -286,8 +288,12 @@ class Bands extends Component {
 
           <Col size="md-2" />
         </Row>
-        <Footer/>
+
       </Container>
+
+    <Footer/>
+  
+    </div>
 
     );
   }

@@ -1,19 +1,16 @@
 import React, { Component } from "react";
-// import Select2 from "react-select";
-// import "react-select/dist/react-select.css";
 
 import cities from "../../utils/cities.json";
 import genres from "../../utils/genres.json";
-// import availabilities from "../../utils/availability.json";
 
-// import DeleteBtn from "../../components/DeleteBtn";
+import Profile from "../Profile";
+
 import Jumbotron from "../../components/Jumbotron";
 import Footer from "../../components/Footer";
 import API from "../../utils/API";
 import { Link } from "react-router-dom";
 import { Col, Row, Container } from "../../components/Grid";
 import SignInModal from "../../components/SignInModal";
-import { List, ListItem } from "../../components/List";
 import { Input, TextArea, Select, FormBtn } from "../../components/Form";
 import "./Bands.css";
 
@@ -61,9 +58,9 @@ class Bands extends Component {
       .catch(err => console.log(err));
   };
 
-  // deleteBand = id => {
-  //   API.deleteBand(id)
-  //     .then(res => this.loadBands())
+  // getBand = id => {
+  //   API.getBand(id)
+  //     .then()
   //     .catch(err => console.log(err));
   // };
 
@@ -234,6 +231,8 @@ class Bands extends Component {
 
   render() {
     return (
+    
+    <div>
       <Container fluid>
         <Row>
           <Col size="md-12">
@@ -251,7 +250,7 @@ class Bands extends Component {
             </center>
             <br />
             <center>
-              <a href="/allbands">View All Bands!</a>
+              <Link to="/allbands">View All Bands!</Link>
             </center>
             <br />
             <Row>
@@ -314,12 +313,14 @@ class Bands extends Component {
                 <tbody>
                   {this.state.filteredBands.map(band => (
                     <tr key={band._id}>
-                      {/* <Link to={"/band/" + band._id}> */}
 
-                      <td>{band.name}</td>
+                    {/* <td><a onClick={() => this.getBand(band._id)}>{band.name}</a></td> */}
+
+                      <td><Link to={"/api/bands/" + band._id}>{band.name}</Link></td>
                       <td>{band.location}</td>
                       <td>{band.genre}</td>
                       <td>{band.availability}</td>
+
 
                       {/* </Link> */}
                       {/* <DeleteBtn onClick={() => this.deleteBand(band._id)} /> */}
@@ -429,22 +430,7 @@ class Bands extends Component {
                     <option>Available for Shows</option>
                   </Select>
 
-                  {/* <Select2
-                    name="location2"
-                    value={this.state.location2}
-                    onChange={this.handleInputChange}
-                    options={[
-                      { value: "one", label: "One" },
-                      { value: "two", label: "Two" }
-                    ]}
-                  /> */}
 
-                  {/* <TextArea
-                value={this.state.synopsis}
-                onChange={this.handleInputChange}
-                name="synopsis"
-                placeholder="Synopsis (Optional)"
-              /> */}
                   <FormBtn
                     disabled={
                       !(
@@ -470,8 +456,11 @@ class Bands extends Component {
             <br />
           </Col>
         </Row>
+
       
       </Container>
+              <Footer/>
+      </div>
     );
   }
 }

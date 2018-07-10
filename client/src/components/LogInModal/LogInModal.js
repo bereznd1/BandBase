@@ -24,17 +24,12 @@ class LogInModal extends React.Component {
   }
 
   render() {
-    const popover = (
-      <Popover id="modal-popover" title="popover">
-        very popover. such engagement
-        </Popover>
-    );
-    const tooltip = <Tooltip id="modal-tooltip">wow.</Tooltip>;
+
 
     return (
       <div>
 
-        <a href="#" onClick={this.handleShow}><span className="glyphicon glyphicon-log-in"></span>Log In</a>
+        <a href="#" onClick={this.handleShow}><span className="glyphicon glyphicon-log-in"></span> Log In</a>
         {/* <Button bsStyle="primary" bsSize="large" style={text} >
             About
           </Button> */}
