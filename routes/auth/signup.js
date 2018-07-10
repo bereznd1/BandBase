@@ -8,10 +8,12 @@ const User = require('../../models/band')
 // })
 
 
+   
+
 router.post('/', (req, res) => {
-	const { username, password, name, location, genre, availability, facebook, email, phone } = req.body
+	const { username, password, name, location, genre, availability, facebook, email, phone, bandcamp, soundcloud } = req.body
 	// ADD VALIDATION
-	
+	console.log('hit  the endpoint')
 	User.findOne({ 'username': username }, (err, userMatch) => {
 		if (userMatch) {
 			return res.json({
@@ -28,12 +30,22 @@ router.post('/', (req, res) => {
 			'availability':availability,
 			'facebook': facebook,
 			'email': email,
-			'phone': phone
+			'phone': phone,
+			'bandcamp': bandcamp,
+			'soundcloud': soundcloud,
+			// 'img.data': fs.readFileSync(req.files.img.path),
+			// newItem.img.data = fs.readFileSync(req.files.userPhoto.path)
+			// newItem.img.contentType = 'image/png';
+			// newItem.save();
+			
 
 		})
+		console.log('new user', newUser)
 		newUser.save((err, savedUser) => {
-			if (err) return res.json(err)
-			return res.json(savedUser)
+			if (err) return res.json(err);
+			console.log('Saved user', savedUser)
+			return res.json(savedUser);
+
 		})
 	})
 })

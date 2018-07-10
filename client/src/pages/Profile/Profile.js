@@ -1,4 +1,9 @@
 import React, { Component } from "react";
+import ReactHtmlParser, {
+  processNodes,
+  convertNodeToElement,
+  htmlparser2
+} from "react-html-parser";
 import { Link } from "react-router-dom";
 import { Col, Row, Container } from "../../components/Grid";
 import { Panel } from "react-bootstrap";
@@ -151,17 +156,7 @@ class Profile extends Component {
                     <strong>Bandcamp: </strong>
                     <br />
                     <br />
-
-                    <iframe
-                      title="bandcamp"
-                      style={{ border: "0", width: "100%", height: "120px" }}
-                      src="https://bandcamp.com/EmbeddedPlayer/album=4268779069/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/artwork=small/transparent=true/"
-                      seamless
-                    >
-                      <a href="http://necrourgica.bandcamp.com/album/further-from-the-grey">
-                        Further From the Grey by Necrourgica
-                      </a>
-                    </iframe>
+                    {ReactHtmlParser(this.state.band.bandcamp)}
                   </p>
 
                   <p>
@@ -169,15 +164,7 @@ class Profile extends Component {
                     <br />
                     <br />
 
-                    <iframe
-                      title="soundcloud"
-                      width="100%"
-                      height="350px"
-                      scrolling="no"
-                      frameBorder="no"
-                      allow="autoplay"
-                      src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/350578847&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"
-                    />
+                    {ReactHtmlParser(this.state.band.soundcloud)}
                   </p>
                 </Panel.Body>
               </Panel>
