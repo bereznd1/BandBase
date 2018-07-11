@@ -129,9 +129,9 @@ class Bands extends Component {
 
     this.setState({
       [name]: value,
-      locationsearch: "",
-      genresearch: "",
-      availabilitysearch: ""
+      // locationsearch: "",
+      // genresearch: "",
+      // availabilitysearch: ""
     });
 
     if (value !== "") {
@@ -151,9 +151,9 @@ class Bands extends Component {
 
     this.setState({
       [name]: value,
-      namesearch: "",
-      genresearch: "",
-      availabilitysearch: ""
+      // namesearch: "",
+      // genresearch: "",
+      // availabilitysearch: ""
     });
 
     if (value !== "") {
@@ -173,9 +173,9 @@ class Bands extends Component {
 
     this.setState({
       [name]: value,
-      namesearch: "",
-      locationsearch: "",
-      availabilitysearch: ""
+      // namesearch: "",
+      // locationsearch: "",
+      // availabilitysearch: ""
     });
 
     if (value !== "") {
@@ -195,9 +195,9 @@ class Bands extends Component {
 
     this.setState({
       [name]: value,
-      namesearch: "",
-      locationsearch: "",
-      genresearch: ""
+      // namesearch: "",
+      // locationsearch: "",
+      // genresearch: ""
     });
 
     if (value !== "") {
