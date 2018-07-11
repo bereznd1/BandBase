@@ -54,10 +54,9 @@ class App extends Component {
 		console.log('logging out')
 	}
 
-	_login(username) {
+	_login() {
     this.setState({
       loggedIn:true,
-      user:username
     })
     console.log("the current user that is logged in  is: " + this.state.user);
 	};
