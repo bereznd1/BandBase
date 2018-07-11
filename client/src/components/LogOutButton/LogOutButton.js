@@ -11,6 +11,7 @@ class LogOutButton extends React.Component{
             if(res.status === 200){
                 console.log(res.data.msg);
             }
+            window.location.reload();
         })
         .catch(err => console.log(err));
 
@@ -19,7 +20,7 @@ class LogOutButton extends React.Component{
     render() {
         return (
             <div>
-                <button onClick={this.handleLogout}>Logout</button>
+                <a href = "#" onClick={this.handleLogout}>Logout</a>
             </div>
         )
     }
