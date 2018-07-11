@@ -1,6 +1,6 @@
 const express = require("express");
-var fs = require("fs");
-var multer = require("multer");
+// var fs = require("fs");
+// var multer = require("multer");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const routes = require("./routes");
@@ -34,7 +34,7 @@ app.use(
   })
 );
 
-var upload = multer({dest:'./uploads'});
+// var upload = multer({dest:'./uploads'});
 
 // ===== Passport ====
 app.use(passport.initialize());

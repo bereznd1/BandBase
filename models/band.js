@@ -60,10 +60,10 @@ const bandSchema = new Schema({
     trim: true
   },
 
-  img: {
-    data: Buffer,
-    contentType: String
-  },
+  // img: {
+  //   data: Buffer,
+  //   contentType: String
+  // },
 
   datePosted: {
     type: Date,

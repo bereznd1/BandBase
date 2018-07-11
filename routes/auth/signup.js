@@ -39,8 +39,8 @@ router.post('/', (req, res) => {
 
 		});
 
-		newUser.img.data = fs.readFileSync(req.files.img.path);
-		newUser.img.contentType = 'image/png';
+		// newUser.img.data = fs.readFileSync(req.files.img.path);
+		// newUser.img.contentType = 'image/png';
 
 
 		console.log('new user', newUser)
