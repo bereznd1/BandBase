@@ -7,7 +7,8 @@ import ReactHtmlParser, {
 import { Link } from "react-router-dom";
 import { Col, Row, Container } from "../../components/Grid";
 import { Panel } from "react-bootstrap";
-import Jumbotron from "../../components/Jumbotron";
+// import Jumbotron from "../../components/Jumbotron";
+import Hero from "../../components/Hero/Hero";
 import SignInModal from "../../components/SignInModal";
 import Footer from "../../components/Footer";
 import API from "../../utils/API";
@@ -38,10 +39,10 @@ class Profile extends Component {
         <Container fluid>
           <Row>
             <Col size="md-12">
-              <Jumbotron>
+              <Hero>
                 <h1>BandBase</h1>
                 <h2>Description text</h2>
-              </Jumbotron>
+              </Hero>
             </Col>
           </Row>
 
@@ -152,20 +153,29 @@ class Profile extends Component {
                   </Panel.Title>
                 </Panel.Heading>
                 <Panel.Body>
-                  <p>
-                    <strong>Bandcamp: </strong>
-                    <br />
-                    <br />
-                    {ReactHtmlParser(this.state.band.bandcamp)}
-                  </p>
+                  {this.state.band.bandcamp ? (
+                    <p>
+                      <strong>Bandcamp: </strong>
+                      <br />
+                      <br />
+                      {ReactHtmlParser(this.state.band.bandcamp)}
+                    </p>
+                  ) : (
+                    ""
+                  )}
 
-                  <p>
-                    <strong>Soundcloud: </strong>
-                    <br />
-                    <br />
+                  {this.state.band.soundcloud ? (
+                    <p>
+                      <strong>Soundcloud: </strong>
+                      <br />
+                      <br />
 
-                    {ReactHtmlParser(this.state.band.soundcloud)}
-                  </p>
+                      {ReactHtmlParser(this.state.band.soundcloud)}
+                    </p>
+                  ) : (
+                    ""
+                  )}
+
                 </Panel.Body>
               </Panel>
             </Col>
