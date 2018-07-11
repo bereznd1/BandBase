@@ -18,19 +18,26 @@ class App extends Component {
   }
 
   _logout(event) {
-		event.preventDefault()
+    event.preventDefault();
+    this.setState({
+      loggedIn:false,
+      user:null
+    })
 		console.log('logging out')
 	}
 
-	_login(username, password) {
-    console.log(username + password);
+	_login(username) {
+    this.setState({
+      loggedIn:true,
+      user:username
+    })
 	};
   
   render() {
 		return (
       <Router>
         <div>
-          <Nav />
+          <Nav _logout={this._logout} _login={this._login} loggedIn={this.state.loggedIn} />
           <Switch>
             <Route exact path="/" component={Bands} />
             {/* <Route exact path="/login" component={Login} /> */}
