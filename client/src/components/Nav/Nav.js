@@ -10,7 +10,7 @@ const style = {
   backgroundImage: `url(${Background})`
 };
 
-const Nav = () => (
+const Nav = (props) => (
   <nav style={style} className="navbar">
     <div className="container-fluid">
       <div className="navbar-header">
@@ -20,9 +20,21 @@ const Nav = () => (
       </div>
     <ul className="nav navbar-nav navbar-right">
     <li><AboutModal/></li>
-      <li><SignInModal/></li>
-      <li><LogInModal/></li>
-      <li><LogOutButton/></li>
+      {!props.loggedIn && 
+        <li><SignInModal/></li>
+      }
+      {!props.loggedIn &&
+        <li><LogInModal  _login={props._login} loggedIn={props.loggedIn}/></li>
+      }
+      {props.loggedIn && 
+          <li>Welcome {props.currentUser}</li>
+      }
+      {props.loggedIn && 
+          <li><LogOutButton/></li>
+      }
+
+
+
     </ul>
     </div>
 </nav>
