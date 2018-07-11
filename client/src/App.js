@@ -7,6 +7,8 @@ import Profile from "./pages/Profile";
 import NoMatch from "./pages/NoMatch";
 import Nav from "./components/Nav";
 
+import API from "./utils/API"
+
 import axios from 'axios'
 class App extends Component {
 	constructor() {
@@ -23,11 +25,17 @@ class App extends Component {
     axios.get('/auth/authtest/user').then(response => {
 			console.log(response.data)
 			if (!!response.data.user) {
-				console.log('THERE IS A USER')
-				this.setState({
-					loggedIn: true,
-					user: response.data.user
-				})
+        console.log('THERE IS A USER')
+        console.log(response.data.user._id);
+        API.getBand(response.data.user._id)
+          .then( res => {
+            this.setState({
+              loggedIn: true,
+              user: res.data.username
+            })
+          });
+        // console.log(currentUser);
+
 			} else {
 				this.setState({
 					loggedIn: false,
