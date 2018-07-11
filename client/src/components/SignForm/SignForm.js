@@ -42,7 +42,7 @@ class SignForm extends React.Component {
     phone: "",
     bandcamp: "",
     soundcloud: "",
-    img: ""
+    // img: ""
   };
 
   handleInputChange = event => {
@@ -62,8 +62,8 @@ class SignForm extends React.Component {
       this.state.genre &&
       this.state.availability &&
       (this.state.facebook || this.state.email || this.state.phone) &&
-      (this.state.bandcamp || this.state.soundcloud) &&
-      this.state.img
+      (this.state.bandcamp || this.state.soundcloud) 
+      // this.state.img
     ) {
       API.saveBand({
         username: this.state.username,
@@ -76,8 +76,8 @@ class SignForm extends React.Component {
         email: this.state.email,
         phone: this.state.phone,
         bandcamp: this.state.bandcamp,
-        soundcloud: this.state.soundcloud,
-        img: this.state.img
+        soundcloud: this.state.soundcloud
+        // img: this.state.img
       })
         .then(res => {
           window.location.reload();
