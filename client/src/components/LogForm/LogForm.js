@@ -77,7 +77,7 @@ class LogForm extends React.Component {
             
             <ControlLabel>Password</ControlLabel>
             <Input
-              type="text"
+              type="password"
               name = "password"
               value={this.state.password}
               placeholder="Enter text"

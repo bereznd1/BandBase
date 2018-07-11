@@ -1,5 +1,5 @@
 const express = require("express");
-var fs = require("fs");
+// var fs = require("fs");
 // var multer = require("multer");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
@@ -34,14 +34,7 @@ app.use(
   })
 );
 
-// app.use(
-//   multer({
-//     dest: "./uploads/",
-//     rename: function(fieldname, filename) {
-//       return filename;
-//     }
-//   })
-// );
+// var upload = multer({dest:'./uploads'});
 
 // ===== Passport ====
 app.use(passport.initialize());
