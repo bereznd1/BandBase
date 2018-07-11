@@ -40,6 +40,7 @@ class LogForm extends React.Component {
         .then(res => {
           console.log(res)
           console.log("hello " + res.data.user.name + ". Thank you for logging in");
+          this.props._login(res.data.user.name)
         })
         .catch(err => {
           console.log(err.response);

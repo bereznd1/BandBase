@@ -17,8 +17,8 @@ class App extends Component {
     this._login = this._login.bind(this)
   }
 
-  _logout(event) {
-    event.preventDefault();
+  _logout() {
+    // event.preventDefault();
     this.setState({
       loggedIn:false,
       user:null
@@ -31,6 +31,7 @@ class App extends Component {
       loggedIn:true,
       user:username
     })
+    console.log("the current user that is logged in  is:" + this.state.user);
 	};
   
   render() {
