@@ -11,6 +11,7 @@ import { Panel } from "react-bootstrap";
 import Hero from "../../components/Hero/Hero";
 import SignInModal from "../../components/SignInModal";
 import Footer from "../../components/Footer";
+import Jumbotron from "../../components/Jumbotron";
 import API from "../../utils/API";
 import stockprof from "./stockprof.jpg";
 import email from "./email-icon.png";
@@ -41,7 +42,7 @@ class Profile extends Component {
             <Col size="md-12">
               <Hero>
                 <h1>BandBase</h1>
-                <h2>Description text</h2>
+                <h2>The Online Network For Bands</h2>
               </Hero>
             </Col>
           </Row>
