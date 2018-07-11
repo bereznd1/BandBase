@@ -1,13 +1,16 @@
 import React, { Component } from "react";
 import Profile from "../Profile";
 
-import Jumbotron from "../../components/Jumbotron";
+// import Jumbotron from "../../components/Jumbotron";
+import Hero from "../../components/Hero/Hero";
 import Footer from "../../components/Footer";
 import API from "../../utils/API";
 import { Link } from "react-router-dom";
 import { Col, Row, Container } from "../../components/Grid";
 import { List, ListItem } from "../../components/List";
 import { Input, TextArea, FormBtn } from "../../components/Form";
+import "./AllBands.css";
+import bgTexture from "../texture.jpg";
 
 class Bands extends Component {
   state = {
@@ -182,14 +185,14 @@ class Bands extends Component {
   render() {
     return (
       
-    <div>
+    <div className="main-content">
       <Container fluid>
         <Row>
           <Col size="md-12">
-            <Jumbotron>
+            <Hero>
               <h1>BandBase</h1>
               <h2>Description text</h2>
-            </Jumbotron>
+            </Hero>
           </Col>
         </Row>
 
@@ -204,42 +207,46 @@ class Bands extends Component {
             </center>
             <br />
             <Row>
-              <Col size="md-3">
-                <Input
-                  value={this.state.namesearch}
-                  onChange={this.handleNameFilterChange}
-                  name="namesearch"
-                  placeholder="Filter by name"
-                />
-              </Col>
+                <Col size="md-2" />
 
-              <Col size="md-3">
-                <Input
-                  value={this.state.locationsearch}
-                  onChange={this.handleLocationFilterChange}
-                  name="locationsearch"
-                  placeholder="Filter by location"
-                />
-              </Col>
+                <Col size="md-2">
+                  <Input
+                    value={this.state.namesearch}
+                    onChange={this.handleNameFilterChange}
+                    name="namesearch"
+                    placeholder="Name"
+                  />
+                </Col>
 
-              <Col size="md-3">
-                <Input
-                  value={this.state.genresearch}
-                  onChange={this.handleGenreFilterChange}
-                  name="genresearch"
-                  placeholder="Filter by genre"
-                />
-              </Col>
+                <Col size="md-2">
+                  <Input
+                    value={this.state.locationsearch}
+                    onChange={this.handleLocationFilterChange}
+                    name="locationsearch"
+                    placeholder="Location"
+                  />
+                </Col>
 
-              <Col size="md-3">
-                <Input
-                  value={this.state.availabilitysearch}
-                  onChange={this.handleAvailabilityFilterChange}
-                  name="availabilitysearch"
-                  placeholder="Filter by availability"
-                />
-              </Col>
-            </Row>
+                <Col size="md-2">
+                  <Input
+                    value={this.state.genresearch}
+                    onChange={this.handleGenreFilterChange}
+                    name="genresearch"
+                    placeholder="Genre"
+                  />
+                </Col>
+
+                <Col size="md-2">
+                  <Input
+                    value={this.state.availabilitysearch}
+                    onChange={this.handleAvailabilityFilterChange}
+                    name="availabilitysearch"
+                    placeholder="Availability (Tour, Hiatus, Available)"
+                  />
+                </Col>
+
+                <Col size="md-2" />
+              </Row>
           </Col>
         </Row>
 
@@ -247,35 +254,36 @@ class Bands extends Component {
           <Col size="md-2" />
 
           <Col size="md-8">
-            {/* <Jumbotron>
-              <h1>Books On My List</h1>
-            </Jumbotron> */}
+
+
+            <br/>
+
             {this.state.bands.length ? (
-              <table className="table table-striped table-dark">
-                <thead>
-                  <tr>
-                    <th scope="col">Name</th>
-                    <th scope="col">Location</th>
-                    <th scope="col">Genre</th>
-                    <th scope="col">Availability</th>
+              <table className="table table-hover">
+              <thead>
+                <tr>
+                  <th scope="col">Name</th>
+                  <th scope="col">Location</th>
+                  <th scope="col">Genre</th>
+                  <th scope="col">Availability</th>
+                </tr>
+              </thead>
+              <tbody>
+                {this.state.filteredBands.map(band => (
+                  <tr key={band._id}> 
+
+                    <td className="name"><Link to={"/api/bands/" + band._id}><strong>{band.name}</strong></Link></td>
+                    <td>{band.location}</td>
+                    <td>{band.genre}</td>
+                    <td>{band.availability}</td>
+                   
+                    {/* </Link> */}
+                    {/* <DeleteBtn onClick={() => this.deleteBand(band._id)} /> */}
+                    {/* </ListItem> */}
                   </tr>
-                </thead>
-                <tbody>
-                  {this.state.filteredBands.map(band => (
-                    <tr key={band._id}>
-
-                      <td><Link to={"/api/bands/" + band._id}>{band.name}</Link></td>
-                      <td>{band.location}</td>
-                      <td>{band.genre}</td>
-                      <td>{band.availability}</td>
-
-                      {/* </Link> */}
-                      {/* <DeleteBtn onClick={() => this.deleteBand(band._id)} /> */}
-                      {/* </ListItem> */}
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+                ))}
+              </tbody>
+            </table>
             ) : (
               <center>
                 <h3>No Results to Display</h3>

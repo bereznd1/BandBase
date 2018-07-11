@@ -34,12 +34,15 @@ router.post('/', (req, res) => {
 			'bandcamp': bandcamp,
 			'soundcloud': soundcloud,
 			// 'img.data': fs.readFileSync(req.files.img.path),
-			// newItem.img.data = fs.readFileSync(req.files.userPhoto.path)
-			// newItem.img.contentType = 'image/png';
-			// newItem.save();
+
 			
 
-		})
+		});
+
+		newUser.img.data = fs.readFileSync(req.files.img.path);
+		newUser.img.contentType = 'image/png';
+
+
 		console.log('new user', newUser)
 		newUser.save((err, savedUser) => {
 			if (err) return res.json(err);
