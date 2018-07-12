@@ -47,6 +47,7 @@ router.post('/', (req, res) => {
 		newUser.save((err, savedUser) => {
 			if (err) return res.json(err);
 			console.log('Saved user', savedUser)
+			console.log('error', err);
 			return res.json(savedUser);
 
 		})
