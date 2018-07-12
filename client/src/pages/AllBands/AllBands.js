@@ -12,6 +12,11 @@ import { Input, TextArea, FormBtn } from "../../components/Form";
 import "./AllBands.css";
 import bgTexture from "../texture.jpg";
 
+const Background = "tri.png";
+const style = {
+  backgroundImage: `url(${Background})`
+};
+
 class Bands extends Component {
   state = {
     bands: [],
@@ -184,124 +189,125 @@ class Bands extends Component {
 
   render() {
     return (
-      
-    <div className="main-content">
-      <Container fluid>
-        <Row>
-          <Col size="md-12">
-            <Hero>
-              <h1>BandBase</h1>
-              <h2>Description text</h2>
-            </Hero>
-          </Col>
-        </Row>
 
-        <Row>
-          <Col size="md-12">
-            <center>
-              <h2>List of All Bands...</h2>
-            </center>
-            <br />
-            <center>
-              <Link to="/">Go Back!</Link>
-            </center>
-            <br />
+      <div className="main-content">
+        <Container fluid>
+          <Row>
+            <Col size="md-12">
+              <Hero>
+                <h1>BandBase</h1>
+                <h2>The Online Network For Bands</h2>
+              </Hero>
+            </Col>
+          </Row>
+          <div className="bandtable" style={style}>
             <Row>
-                <Col size="md-2" />
+              <Col size="md-12">
+                <center>
+                  <h2>List of All Bands...</h2>
+                </center>
+                <br />
+                <center>
+                  <Link to="/">Go Back!</Link>
+                </center>
+                <br />
+                <Row>
+                  <Col size="md-2" />
 
-                <Col size="md-2">
-                  <Input
-                    value={this.state.namesearch}
-                    onChange={this.handleNameFilterChange}
-                    name="namesearch"
-                    placeholder="Name"
-                  />
-                </Col>
+                  <Col size="md-2">
+                    <Input
+                      value={this.state.namesearch}
+                      onChange={this.handleNameFilterChange}
+                      name="namesearch"
+                      placeholder="Name"
+                    />
+                  </Col>
 
-                <Col size="md-2">
-                  <Input
-                    value={this.state.locationsearch}
-                    onChange={this.handleLocationFilterChange}
-                    name="locationsearch"
-                    placeholder="Location"
-                  />
-                </Col>
+                  <Col size="md-2">
+                    <Input
+                      value={this.state.locationsearch}
+                      onChange={this.handleLocationFilterChange}
+                      name="locationsearch"
+                      placeholder="Location"
+                    />
+                  </Col>
 
-                <Col size="md-2">
-                  <Input
-                    value={this.state.genresearch}
-                    onChange={this.handleGenreFilterChange}
-                    name="genresearch"
-                    placeholder="Genre"
-                  />
-                </Col>
+                  <Col size="md-2">
+                    <Input
+                      value={this.state.genresearch}
+                      onChange={this.handleGenreFilterChange}
+                      name="genresearch"
+                      placeholder="Genre"
+                    />
+                  </Col>
 
-                <Col size="md-2">
-                  <Input
-                    value={this.state.availabilitysearch}
-                    onChange={this.handleAvailabilityFilterChange}
-                    name="availabilitysearch"
-                    placeholder="Availability (Tour, Hiatus, Available)"
-                  />
-                </Col>
+                  <Col size="md-2">
+                    <Input
+                      value={this.state.availabilitysearch}
+                      onChange={this.handleAvailabilityFilterChange}
+                      name="availabilitysearch"
+                      placeholder="Availability (Tour, Hiatus, Available)"
+                    />
+                  </Col>
 
-                <Col size="md-2" />
-              </Row>
-          </Col>
-        </Row>
+                  <Col size="md-2" />
+                </Row>
+              </Col>
+            </Row>
 
-        <Row>
-          <Col size="md-2" />
+            <Row>
+              <Col size="md-2" />
 
-          <Col size="md-8">
+              <Col size="md-8">
 
 
-            <br/>
+                <br />
 
-            {this.state.bands.length ? (
-              <table className="table table-hover">
-              <thead>
-                <tr>
-                  <th scope="col">Name</th>
-                  <th scope="col">Location</th>
-                  <th scope="col">Genre</th>
-                  <th scope="col">Availability</th>
-                </tr>
-              </thead>
-              <tbody>
-                {this.state.filteredBands.map(band => (
-                  <tr key={band._id}> 
+                {this.state.bands.length ? (
+                  <table className="table table-hover">
+                    <thead>
+                      <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Location</th>
+                        <th scope="col">Genre</th>
+                        <th scope="col">Availability</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {this.state.filteredBands.map(band => (
+                        <tr key={band._id}>
 
-                    <td className="name"><Link to={"/api/bands/" + band._id}><strong>{band.name}</strong></Link></td>
-                    <td>{band.location}</td>
-                    <td>{band.genre}</td>
-                    <td>{band.availability}</td>
-                   
-                    {/* </Link> */}
-                    {/* <DeleteBtn onClick={() => this.deleteBand(band._id)} /> */}
-                    {/* </ListItem> */}
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-            ) : (
-              <center>
-                <h3>No Results to Display</h3>
-              </center>
-            )}
-            <br />
-            <br />
-            <br />
-          </Col>
+                          <td className="name"><Link to={"/api/bands/" + band._id}><strong>{band.name}</strong></Link></td>
+                          <td>{band.location}</td>
+                          <td>{band.genre}</td>
+                          <td>{band.availability}</td>
 
-          <Col size="md-2" />
-        </Row>
+                          {/* </Link> */}
+                          {/* <DeleteBtn onClick={() => this.deleteBand(band._id)} /> */}
+                          {/* </ListItem> */}
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                ) : (
+                    <center>
+                      <h3>No Results to Display</h3>
+                    </center>
+                  )}
+                <br />
+                <br />
+                <br />
+              </Col>
 
-      </Container>
+              <Col size="md-2" />
+            </Row>
+          </div>
 
-    <Footer/>
-  
-    </div>
+        </Container>
+
+        <Footer />
+
+      </div>
 
     );
   }

@@ -7,6 +7,8 @@ const style = {
   backgroundSize: `cover`,
   backgroundPosition: `center`,
   backgroundRepeat: `no-repeat`,
+  borderStyle: `solid`,
+  borderColor: `green`
 }
 
 const Jumbotron = ({ children }) => (

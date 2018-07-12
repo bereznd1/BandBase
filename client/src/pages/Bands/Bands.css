@@ -44,4 +44,9 @@ h4 {
     font-family: 'Electrolize', sans-serif;
 }
 
-
+.bandtable{
+    border: 2px solid seagreen;
+    border-radius: 5px;
+    margin-bottom:25px;
+    box-shadow: 5px 10px darkgreen;
+}
