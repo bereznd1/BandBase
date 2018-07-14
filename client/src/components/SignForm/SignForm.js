@@ -43,42 +43,41 @@ class SignForm extends React.Component {
     phone: "",
     bandcamp: "",
     soundcloud: "",
-    img: ""
+    img: "",
+    dupErrors: "",
 
     //NAME OF ERROR FROM BACKEND AFTER ATTEMPTED SUBMISSION
     // backendError: ""
 
-
     //FRONT END ERRORS
 
-    // formErrors: {
-    //   username: "",
-    //   password: "",
-    //   name: "",
-    //   location: "",
-    //   genre: "",
-    //   availability: "",
-    //   facebook: "",
-    //   email: "",
-    //   phone: "",
-    //   bandcamp: "",
-    //   soundcloud: "",
-    //   // img: ""
-    // },
-    // usernameValid: false,
-    // passwordValid: false,
+    formErrors: {
+      username: "",
+      password: "",
+      // name: "",
+      // location: "",
+      // genre: "",
+      // availability: "",
+      // facebook: "",
+      email: "",
+      phone: ""
+      // bandcamp: "",
+      // soundcloud: "",
+      // img: ""
+    },
+    usernameValid: false,
+    passwordValid: false,
     // nameValid: false,
     // locationValid: false,
     // genreValid: false,
     // availabilityValid: false,
     // facebookValid: false,
-    // emailValid: false,
-    // phoneValid: false,
+    emailValid: false,
+    phoneValid: false,
     // bandcampValid: false,
     // soundcloudValid: false,
-    // // imgValid: false,
-    // formValid: false
-    // img: ""
+    // imgValid: false,
+    formValid: false
   };
 
   handleInputChange = event => {
@@ -86,76 +85,72 @@ class SignForm extends React.Component {
     this.setState(
       {
         [name]: value
+      },
+      () => {
+        this.validateField(name, value);
       }
-      // () => {
-      //   this.validateField(name, value);
-      // }
     );
   };
 
-  // validateField(fieldName, value) {
-  //   let fieldValidationErrors = this.state.formErrors;
-  //   let usernameValid = this.state.usernameValid;
-  //   let passwordValid = this.state.passwordValid;
-  //   let nameValid = this.state.nameValid;
-  //   let locationValid = this.state.locationValid;
-  //   let genreValid = this.state.genreValid;
-  //   let availabilityValid = this.state.availabilityValid;
-  //   let facebookValid = this.state.facebookValid;
-  //   let emailValid = this.state.emailValid;
-  //   let phoneValid = this.state.phoneValid;
-  //   let bandcampValid = this.state.bandcampValid;
-  //   let soundcloudValid = this.state.soundcloudValid;
-  //   // let imgValid = this.state.imgValid;
-  //   let formValid = this.state.formValid;
+  validateField(fieldName, value) {
+    let fieldValidationErrors = this.state.formErrors;
+    let usernameValid = this.state.usernameValid;
+    let passwordValid = this.state.passwordValid;
+    // let nameValid = this.state.nameValid;
+    // let locationValid = this.state.locationValid;
+    // let genreValid = this.state.genreValid;
+    // let availabilityValid = this.state.availabilityValid;
+    // let facebookValid = this.state.facebookValid;
+    let emailValid = this.state.emailValid;
+    let phoneValid = this.state.phoneValid;
+    // let bandcampValid = this.state.bandcampValid;
+    // let soundcloudValid = this.state.soundcloudValid;
+    // let imgValid = this.state.imgValid;
+    // let formValid = this.state.formValid;
 
-  //   switch (fieldName) {
-  //     case "username":
-  //       usernameValid = value.length >= 4;
-  //       fieldValidationErrors.username = usernameValid ? "" : " is too short";
-  //       break;
-  //     case "password":
-  //       passwordValid = value.length >= 6;
-  //       fieldValidationErrors.password = passwordValid ? "" : " is too short";
-  //       break;
-  //     case "email":
-  //       emailValid = value.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i);
-  //       fieldValidationErrors.email = emailValid ? "" : " is invalid";
-  //       break;
+    switch (fieldName) {
+      case "username":
+        usernameValid = value.length >= 4;
+        fieldValidationErrors.username = usernameValid ? "" : " is too short";
+        break;
+      case "password":
+        passwordValid = value.length >= 6;
+        fieldValidationErrors.password = passwordValid ? "" : " is too short";
+        break;
+      case "email":
+        emailValid = value.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i);
+        fieldValidationErrors.email = emailValid ? "" : " is invalid";
+        break;
 
-  //     case "phone":
-  //       phoneValid = value.match(/^[0-9]{3}-[0-9]{3}-[0-9]{4}$/i);
-  //       fieldValidationErrors.phone = phoneValid ? "" : " is invalid";
-  //       break;
+      case "phone":
+        phoneValid = value.match(/^[0-9]{3}-[0-9]{3}-[0-9]{4}$/i);
+        fieldValidationErrors.phone = phoneValid ? "" : " is invalid";
+        break;
 
-  //     default:
-  //       break;
-  //   }
-  //   this.setState(
-  //     {
-  //       formErrors: fieldValidationErrors,
-  //       usernameValid: usernameValid,
-  //       passwordValid: passwordValid,
-  //       emailValid: emailValid,
-  //       phoneValid: phoneValid
-  //     },
-  //     this.validateForm
-  //   );
-  // }
+      default:
+        break;
+    }
+    this.setState(
+      {
+        formErrors: fieldValidationErrors,
+        usernameValid: usernameValid,
+        passwordValid: passwordValid,
+        emailValid: emailValid,
+        phoneValid: phoneValid
+      },
+      this.validateForm
+    );
+  }
 
-  // validateForm() {
-  //   this.setState({
-  //     formValid: this.state.usernameValid && this.state.passwordValid 
-  //   });
-  // }
+  validateForm() {
+    this.setState({
+      formValid: this.state.usernameValid && this.state.passwordValid && this.state.emailValid && this.state.phoneValid
+    });
+  }
 
   // errorClass(error) {
   //   return error.length === 0 ? "" : "has-error";
   // }
-
-
-
-
 
   handleFormSubmit = event => {
     event.preventDefault();
@@ -169,7 +164,7 @@ class SignForm extends React.Component {
       this.state.facebook &&
       this.state.email &&
       this.state.phone &&
-      this.state.bandcamp && 
+      this.state.bandcamp &&
       this.state.soundcloud &&
       this.state.img
       // this.state.img
@@ -190,29 +185,30 @@ class SignForm extends React.Component {
         // img: this.state.img
       })
         .then(res => {
-          console.log('res:');
+          if (res.data.error) {
+
+            this.setState({dupErrors: res.data.error});
+
+            // console.log("FRONT END DUPS" + res.data.error);
+          }
+          else {
+            window.location.reload();
+            if (this.props.onSubmit) {
+              this.props.onSubmit();
+            }
+          }
+          console.log("res:");
           console.log(res);
-         window.location.reload();
+        //  window.location.reload();
         })
         //this is the error being sent from "signup.js" by all the individual validation checks
         .catch(err => {
-          console.log('Error:');
+          console.log("Error:");
           console.log(err);
-
-          // //TAKING IN THE NAME OF THE ERROR FROM THE BACKEND AFTER ATTEMPTED SUBMISSION
-          // this.setState(
-          //   {
-          //     backendError: err.name
-          //   }
-          // )
-        
-        }
-        );
+        });
     }
 
-    if (this.props.onSubmit) {
-      this.props.onSubmit();
-    }
+
   };
 
   render() {
@@ -260,15 +256,15 @@ class SignForm extends React.Component {
       // </form>
 
       <form>
-        {/* <div className="panel panel-default">
-          <FormErrors formErrors={this.state.formErrors} />
-        </div> */}
-
-
         {/* <p>{this.state.backendError}</p> */}
 
         <Row>
           <Col size="md-6">
+            <div className="panel panel-default" style={{fontWeight: "bold", fontColor: "#ff0000"}}>
+              <FormErrors formErrors={this.state.formErrors} />
+              <div style={{fontWeight: "bold", fontColor: "red"}}>{this.state.dupErrors}</div>
+            </div>
+
             {/* <form> */}
             <Input
               value={this.state.username}
@@ -358,9 +354,7 @@ class SignForm extends React.Component {
         <Row>
           <Col size="md-12">
             <p>
-              <strong>
-                Please enter at least all contact methods:
-              </strong>
+              <strong>Please enter at least all contact methods:</strong>
             </p>
 
             <Input
@@ -423,9 +417,7 @@ class SignForm extends React.Component {
         <Row>
           <Col size="md-12">
             <p>
-              <strong>
-                Please enter a URL for your band's image:
-              </strong>
+              <strong>Please enter a URL for your band's image:</strong>
             </p>
 
             <Input
@@ -451,11 +443,11 @@ class SignForm extends React.Component {
                   this.state.facebook &&
                   this.state.email &&
                   this.state.phone &&
-                  this.state.bandcamp && 
+                  this.state.bandcamp &&
                   this.state.soundcloud &&
                   this.state.img
-                  // this.state.formValid
                 )
+                // this.state.formValid
               }
               onClick={this.handleFormSubmit}
             >

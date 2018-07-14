@@ -14,12 +14,56 @@ router.post('/', (req, res) => {
 	const { username, password, name, location, genre, availability, facebook, email, phone, bandcamp, soundcloud, img } = req.body
 	// ADD VALIDATION
 	console.log('hit  the endpoint')
-	User.findOne({ 'username': username }, (err, userMatch) => {
-		if (userMatch) {
-			return res.json({
-				error: `Sorry, already a user with the username: ${username}`
 
-			})
+	//CHECKING FOR DUPLICATES
+	User.find ({ $or:[ {'username':username}, {'name':name}, {'facebook':facebook}, {'email':email}, {'bandcamp':bandcamp}, {'soundcloud':soundcloud}, {'img':img} ]}, 
+	
+	(err, users) => {
+		var errors = "";
+		if (users && users.length>0) {
+			if (users[0].username === username)
+			{
+				errors += `Sorry, already a user with the Username: ${username}. Please enter a different Username. \n\n`;
+			}
+
+			if (users[0].name.toLowerCase() === name.toLowerCase())
+			{
+				errors += `Sorry, already a user with the Band Name: ${name}. Please enter a different Band Name. \n\n`;
+			}
+
+
+			if (users[0].facebook === facebook)
+			{
+				errors += `Sorry, already a user with the Facebook URL that you entered. Please enter a different Facebook URL. \n\n`;
+			}
+
+			if (users[0].email === email)
+			{
+				errors += `Sorry, already a user with the Email Address: ${email}. Please enter a different one. \n\n`;
+			}
+
+			if (users[0].bandcamp === bandcamp)
+			{
+				errors += `Sorry, already a user with the Bandcamp URL that you entered. Please enter a different Bandcamp URL. \n\n`;
+			}
+
+			if (users[0].soundcloud === soundcloud)
+			{
+				errors += `Sorry, already a user with the Soundcloud URL that you entered. Please enter a different Soundcloud URL. \n\n`;
+			}
+
+			if (users[0].img === img)
+			{
+				errors += `Sorry, already a user with the Img URL that you entered. Please enter a different Img URL. \n\n`;
+			}
+
+			if (errors)
+			{
+				return res.json({
+					error: errors
+				})
+			}
+
 		}
 		const newUser = new User({
 			'username': username,

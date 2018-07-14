@@ -34,7 +34,6 @@ const bandSchema = new Schema({
     ]
   },
 
-  //should also check regardless of lower or upper case so same bands with same letters but diff cases wont be saved twice
   name: {
     type: String,
     trim: true,
