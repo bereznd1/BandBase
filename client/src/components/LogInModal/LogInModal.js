@@ -24,11 +24,8 @@ class LogInModal extends React.Component {
   }
 
   render() {
-
-
     return (
       <div>
-
         <a href="#" onClick={this.handleShow}><span className="glyphicon glyphicon-log-in"></span> Log In</a>
         {/* <Button bsStyle="primary" bsSize="large" style={text} >
             About

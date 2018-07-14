@@ -48,8 +48,11 @@ const Nav = (props) => (
           <li><LogInModal _login={props._login} loggedIn={props.loggedIn} /></li>
         }
         {props.loggedIn &&
-          <li>Welcome {props.currentUser}</li>
-          // <Link to={"/api/bands/" + props.userID}>{props.currentUser}</Link>
+          <li>
+            <Link className = "user-link" to={"/api/bands/" + props.userID}>
+              Welcome {props.currentUser}
+            </Link> 
+          </li>
         }
         {props.loggedIn &&
           <li><LogOutButton /></li>
