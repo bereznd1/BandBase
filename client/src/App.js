@@ -31,7 +31,8 @@ class App extends Component {
           .then( res => {
             this.setState({
               loggedIn: true,
-              user: res.data.username
+              username: res.data.username
+              // userID: res.data._id
             })
           });
         // console.log(currentUser);
@@ -65,7 +66,8 @@ class App extends Component {
 		return (
       <Router>
         <div>
-          <Nav _logout={this._logout} _login={this._login} currentUser = {this.state.user} loggedIn={this.state.loggedIn} />
+          <Nav _logout={this._logout} _login={this._login} currentUser = {this.state.username} loggedIn={this.state.loggedIn} />
+          {/* userID = {this.state.userID} */}
           <Switch>
             <Route exact path="/" component={Bands} />
             {/* <Route exact path="/login" component={Login} /> */}
