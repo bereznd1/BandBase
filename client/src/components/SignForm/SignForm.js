@@ -168,10 +168,6 @@ class SignForm extends React.Component {
         // img: this.state.img
       })
         .then(res => {
-          window.location.reload();
-          alert('Thanks for signing up!'); 
-          ThankModal.handleShow();
-          //ThankModal.setState({show:true}); 
         })
         .catch(err => console.log(err));
     }

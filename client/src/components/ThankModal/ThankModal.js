@@ -2,7 +2,7 @@ import React from "react";
 import "./ThankModal.css";
 import { Modal, Button, Popover, Tooltip, OverlayTrigger} from 'react-bootstrap';
 
-//const Hand = 'hand.png';
+const Hand = 'hand.png';
 
 class ThankModal extends React.Component {
     constructor(props, context) {
@@ -30,21 +30,20 @@ class ThankModal extends React.Component {
       return (
         <div>
 
-          <a href="#/" onClick={this.handleShow}>About</a>
           {/* <Button bsStyle="primary" bsSize="large" style={text} >
             About
           </Button> */}
   
-          <Modal show={this.state.show} onHide={this.handleClose}>
+          <Modal show={this.props.show} onHide={this.props.handleClose}>
             <Modal.Header closeButton>
               <Modal.Title>Success!</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-        {/* <h4>Thank you for signing up with BandBase! <span><img src={Hand}/></span></h4> */}
-        <h4>Yo</h4>
+         <h4>Thank you for signing up with BandBase! <span><img src={Hand} width="50" height="50" /></span></h4> 
+ 
             </Modal.Body>
             <Modal.Footer>
-              <Button onClick={this.handleClose}>Close</Button>
+              <Button onClick={this.props.handleClose}>Close</Button>
             </Modal.Footer>
           </Modal>
         </div>
