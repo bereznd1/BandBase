@@ -9,8 +9,7 @@ const db = require("../../models");
 
 router.put('/:id', (req,res) => {
     console.log("yeah");
-    if (req.user) {
-        console.log(req.user);
+    if (req.user.id === req.params.id) {
         db.Band
         .findOneAndUpdate({ _id: req.params.id }, req.body, {new: true})
         .then(dbModel => 
