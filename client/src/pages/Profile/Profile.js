@@ -38,6 +38,7 @@ class Profile extends Component {
     return (
       <div>
         <Container fluid>
+
           <Row>
             <Col size="md-12">
               <Hero>
@@ -46,25 +47,25 @@ class Profile extends Component {
               </Hero>
             </Col>
           </Row>
+          <div className="profile">
+            <Row>
+              <Col size="md-12">
+                <center>
+                  <h1 className="band-title">
+                    <strong>{this.state.band.name}</strong>
+                  </h1>
+                </center>
 
-          <Row>
-            <Col size="md-12">
-              <center>
-                <h1 className="band-title">
-                  <strong>{this.state.band.name}</strong>
-                </h1>
-              </center>
+                <center>
+                  <Link to="/">← Back to Bands</Link>
+                </center>
 
-              <center>
-                <Link to="/">← Back to Bands</Link>
-              </center>
+                <br />
+              </Col>
+            </Row>
 
-              <br />
-            </Col>
-          </Row>
-
-          <Row>
-            <Col size="md-2" />
+            <Row>
+              <Col size="md-1" />
 
             <Col size="md-3">
               <center>
@@ -102,88 +103,79 @@ class Profile extends Component {
                   ""
                 )}
 
-                {/* <a href={`mailto:${this.state.band.email}`} target="_blank">
+                  {/* <a href={`mailto:${this.state.band.email}`} target="_blank">
                   <img className="contact-img" src={email} alt="email" />
                 </a>
                 <a href={`tel:${this.state.band.phone}`} target="_blank">
                   <img className="contact-img" src={phone} alt="phone" />
                 </a> */}
-              </center>
+                </center>
 
-              <br />
+                <br />
+              </Col>
+              <Col size="md-3">
 
-              <Panel>
-                <Panel.Heading>
-                  <Panel.Title componentClass="h2">
-                    <strong>Basic Info:</strong>
-                  </Panel.Title>
-                </Panel.Heading>
-                <Panel.Body>
-                  <p>
-                    <strong>Last Logged In: </strong>
-                  </p>
-                  <p>
-                    <strong>Genre: </strong>
-                    {this.state.band.genre}
-                  </p>
-                  <p>
-                    <strong>Location: </strong>
-                    {this.state.band.location}
-                  </p>
-                  <p>
-                    <strong>Availability: </strong>
-                    {this.state.band.availability}
-                  </p>
-                </Panel.Body>
-              </Panel>
-
-              <Panel>
-                <Panel.Heading>
-                  <Panel.Title componentClass="h2">
-                    <strong>Updates:</strong>
-                  </Panel.Title>
-                </Panel.Heading>
-                <Panel.Body />
-              </Panel>
-            </Col>
-
-            <Col size="md-5">
-              <Panel>
-                <Panel.Heading>
-                  <Panel.Title componentClass="h2">
-                    <strong>Listen To Our Music!</strong>
-                  </Panel.Title>
-                </Panel.Heading>
-                <Panel.Body>
-                  {this.state.band.bandcamp ? (
+                <Panel>
+                  <Panel.Heading>
+                    <Panel.Title componentClass="h2">
+                      <strong>Basic Info:</strong>
+                    </Panel.Title>
+                  </Panel.Heading>
+                  <Panel.Body>
                     <p>
-                      <strong>Bandcamp: </strong>
-                      <br />
-                      <br />
-                      {ReactHtmlParser(this.state.band.bandcamp)}
+                      <strong>Genre: </strong>
+                      {this.state.band.genre}
                     </p>
-                  ) : (
-                    ""
-                  )}
-
-                  {this.state.band.soundcloud ? (
                     <p>
-                      <strong>Soundcloud: </strong>
-                      <br />
-                      <br />
-
-                      {ReactHtmlParser(this.state.band.soundcloud)}
+                      <strong>Location: </strong>
+                      {this.state.band.location}
                     </p>
-                  ) : (
-                    ""
-                  )}
+                    <p>
+                      <strong>Availability: </strong>
+                      {this.state.band.availability}
+                    </p>
+                  </Panel.Body>
+                </Panel>
 
-                </Panel.Body>
-              </Panel>
-            </Col>
+              </Col>
 
-            <Col size="md-2" />
-          </Row>
+              <Col size="md-4">
+                <Panel>
+                  <Panel.Heading>
+                    <Panel.Title componentClass="h2">
+                      <strong>Listen To Our Music!</strong>
+                    </Panel.Title>
+                  </Panel.Heading>
+                  <Panel.Body>
+                    {this.state.band.bandcamp ? (
+                      <p>
+                        <strong>Bandcamp: </strong>
+                        <br />
+                        <br />
+                        {ReactHtmlParser(this.state.band.bandcamp)}
+                      </p>
+                    ) : (
+                        ""
+                      )}
+
+                    {this.state.band.soundcloud ? (
+                      <p>
+                        <strong>Soundcloud: </strong>
+                        <br />
+                        <br />
+
+                        {ReactHtmlParser(this.state.band.soundcloud)}
+                      </p>
+                    ) : (
+                        ""
+                      )}
+
+                  </Panel.Body>
+                </Panel>
+              </Col>
+              <Col size="md-1" />
+            </Row>
+          </div>
 
           {/* <Row>
       <Col size="md-5  toppad  pull-right col-md-offset-3">

@@ -4,7 +4,7 @@ import "./SignForm.css";
 import FormErrors from "../formErrors.js";
 import cities from "../../utils/cities.json";
 import genres from "../../utils/genres.json";
-
+import ThankModal from "../ThankModal"; 
 import API from "../../utils/API";
 import { Link } from "react-router-dom";
 import { Col, Row, Container } from "../Grid";
