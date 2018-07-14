@@ -185,8 +185,6 @@ class SignForm extends React.Component {
         // img: this.state.img
       })
         .then(res => {
-<<<<<<< HEAD
-=======
           if (res.data.error) {
 
             this.setState({dupErrors: res.data.error});
@@ -202,7 +200,6 @@ class SignForm extends React.Component {
           console.log("res:");
           console.log(res);
         //  window.location.reload();
->>>>>>> f10b486f70ac017b65c090b50e419ddde260069f
         })
         //this is the error being sent from "signup.js" by all the individual validation checks
         .catch(err => {
