@@ -34,7 +34,6 @@ const bandSchema = new Schema({
     ]
   },
 
-  //should also check regardless of lower or upper case so same bands with same letters but diff cases wont be saved twice
   name: {
     type: String,
     trim: true,
@@ -60,12 +59,14 @@ const bandSchema = new Schema({
   facebook: {
     type: String,
     trim: true,
-    unique: true
+    unique: true,
+    required: true
   },
 
   email: {
     type: String,
     trim: true,
+    required: true,
     unique: true,
     match: [/.+@.+\..+/, "Please enter a valid e-mail address"]
   },
@@ -73,26 +74,31 @@ const bandSchema = new Schema({
   phone: {
     type: String,
     trim: true,
-    match: [/^[0-9]{3}-[0-9]{3}-[0-9]{4}$/, "Please enter a valid e-mail address"]
+    required: true,
+    match: [/^[0-9]{3}-[0-9]{3}-[0-9]{4}$/, "Please enter a valid phone number in the format 555-555-5555"]
     // //  [^[0-9]{3}-[0-9]{3}-[0-9]{4}$, "Please enter a valid phone number in the format 555-555-5555"]
   },
 
   bandcamp: {
     type: String,
     trim: true,
+    required: true,
     unique: true
   },
 
   soundcloud: {
     type: String,
     trim: true,
+    required: true,
     unique: true
   },
 
-  // img: {
-  //   data: Buffer,
-  //   contentType: String
-  // },
+  img: {
+    type: String,
+    trim: true,
+    unique: true,
+    required: true
+  },
 
   datePosted: {
     type: Date,
