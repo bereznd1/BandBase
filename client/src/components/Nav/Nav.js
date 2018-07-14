@@ -5,6 +5,7 @@ import SignInModal from "../../components/SignInModal";
 import LogInModal from "../../components/LogInModal";
 import LogOutButton from "../../components/LogOutButton";
 import { ButtonToolbar, DropdownButton, MenuItem } from 'react-bootstrap';
+import { Link } from "react-router-dom";
 
 const Background = "darkness.png";
 const style = {
@@ -47,7 +48,11 @@ const Nav = (props) => (
           <li><LogInModal _login={props._login} loggedIn={props.loggedIn} /></li>
         }
         {props.loggedIn &&
-          <li>Welcome {props.currentUser}</li>
+          <li>
+            <Link className = "user-link" to={"/api/bands/" + props.userID}>
+              Welcome {props.currentUser}
+            </Link> 
+          </li>
         }
         {props.loggedIn &&
           <li><LogOutButton /></li>

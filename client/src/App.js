@@ -15,7 +15,8 @@ class App extends Component {
 		super()
 		this.state = {
 			loggedIn: false,
-			user: null
+      user: null,
+      userID:null,
 		}
 		this._logout = this._logout.bind(this)
     this._login = this._login.bind(this)
@@ -31,7 +32,8 @@ class App extends Component {
           .then( res => {
             this.setState({
               loggedIn: true,
-              user: res.data.username
+              user: res.data.username,
+              userID: res.data._id
             })
           });
         // console.log(currentUser);
@@ -39,7 +41,8 @@ class App extends Component {
 			} else {
 				this.setState({
 					loggedIn: false,
-					user: null
+          user: null,
+          userID: null
 				})
 			}
 		})
@@ -49,7 +52,8 @@ class App extends Component {
     // event.preventDefault();
     this.setState({
       loggedIn:false,
-      user:null
+      user:null,
+      userID:null
     })
 		console.log('logging out')
 	}
@@ -65,7 +69,12 @@ class App extends Component {
 		return (
       <Router>
         <div>
-          <Nav _logout={this._logout} _login={this._login} currentUser = {this.state.user} loggedIn={this.state.loggedIn} />
+          <Nav _logout={this._logout} 
+               _login={this._login} 
+               currentUser = {this.state.user} 
+               userID = {this.state.userID} 
+               loggedIn={this.state.loggedIn} 
+          />
           <Switch>
             <Route exact path="/" component={Bands} />
             {/* <Route exact path="/login" component={Login} /> */}
