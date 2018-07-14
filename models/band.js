@@ -6,13 +6,35 @@ mongoose.promise = Promise;
 const bandSchema = new Schema({
   username: {
     type: String,
-    index: true
+    trim: true,
+    unique: true,
+    required: true,
+    index: true,
+    validate: [
+      // Function takes in the new `longstring` value to be saved as an argument
+      function(input) {
+        // If this returns true, proceed. If not, return the error message below
+        return input.length >= 4;
+      },
+      "Username should be at least 4 characters"
+    ]
   },
 
   password: {
-    type: String
+    type: String,
+    trim: true,
+    required: true,
+    validate: [
+      // Function takes in the new `longstring` value to be saved as an argument
+      function(input) {
+        // If this returns true, proceed. If not, return the error message below
+        return input.length >= 6;
+      },
+      "Password should be at least 6 characters"
+    ]
   },
 
+  //should also check regardless of lower or upper case so same bands with same letters but diff cases wont be saved twice
   name: {
     type: String,
     trim: true,
@@ -37,27 +59,34 @@ const bandSchema = new Schema({
 
   facebook: {
     type: String,
-    trim: true
+    trim: true,
+    unique: true
   },
 
   email: {
     type: String,
-    trim: true
+    trim: true,
+    unique: true,
+    match: [/.+@.+\..+/, "Please enter a valid e-mail address"]
   },
 
   phone: {
     type: String,
-    trim: true
+    trim: true,
+    match: [/^[0-9]{3}-[0-9]{3}-[0-9]{4}$/, "Please enter a valid e-mail address"]
+    // //  [^[0-9]{3}-[0-9]{3}-[0-9]{4}$, "Please enter a valid phone number in the format 555-555-5555"]
   },
 
   bandcamp: {
     type: String,
-    trim: true
+    trim: true,
+    unique: true
   },
 
   soundcloud: {
     type: String,
-    trim: true
+    trim: true,
+    unique: true
   },
 
   // img: {
