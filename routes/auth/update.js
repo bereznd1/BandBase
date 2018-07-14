@@ -1,5 +1,5 @@
 
-const bandsController = require("../../controllers/bandsController");
+// const bandsController = require("../../controllers/bandsController");
 const express = require('express')
 const router = require("express").Router();
 const User = require('../../models/band')
@@ -7,6 +7,8 @@ const passport = require('../../passport')
 const db = require("../../models");
 
 
+// does not rely on bandsController, needs to handle the validation which involves passing it req and res, so I 
+// updated the mongoose model in here. 
 router.put('/:id', (req,res) => {
     console.log("yeah");
     if (req.user.id === req.params.id) {
