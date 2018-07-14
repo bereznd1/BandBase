@@ -43,7 +43,7 @@ class Profile extends Component {
             <Col size="md-12">
               <Hero>
                 <h1>BandBase</h1>
-                <h2>The Online Network For Bands</h2>
+                <h2>The Ultimate Online Network For Bands & Artists</h2>
               </Hero>
             </Col>
           </Row>
@@ -67,6 +67,7 @@ class Profile extends Component {
             <Row>
               <Col size="md-1" />
 
+<<<<<<< HEAD
               <Col size="md-3">
                 <center>
                   <img
@@ -101,6 +102,43 @@ class Profile extends Component {
                   ) : (
                       ""
                     )}
+=======
+            <Col size="md-3">
+              <center>
+                <img
+                  src= {ReactHtmlParser(this.state.band.img)}
+                  className="img-thumbnail"
+                  alt="profile-picture"
+                  style={{height: "200px"}}
+                />
+              </center>
+              <br />
+
+              <center>
+                {this.state.band.facebook ? (
+                  <a href={this.state.band.facebook} target="_blank">
+                    <img className="contact-img" src={fb} alt="" />
+                  </a>
+                ) : (
+                  ""
+                )}
+
+                {this.state.band.email ? (
+                  <a href={`mailto:${this.state.band.email}`} target="_blank">
+                    <img className="contact-img" src={email} alt="" />
+                  </a>
+                ) : (
+                  ""
+                )}
+
+                {this.state.band.phone ? (
+                  <a href={`tel:${this.state.band.phone}`} target="_blank">
+                    <img className="contact-img" src={phone} alt="" />
+                  </a>
+                ) : (
+                  ""
+                )}
+>>>>>>> f10b486f70ac017b65c090b50e419ddde260069f
 
                   {/* <a href={`mailto:${this.state.band.email}`} target="_blank">
                   <img className="contact-img" src={email} alt="email" />

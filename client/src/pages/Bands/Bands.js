@@ -111,27 +111,30 @@ class Bands extends Component {
     }
   };
 
-  // //Trying to make it work with multiple filters
-  //   handleFilterChange = event => {
-  //     const { name, value } = event.target;
+  getFilteredBands = () => {
+    console.log('location filter', this.state.locationsearch);
+    console.log('availability filter', this.state.availabilitysearch);
+    console.log('genre search', this.state.genresearch);
+    console.log('name search', this.state.namesearch);
 
-  //     const searchedName = [name];
+    const filteredBands = this.state.bands.filter((band) => {
+      return band.name && band.name.toLowerCase().indexOf(this.state.namesearch.toLowerCase()) !== -1;
+    }).filter((band) => {
+      return band.location && band.location.toLowerCase().indexOf(this.state.locationsearch.toLowerCase()) !== -1;
+    }).filter(band => {
+      return band.genre && band.genre.toLowerCase().indexOf(this.state.genresearch.toLowerCase()) !== -1;
+    }).filter(band => {
+      return (
+        band.availability && band.availability.toLowerCase().indexOf(this.state.availabilitysearch.toLowerCase()) !== -1
+      );
+    });
 
-  //     this.setState({
-  //       [name]: value,
-  //     });
-
-  //     if (value !== "") {
-  //       const filteredBands = this.state.bands.filter(band => {
-  //         return band.searchedName.toLowerCase().indexOf(value.toLowerCase()) !== -1;
-  //       });
-  //       this.setState({ filteredBands: filteredBands });
-  //     }
-
-  //     if (value === "") {
-  //       this.setState({ filteredBands: [] });
-  //     }
-  //   };
+    if (this.state.namesearch || this.state.locationsearch || this.state.genresearch || this.state.availabilitysearch) {
+      return filteredBands;
+    } else {
+      return [];
+    }
+  }
 
   handleNameFilterChange = event => {
     const { name, value } = event.target;
@@ -239,6 +242,7 @@ class Bands extends Component {
   // };
 
   render() {
+    console.log(this.getFilteredBands());
     return (
       <div className="main-content">
         <Container fluid>
@@ -246,7 +250,7 @@ class Bands extends Component {
             <Col size="md-12">
               <Hero>
                 <h1>BandBase</h1>
-                <h2>The Online Network For Bands</h2>
+                <h2>The Ultimate Online Network For Bands & Artists</h2>
               </Hero>
             </Col>
           </Row>
@@ -313,7 +317,7 @@ class Bands extends Component {
               <Col size="md-8">
                 <br />
 
-                {this.state.filteredBands.length ? (
+                {this.getFilteredBands().length ? (
                   <table className="table table-hover">
                     <thead>
                       <tr>
@@ -324,7 +328,7 @@ class Bands extends Component {
                       </tr>
                     </thead>
                     <tbody>
-                      {this.state.filteredBands.map(band => (
+                      {this.getFilteredBands().map(band => (
                         <tr key={band._id}>
                           <td className="name">
                             <Link to={"/api/bands/" + band._id}>

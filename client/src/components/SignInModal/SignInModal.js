@@ -55,7 +55,12 @@ class SignInModal extends React.Component {
             <Modal.Title>Sign Up</Modal.Title>
           </Modal.Header>
           <Modal.Body>
+<<<<<<< HEAD
             <SignForm onSubmit={this.showThanks.bind(this)} />
+=======
+            <SignForm onSubmit={this.handleClose.bind(this)} />
+            {/* onSubmit={!(this.state.backendError) ? this.handleClose.bind(this) : ("")} */}
+>>>>>>> f10b486f70ac017b65c090b50e419ddde260069f
           </Modal.Body>
         </Modal>
       </div>
