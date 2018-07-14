@@ -9,6 +9,7 @@ import Profile from "../Profile";
 import Alert from "../../components/Alert/Alert";
 import Hero from "../../components/Hero/Hero";
 import Footer from "../../components/Footer";
+import ThankModal from "../../components/ThankModal"; 
 import API from "../../utils/API";
 import { Link } from "react-router-dom";
 import { Col, Row, Container } from "../../components/Grid";

@@ -4,7 +4,7 @@ import "./SignForm.css";
 import FormErrors from "../formErrors.js";
 import cities from "../../utils/cities.json";
 import genres from "../../utils/genres.json";
-
+import ThankModal from "../ThankModal"; 
 import API from "../../utils/API";
 import { Link } from "react-router-dom";
 import { Col, Row, Container } from "../Grid";
@@ -169,6 +169,9 @@ class SignForm extends React.Component {
       })
         .then(res => {
           window.location.reload();
+          alert('Thanks for signing up!'); 
+          ThankModal.handleShow();
+          //ThankModal.setState({show:true}); 
         })
         .catch(err => console.log(err));
     }
