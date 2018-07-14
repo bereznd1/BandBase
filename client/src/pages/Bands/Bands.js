@@ -249,7 +249,7 @@ class Bands extends Component {
             <Col size="md-12">
               <Hero>
                 <h1>BandBase</h1>
-                <h2>The Online Network For Bands</h2>
+                <h2>The Ultimate Online Network For Bands & Artists</h2>
               </Hero>
             </Col>
           </Row>
