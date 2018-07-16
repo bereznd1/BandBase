@@ -59,37 +59,26 @@ const bandSchema = new Schema({
   facebook: {
     type: String,
     trim: true,
-    unique: true,
-    minimize: true
+    unique: true
   },
 
   email: {
     type: String,
     trim: true,
     unique: true,
-    minimize: true,
     match: [/.+@.+\..+/, "Please enter a valid e-mail address"]
   },
 
   phone: {
     type: String,
     trim: true,
-    minimize: true,
     match: [/^[0-9]{3}-[0-9]{3}-[0-9]{4}$/, "Please enter a valid phone number in the format 555-555-5555"]
     // //  [^[0-9]{3}-[0-9]{3}-[0-9]{4}$, "Please enter a valid phone number in the format 555-555-5555"]
   },
 
-  bandcamp: {
+  musicsample: {
     type: String,
     trim: true,
-    minimize: true,
-    unique: true
-  },
-
-  soundcloud: {
-    type: String,
-    trim: true,
-    minimize: true,
     unique: true
   },
 
