@@ -41,8 +41,7 @@ class SignForm extends React.Component {
     facebook: "",
     email: "",
     phone: "",
-    bandcamp: "",
-    soundcloud: "",
+    musicsample: "",
     img: "",
     dupErrors: {},
 
@@ -146,7 +145,9 @@ class SignForm extends React.Component {
     this.setState({
       formValid:
         this.state.usernameValid &&
-        this.state.passwordValid 
+        this.state.passwordValid &&
+        this.state.emailValid &&
+        this.state.phoneValid
     });
   }
 
@@ -173,11 +174,10 @@ class SignForm extends React.Component {
       this.state.location &&
       this.state.genre &&
       this.state.availability &&
-      (this.state.facebook ||
-        this.state.email ||
-        this.state.phone) &&
-      (this.state.bandcamp ||
-      this.state.soundcloud) &&
+      this.state.facebook &&
+      this.state.email &&
+      this.state.phone &&
+      this.state.musicsample &&
       this.state.img &&
       this.state.formValid
       // this.state.img &&
@@ -196,8 +196,7 @@ class SignForm extends React.Component {
         facebook: this.state.facebook,
         email: this.state.email,
         phone: this.state.phone,
-        bandcamp: this.state.bandcamp,
-        soundcloud: this.state.soundcloud,
+        musicsample: this.state.musicsample,
         img: this.state.img
       })
         .then(res => {
@@ -362,7 +361,7 @@ class SignForm extends React.Component {
 
             <p>
               <strong>
-                <em>Please enter at least all contact methods:</em>
+                <em>Please enter all contact methods:</em>
               </strong>
             </p>
 
@@ -417,44 +416,18 @@ class SignForm extends React.Component {
 
             <p>
               <strong>
-                <em>
-                  Please enter embed codes for the following music sharing
-                  sites:
-                </em>
-              </strong>
-            </p>
-
-            <br />
-
-            <p>
-              <strong>Bandcamp:</strong>
-            </p>
-
-            <Input
-              value={this.state.bandcamp}
-              onChange={this.handleInputChange}
-              name="bandcamp"
-              placeholder="Bandcamp Embed Code"
-            />
-            <div className="duplicates">{this.state.dupErrors.bandcamp}</div>
-            <br />
-            {/* <p style="font-size: 10px"><strong><em>Please select either 'Slim' or 'Standard' (No Artwork or Tracklist) option</em></strong></p>
-
-            <br/> */}
-
-            <p>
-              <strong>
-                SoundCloud <em>(Please disable Autoplay)</em>:
+                Please enter embed code from a music sharing site (i.e. Bandcamp
+                or Soundcloud) for others to hear your work:
               </strong>
             </p>
 
             <Input
-              value={this.state.soundcloud}
+              value={this.state.musicsample}
               onChange={this.handleInputChange}
-              name="soundcloud"
-              placeholder="SoundCloud Embed Code"
+              name="musicsample"
+              placeholder="Music Sharing Embed Code"
             />
-            <div className="duplicates">{this.state.dupErrors.soundcloud}</div>
+            <div className="duplicates">{this.state.dupErrors.musicsample}</div>
             <br />
           </Col>
         </Row>
@@ -502,16 +475,14 @@ class SignForm extends React.Component {
                   this.state.location &&
                   this.state.genre &&
                   this.state.availability &&
-                  (this.state.facebook ||
-                    this.state.email ||
-                    this.state.phone) &&
-                  (this.state.bandcamp ||
-                  this.state.soundcloud) &&
+                  this.state.facebook &&
+                  this.state.email &&
+                  this.state.phone &&
+                  this.state.musicsample &&
                   this.state.img &&
                   this.state.formValid
-                ) 
+                )
 
-                
                 // this.state.formValid
               }
               onClick={this.handleFormSubmit}

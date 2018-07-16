@@ -29,18 +29,12 @@ class Profile extends Component {
   // When this component mounts, grab the band with the _id of this.props.match.params.id
   // e.g. localhost:3000/books/599dcb67f0f16317844583fc
   componentDidMount() {
-    
     API.getBand(this.props.match.params.id)
       .then(res => this.setState({ band: res.data }))
       .catch(err => console.log(err));
-     
   }
-  
 
   render() {
-    if (this.state.band.facebook) {
-    }
-
     return (
       <div>
         <Hero>
@@ -115,8 +109,6 @@ class Profile extends Component {
 
                   <br />
 
-
-
                   <div className="profile-panel">
                     <div className="profile-panel-header">
                       <strong>Basic Info:</strong>
@@ -131,10 +123,6 @@ class Profile extends Component {
                         <strong>Location: </strong>
                         {this.state.band.location}
                       </p>
-                      <p>
-                        <strong>Availability: </strong>
-                        {this.state.band.availability}
-                      </p>
                     </div>
                   </div>
                 </Col>
@@ -146,28 +134,26 @@ class Profile extends Component {
                     </div>
 
                     <div className="profile-panel-main">
-                      {this.state.band.bandcamp ? (
+                      {this.state.band.musicsample ? (
                         <p>
-                          <strong>Bandcamp: </strong>
                           <br />
-                          <br />
-                          {ReactHtmlParser(this.state.band.bandcamp)}
+                          {ReactHtmlParser(this.state.band.musicsample)}
                         </p>
                       ) : (
                         ""
                       )}
+                    </div>
+                  </div>
 
-                      {this.state.band.soundcloud ? (
-                        <p>
-                          <strong>Soundcloud: </strong>
-                          <br />
-                          <br />
+                  <div className="profile-panel">
+                    <div className="profile-panel-header">
+                      <strong>Availability:</strong>
+                    </div>
 
-                          {ReactHtmlParser(this.state.band.soundcloud)}
-                        </p>
-                      ) : (
-                        ""
-                      )}
+                    <div className="profile-panel-main avail">
+                      <p>
+                        {this.state.band.availability}
+                      </p>
                     </div>
                   </div>
                 </Col>
