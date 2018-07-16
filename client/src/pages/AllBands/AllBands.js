@@ -1,16 +1,13 @@
 import React, { Component } from "react";
 import Profile from "../Profile";
 
-// import Jumbotron from "../../components/Jumbotron";
 import Hero from "../../components/Hero/Hero";
 import Footer from "../../components/Footer";
 import API from "../../utils/API";
 import { Link } from "react-router-dom";
 import { Col, Row, Container } from "../../components/Grid";
-import { List, ListItem } from "../../components/List";
 import { Input, TextArea, FormBtn } from "../../components/Form";
 import "./AllBands.css";
-import bgTexture from "../texture.jpg";
 
 const Background = "tri.png";
 const style = {
@@ -86,7 +83,7 @@ class Bands extends Component {
     const { name, value } = event.target;
 
     this.setState({
-      [name]: value,
+      [name]: value
       // locationsearch: "",
       // genresearch: "",
       // availabilitysearch: ""
@@ -108,7 +105,7 @@ class Bands extends Component {
     const { name, value } = event.target;
 
     this.setState({
-      [name]: value,
+      [name]: value
       // namesearch: "",
       // genresearch: "",
       // availabilitysearch: ""
@@ -130,7 +127,7 @@ class Bands extends Component {
     const { name, value } = event.target;
 
     this.setState({
-      [name]: value,
+      [name]: value
       // namesearch: "",
       // locationsearch: "",
       // availabilitysearch: ""
@@ -152,7 +149,7 @@ class Bands extends Component {
     const { name, value } = event.target;
 
     this.setState({
-      [name]: value,
+      [name]: value
       // namesearch: "",
       // locationsearch: "",
       // genresearch: ""
@@ -189,126 +186,117 @@ class Bands extends Component {
 
   render() {
     return (
-
       <div className="main-content">
-        <Container fluid>
-          <Row>
-            <Col size="md-12">
-              <Hero>
-                <h1>BandBase</h1>
-                <h2>The Ultimate Online Network For Bands & Artists</h2>
-              </Hero>
-            </Col>
-          </Row>
-          <div className="bandtable" style={style}>
-            <Row>
-              <Col size="md-12">
-                <center>
-                  <h2>List of All Bands...</h2>
-                </center>
-                <br />
-                <center>
-                  <Link to="/">Go Back!</Link>
-                </center>
-                <br />
-                <Row>
-                  <Col size="md-2" />
+        
+          <Hero>
+            <h1>BandBase</h1>
+            <h2 className="lead">The Ultimate Online Network For Bands & Artists</h2>
+          </Hero>
+          <Container fluid>
+            <div className="bandtable" style={style}>
+              <Row>
+                <Col size="md-12">
+                  <center>
+                    <h2>List of All Bands...</h2>
+                  </center>
+                  <br />
+                  <center>
+                    <p className="backlink"><Link to="/">← Go Back!</Link></p>
+                  </center>
+                  <br />
+                  <Row>
+                    <Col size="md-2" />
 
-                  <Col size="md-2">
-                    <Input
-                      value={this.state.namesearch}
-                      onChange={this.handleNameFilterChange}
-                      name="namesearch"
-                      placeholder="Name"
-                    />
-                  </Col>
+                    <Col size="md-2">
+                      <Input
+                        value={this.state.namesearch}
+                        onChange={this.handleNameFilterChange}
+                        name="namesearch"
+                        placeholder="Name"
+                      />
+                    </Col>
 
-                  <Col size="md-2">
-                    <Input
-                      value={this.state.locationsearch}
-                      onChange={this.handleLocationFilterChange}
-                      name="locationsearch"
-                      placeholder="Location"
-                    />
-                  </Col>
+                    <Col size="md-2">
+                      <Input
+                        value={this.state.locationsearch}
+                        onChange={this.handleLocationFilterChange}
+                        name="locationsearch"
+                        placeholder="Location"
+                      />
+                    </Col>
 
-                  <Col size="md-2">
-                    <Input
-                      value={this.state.genresearch}
-                      onChange={this.handleGenreFilterChange}
-                      name="genresearch"
-                      placeholder="Genre"
-                    />
-                  </Col>
+                    <Col size="md-2">
+                      <Input
+                        value={this.state.genresearch}
+                        onChange={this.handleGenreFilterChange}
+                        name="genresearch"
+                        placeholder="Genre"
+                      />
+                    </Col>
 
-                  <Col size="md-2">
-                    <Input
-                      value={this.state.availabilitysearch}
-                      onChange={this.handleAvailabilityFilterChange}
-                      name="availabilitysearch"
-                      placeholder="Availability (Tour, Hiatus, Available)"
-                    />
-                  </Col>
+                    <Col size="md-2">
+                      <Input
+                        value={this.state.availabilitysearch}
+                        onChange={this.handleAvailabilityFilterChange}
+                        name="availabilitysearch"
+                        placeholder="Availability (Tour, Hiatus, Available)"
+                      />
+                    </Col>
 
-                  <Col size="md-2" />
-                </Row>
-              </Col>
-            </Row>
+                    <Col size="md-2" />
+                  </Row>
+                </Col>
+              </Row>
 
-            <Row>
-              <Col size="md-2" />
+              <Row>
+                <Col size="md-2" />
 
-              <Col size="md-8">
+                <Col size="md-8">
+                  <br />
 
-
-                <br />
-
-                {this.state.bands.length ? (
-                  <table className="table table-hover">
-                    <thead>
-                      <tr>
-                        <th scope="col">Name</th>
-                        <th scope="col">Location</th>
-                        <th scope="col">Genre</th>
-                        <th scope="col">Availability</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {this.state.filteredBands.map(band => (
-                        <tr key={band._id}>
-
-                          <td className="name"><Link to={"/api/bands/" + band._id}><strong>{band.name}</strong></Link></td>
-                          <td>{band.location}</td>
-                          <td>{band.genre}</td>
-                          <td>{band.availability}</td>
-
-                          {/* </Link> */}
-                          {/* <DeleteBtn onClick={() => this.deleteBand(band._id)} /> */}
-                          {/* </ListItem> */}
+                  {this.state.bands.length ? (
+                    <table className="table table-hover">
+                      <thead>
+                        <tr>
+                          <th scope="col">Name</th>
+                          <th scope="col">Location</th>
+                          <th scope="col">Genre</th>
+                          <th scope="col">Availability</th>
                         </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                ) : (
+                      </thead>
+                      <tbody>
+                        {this.state.filteredBands.map(band => (
+                          <tr key={band._id}>
+                            <td className="name">
+                              <Link to={"/api/bands/" + band._id}>
+                                <strong>{band.name}</strong>
+                              </Link>
+                            </td>
+                            <td>{band.location}</td>
+                            <td>{band.genre}</td>
+                            <td>{band.availability}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  ) : (
                     <center>
                       <h3>No Results to Display</h3>
                     </center>
                   )}
-                <br />
-                <br />
-                <br />
-              </Col>
+                  <br />
+                  <br />
+                  <br />
+                </Col>
 
-              <Col size="md-2" />
-            </Row>
-          </div>
+                <Col size="md-2" />
+              </Row>
+            </div>
+          </Container>
 
-        </Container>
-
-        <Footer />
-
+          <Footer />
+   
       </div>
-
     );
   }
 }

@@ -28,7 +28,7 @@ class AboutModal extends React.Component {
       return (
         <div>
 
-          <a href="#/" onClick={this.handleShow}>About</a>
+          <a href="#/" onClick={this.handleShow}><span class="glyphicon glyphicon-info-sign"></span> About</a>
           {/* <Button bsStyle="primary" bsSize="large" style={text} >
             About
           </Button> */}

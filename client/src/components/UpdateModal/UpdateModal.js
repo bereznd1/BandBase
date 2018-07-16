@@ -1,10 +1,14 @@
 import React from "react";
-import "./SignInModal.css";
+import "./UpdateModal.css";
 import { Modal, Button, Popover, Tooltip, OverlayTrigger } from 'react-bootstrap';
-import SignForm from "../../components/SignForm";
+import UpdateForm from "../../components/UpdateForm";
 import ThankModal from "../ThankModal";
+import API from "../../utils/API";
+import { Link } from "react-router-dom";
 
-class SignInModal extends React.Component {
+
+
+class UpdateModal extends React.Component {
   constructor(props, context) {
     super(props, context);
 
@@ -12,10 +16,25 @@ class SignInModal extends React.Component {
     this.handleClose = this.handleClose.bind(this);
 
     this.state = {
+      band: {},
       show: false,
       showThanks: false
     };
   }
+
+
+  componentDidMount = (props) => {
+    
+    
+    API.getBand(this.props.userID)
+      .then(res => this.setState({ band: res.data }))
+      .catch(err => console.log(err));
+
+      console.log(this.state.band)
+     
+  }
+
+
 
   handleClose() {
     this.setState({ show: false });
@@ -40,7 +59,11 @@ class SignInModal extends React.Component {
     return (
       <div>
 
-        <a href="#" onClick={this.handleShow}><span className="glyphicon glyphicon-user"></span> Sign Up</a>
+        {/* <Link to={"/api/bands/" + props.userID}> */}
+<a href="#" onClick={this.handleShow}><span className="glyphicon glyphicon-user"></span> Update</a>
+
+{/* </Link> */}
+
         {/* <Button bsStyle="primary" bsSize="large" style={text} >
             About
           </Button> */}
@@ -52,10 +75,10 @@ class SignInModal extends React.Component {
 
         <Modal show={this.state.show} onHide={this.handleClose} className="modal-main">
           <Modal.Header closeButton>
-            <Modal.Title>Sign Up</Modal.Title>
+            <Modal.Title>Update Profile</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <SignForm onSubmit={this.showThanks.bind(this)} />
+            <UpdateForm onSubmit={this.showThanks.bind(this)} bandData = {this.state.band} />
           </Modal.Body>
         </Modal>
       </div>
@@ -64,4 +87,4 @@ class SignInModal extends React.Component {
 }
 
 
-export default SignInModal;
+export default UpdateModal;

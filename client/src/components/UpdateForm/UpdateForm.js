@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Router from "react-router-dom";
-import "./SignForm.css";
+import "./UpdateForm.css";
 import FormErrors from "../formErrors.js";
 import cities from "../../utils/cities.json";
 import genres from "../../utils/genres.json";
@@ -11,7 +11,7 @@ import { Col, Row, Container } from "../Grid";
 // import SignInModal from "../../components/SignInModal";
 import { Input, InputPassword, TextArea, Select, FormBtn } from "../Form";
 
-class SignForm extends React.Component {
+class UpdateForm extends React.Component {
   // constructor(props, context) {
   //   super(props, context);
 
@@ -25,6 +25,7 @@ class SignForm extends React.Component {
   // }
 
   state = {
+    band: {},
     name: "",
     location: "",
     sortedcities: cities.sort(function(a, b) {
@@ -79,6 +80,16 @@ class SignForm extends React.Component {
     // imgValid: false,
     formValid: false
   };
+
+
+
+  componentDidMount() {
+    
+    API.getBand(this.props.bandData._id)
+      .then(res => this.setState({ band: res.data }))
+      .catch(err => console.log(err));
+     
+  }
 
   handleInputChange = event => {
     const { name, value } = event.target;
@@ -186,7 +197,7 @@ class SignForm extends React.Component {
       // this.state.emailValid &&
       // this.state.phoneValid
     ) {
-      API.saveBand({
+      API.updateBand({
         username: this.state.username,
         password: this.state.password,
         name: this.state.name,
@@ -270,16 +281,18 @@ class SignForm extends React.Component {
 
         <Row>
           <Col size="md-12">
+
+          
             <p>
               <strong>
-                Band Name:<span className="asterisk">*</span>
+                Current Band Name:<span className="asterisk">*</span> {this.state.band.username}
               </strong>
             </p>
             <Input
               value={this.state.name}
               onChange={this.handleInputChange}
               name="name"
-              placeholder="Band Name"
+              placeholder="New Band Name"
             />
             <div className="duplicates">{this.state.dupErrors.name}</div>
             <br />
@@ -525,4 +538,4 @@ class SignForm extends React.Component {
   }
 }
 
-export default SignForm;
+export default UpdateForm;

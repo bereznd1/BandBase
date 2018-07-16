@@ -1,5 +1,7 @@
 .navbar {
     background-color: #000000;
+    border-radius: 0px;
+    border-bottom: 2px solid #2e5491;
     color: #ffffff;
     font-weight: bold;
     position: fixed;
@@ -10,14 +12,28 @@
     -moz-box-shadow: 0px 0px 33px 5px rgba(0, 0, 0, 0.75);
     box-shadow: 0px 0px 33px 5px rgba(0, 0, 0, 0.75);
     font-family: 'Electrolize', sans-serif;
-    border: 3px solid lightblue; 
  
 }
 
 #dropdown-no-caret{
+    font-family: 'Electrolize', sans-serif;
     margin-top:5px;
     margin-left:5px;
 }
+
+li {
+    margin: 15px 10px 15px 10px;
+}
+
+.user-link {
+    margin: 0;
+
+}
+
+.user-link:hover {
+    background-color: #000000;
+}
+
 
 /* header {
     background-color: #470560;

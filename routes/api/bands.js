@@ -11,7 +11,7 @@ router.route("/")
 router
   .route("/:id")
   .get(bandsController.findById)
-  // .put(bandsController.update)
+  .put(bandsController.update)
   // .delete(bandsController.remove);
 
 
