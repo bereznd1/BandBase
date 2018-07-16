@@ -4,7 +4,7 @@ import React from "react";
 //Imports the CSS file for styling
 import "./Hero.css";
 
-const BackgroundHero = 'banner.jpg';
+import BackgroundHero from './banner.png';
 
 const style = {
   backgroundImage: `url(${BackgroundHero})`,

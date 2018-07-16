@@ -4,7 +4,7 @@ import "./SignForm.css";
 import FormErrors from "../formErrors.js";
 import cities from "../../utils/cities.json";
 import genres from "../../utils/genres.json";
-import ThankModal from "../ThankModal"; 
+import ThankModal from "../ThankModal";
 import API from "../../utils/API";
 import { Link } from "react-router-dom";
 import { Col, Row, Container } from "../Grid";
@@ -44,7 +44,7 @@ class SignForm extends React.Component {
     bandcamp: "",
     soundcloud: "",
     img: "",
-    dupErrors: "",
+    dupErrors: {},
 
     //NAME OF ERROR FROM BACKEND AFTER ATTEMPTED SUBMISSION
     // backendError: ""
@@ -144,9 +144,21 @@ class SignForm extends React.Component {
 
   validateForm() {
     this.setState({
-      formValid: this.state.usernameValid && this.state.passwordValid && this.state.emailValid && this.state.phoneValid
+      formValid:
+        this.state.usernameValid &&
+        this.state.passwordValid 
     });
   }
+
+  // organizeDupErrors = ()  => {
+
+  //   for (let i = 0; i < this.state.dupErrors.length; i++) {
+
+  //         this.state.dupErrors[i]
+
+  //     }
+
+  // }
 
   // errorClass(error) {
   //   return error.length === 0 ? "" : "has-error";
@@ -161,13 +173,18 @@ class SignForm extends React.Component {
       this.state.location &&
       this.state.genre &&
       this.state.availability &&
-      this.state.facebook &&
-      this.state.email &&
-      this.state.phone &&
-      this.state.bandcamp &&
-      this.state.soundcloud &&
-      this.state.img
-      // this.state.img
+      (this.state.facebook ||
+        this.state.email ||
+        this.state.phone) &&
+      (this.state.bandcamp ||
+      this.state.soundcloud) &&
+      this.state.img &&
+      this.state.formValid
+      // this.state.img &&
+      // this.state.usernameValid &&
+      // this.state.passwordValid &&
+      // this.state.emailValid &&
+      // this.state.phoneValid
     ) {
       API.saveBand({
         username: this.state.username,
@@ -182,24 +199,19 @@ class SignForm extends React.Component {
         bandcamp: this.state.bandcamp,
         soundcloud: this.state.soundcloud,
         img: this.state.img
-        // img: this.state.img
       })
         .then(res => {
           if (res.data.error) {
+            this.setState({ dupErrors: res.data.error });
+            // this.state.dupErrors.split(',').join("<br />");
 
-            this.setState({dupErrors: res.data.error});
-
-            // console.log("FRONT END DUPS" + res.data.error);
-          }
-          else {
+            console.log("FRONT END DUPS" + res.data.error);
+          } else {
             window.location.reload();
             if (this.props.onSubmit) {
               this.props.onSubmit();
             }
           }
-          console.log("res:");
-          console.log(res);
-        //  window.location.reload();
         })
         //this is the error being sent from "signup.js" by all the individual validation checks
         .catch(err => {
@@ -207,104 +219,87 @@ class SignForm extends React.Component {
           console.log(err);
         });
     }
-
-
   };
 
   render() {
     return (
-      // <form>
-      //   <FormGroup
-      //     controlId="formBasicText"
-      //     // validationState={this.getValidationState()}
-      //   >
-      //     <ControlLabel>UserName</ControlLabel>
-      //     <FormControl
-      //       type="text"
-      //       userName={this.state.userName}
-      //       placeholder="UserName"
-      //       onChange={this.handleChange}
-      //     />
-
-      //     <ControlLabel>Password</ControlLabel>
-      //     <FormControl
-      //       type="text"
-      //       password={this.state.password}
-      //       placeholder="Password"
-      //       onChange={this.handleChange}
-      //     />
-
-      //      <ControlLabel>Verify Password</ControlLabel>
-      //     <FormControl
-      //       type="text"
-      //       verify={this.state.verify}
-      //       placeholder="Enter text"
-      //       onChange={this.handleChange}
-      //     />
-
-      //      <ControlLabel>Email</ControlLabel>
-      //     <FormControl
-      //       type="text"
-      //       email={this.state.email}
-      //       placeholder="Enter text"
-      //       onChange={this.handleChange}
-      //     />
-
-      //     <FormControl.Feedback />
-      //     {/* <HelpBlock>Validation is based on string length.</HelpBlock> */}
-      //   </FormGroup>
-      // </form>
-
       <form>
-        {/* <p>{this.state.backendError}</p> */}
+        <Row>
+          <Col size="md-12">
+            <div className="panel panel-default realtimeErrors">
+              <FormErrors formErrors={this.state.formErrors} />
+            </div>
+          </Col>
+        </Row>
 
         <Row>
           <Col size="md-6">
-            <div className="panel panel-default" style={{fontWeight: "bold", fontColor: "#ff0000"}}>
-              <FormErrors formErrors={this.state.formErrors} />
-              <div style={{fontWeight: "bold", fontColor: "red"}}>{this.state.dupErrors}</div>
-            </div>
-
             {/* <form> */}
+
+            <p>
+              <strong>
+                User Name:<span className="asterisk">*</span>
+              </strong>
+            </p>
             <Input
               value={this.state.username}
               onChange={this.handleInputChange}
               name="username"
-              placeholder="User Name (required - at least 4 characters)"
+              placeholder="User Name"
             />
+
+            <div className="duplicates">{this.state.dupErrors.username}</div>
+            <br />
           </Col>
 
           <Col size="md-6">
+            <p>
+              <strong>
+                Password:<span className="asterisk">*</span>
+              </strong>
+            </p>
             <Input
               value={this.state.password}
               onChange={this.handleInputChange}
               name="password"
               type="password"
-              placeholder="Password (required - at least 6 characters)"
+              placeholder="Password"
             />
           </Col>
         </Row>
 
         <Row>
           <Col size="md-12">
+            <p>
+              <strong>
+                Band Name:<span className="asterisk">*</span>
+              </strong>
+            </p>
             <Input
               value={this.state.name}
               onChange={this.handleInputChange}
               name="name"
-              placeholder="Band Name (required)"
+              placeholder="Band Name"
             />
+            <div className="duplicates">{this.state.dupErrors.name}</div>
+            <br />
           </Col>
         </Row>
 
         <Row>
           <Col size="md-6">
+            <p>
+              <strong>
+                Genre:<span className="asterisk">*</span>
+              </strong>
+            </p>
             <Select
               value={this.state.genre}
               onChange={this.handleInputChange}
               name="genre"
             >
               <option value="" hidden>
-                Select Genre (required)
+                Select Genre
               </option>
 
               {genres.map(genre => <option key={genre}>{genre}</option>)}
@@ -312,6 +307,11 @@ class SignForm extends React.Component {
           </Col>
 
           <Col size="md-6">
+            <p>
+              <strong>
+                Location:<span className="asterisk">*</span>
+              </strong>
+            </p>
             <Select
               value={this.state.location}
               onChange={this.handleInputChange}
@@ -320,7 +320,7 @@ class SignForm extends React.Component {
               {/* placeholder="Filter by availability" */}
 
               <option value="" hidden>
-                Select Nearest City (required)
+                Select Nearest City
               </option>
 
               {this.state.sortedcities.map(city => (
@@ -334,13 +334,18 @@ class SignForm extends React.Component {
 
         <Row>
           <Col size="md-8">
+            <p>
+              <strong>
+                Availability:<span className="asterisk">*</span>
+              </strong>
+            </p>
             <Select
               value={this.state.availability}
               onChange={this.handleInputChange}
               name="availability"
             >
               <option value="" hidden>
-                Select Availability (required)
+                Select Availability
               </option>
               <option>On Tour Currently</option>
               <option>On Hiatus</option>
@@ -353,8 +358,18 @@ class SignForm extends React.Component {
 
         <Row>
           <Col size="md-12">
+            <br />
+
             <p>
-              <strong>Please enter at least all contact methods:</strong>
+              <strong>
+                <em>Please enter at least all contact methods:</em>
+              </strong>
+            </p>
+
+            <br />
+
+            <p>
+              <strong>Facebook URL:</strong>
             </p>
 
             <Input
@@ -363,20 +378,30 @@ class SignForm extends React.Component {
               name="facebook"
               placeholder="Facebook URL"
             />
+            <div className="duplicates">{this.state.dupErrors.facebook}</div>
+            <br />
           </Col>
         </Row>
 
         <Row>
           <Col size="md-6">
+            <p>
+              <strong>Email Address:</strong>
+            </p>
             <Input
               value={this.state.email}
               onChange={this.handleInputChange}
               name="email"
               placeholder="Email Address"
             />
+            <div className="duplicates">{this.state.dupErrors.email}</div>
+            <br />
           </Col>
 
           <Col size="md-6">
+            <p>
+              <strong>Phone Number (XXX-XXX-XXXX):</strong>
+            </p>
             <Input
               value={this.state.phone}
               onChange={this.handleInputChange}
@@ -388,11 +413,21 @@ class SignForm extends React.Component {
 
         <Row>
           <Col size="md-12">
+            <br />
+
             <p>
               <strong>
-                Please enter <em>embed codes</em> for the following music
-                sharing sites:
+                <em>
+                  Please enter embed codes for the following music sharing
+                  sites:
+                </em>
               </strong>
+            </p>
+
+            <br />
+
+            <p>
+              <strong>Bandcamp:</strong>
             </p>
 
             <Input
@@ -401,32 +436,59 @@ class SignForm extends React.Component {
               name="bandcamp"
               placeholder="Bandcamp Embed Code"
             />
+            <div className="duplicates">{this.state.dupErrors.bandcamp}</div>
+            <br />
             {/* <p style="font-size: 10px"><strong><em>Please select either 'Slim' or 'Standard' (No Artwork or Tracklist) option</em></strong></p>
 
             <br/> */}
+
+            <p>
+              <strong>
+                SoundCloud <em>(Please disable Autoplay)</em>:
+              </strong>
+            </p>
 
             <Input
               value={this.state.soundcloud}
               onChange={this.handleInputChange}
               name="soundcloud"
-              placeholder="Soundcloud Embed Code (Please Disable 'Autoplay')"
+              placeholder="SoundCloud Embed Code"
             />
+            <div className="duplicates">{this.state.dupErrors.soundcloud}</div>
+            <br />
           </Col>
         </Row>
 
         <Row>
           <Col size="md-12">
             <p>
-              <strong>Please enter a URL for your band's image:</strong>
+              <strong>
+                Band Img URL:<span className="asterisk">*</span>
+              </strong>
             </p>
 
             <Input
               value={this.state.img}
               onChange={this.handleInputChange}
               name="img"
-              placeholder="Band Img (required)"
+              placeholder="Band Img URL"
             />
+            <div className="duplicates">{this.state.dupErrors.img}</div>
+            <br />
+
+            <div className="panel panel-default realtimeErrors">
+              <FormErrors formErrors={this.state.formErrors} />
+            </div>
           </Col>
+
+          <br />
+
+          <center>
+            <p>
+              <span className="asterisk">*</span>
+              <strong> = Required Fields</strong>
+            </p>
+          </center>
         </Row>
 
         <Row>
@@ -440,13 +502,16 @@ class SignForm extends React.Component {
                   this.state.location &&
                   this.state.genre &&
                   this.state.availability &&
-                  this.state.facebook &&
-                  this.state.email &&
-                  this.state.phone &&
-                  this.state.bandcamp &&
-                  this.state.soundcloud &&
-                  this.state.img
-                )
+                  (this.state.facebook ||
+                    this.state.email ||
+                    this.state.phone) &&
+                  (this.state.bandcamp ||
+                  this.state.soundcloud) &&
+                  this.state.img &&
+                  this.state.formValid
+                ) 
+
+                
                 // this.state.formValid
               }
               onClick={this.handleFormSubmit}

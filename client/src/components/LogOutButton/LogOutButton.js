@@ -20,7 +20,7 @@ class LogOutButton extends React.Component{
     render() {
         return (
             <div>
-                <a href = "#" onClick={this.handleLogout}>Logout</a>
+                <a href = "#" onClick={this.handleLogout}><span class="glyphicon glyphicon-log-out"></span> Logout</a>
             </div>
         )
     }

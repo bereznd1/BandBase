@@ -1,3 +1,22 @@
 /* form {
     width: 50%;
 } */
+
+.asterisk {
+  color: #ff0000;
+  font-weight: bold;
+}
+
+.duplicates {
+  font-size: 10px;
+  font-weight: bold;
+  color: #ff0000;
+}
+
+.realtimeErrors {
+  font-weight: bold;
+  color: #ff0000;
+  padding-left: 5px;
+  padding-right: 5px;
+  text-align: center;
+}

@@ -1,10 +1,7 @@
-/* .hero {
-  height: 200px;
-  width: 100%;
-  background-position: center;
-  position: relative;
-  margin-bottom: 50px;
-} */
+.hero {
+  border-bottom: solid 6px #000000;
+  font-family: "Electrolize", sans-serif;
+}
 
 .hero::after {
   content: "";
@@ -23,13 +20,26 @@
   z-index: 2;
 }
 
-.hero h1,
-.hero h2 {
-  color: white;
-}
-
 .hero h1 {
-  font-size: 60px;
+  font-size: 100px;
   padding-top: 40px;
   margin-top: 0;
+  color: #000000;
+  font-weight: bold;
+  -webkit-text-fill-color: white; /* Will override color (regardless of order) */
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: black;
 }
+
+.hero h2 {
+  font-family: 'Righteous', cursive;
+  font-size: 40px;
+  color: #ffffff;
+  font-weight: bold;
+  font-style: italic;
+  -webkit-text-fill-color: white; /* Will override color (regardless of order) */
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: black;
+}
+
+

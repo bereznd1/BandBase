@@ -1,10 +1,9 @@
 import React, { Component } from "react";
 import DeleteBtn from "../../components/DeleteBtn";
-import Jumbotron from "../../components/Jumbotron";
 import API from "../../utils/API";
+import Hero from "../../components/Hero/Hero";
 import { Link } from "react-router-dom";
 import { Col, Row, Container } from "../../components/Grid";
-import { List, ListItem } from "../../components/List";
 import { Input, TextArea, FormBtn } from "../../components/Form";
 
 class Login extends Component {
@@ -110,10 +109,10 @@ class Login extends Component {
       <Container fluid>
         <Row>
           <Col size="md-12">
-            <Jumbotron>
+            <Hero>
               <h1>BandBase</h1>
               <h2>Description text</h2>
-            </Jumbotron>
+            </Hero>
 
             {/* Input new band form */}
             <form>

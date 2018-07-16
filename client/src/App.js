@@ -77,7 +77,6 @@ class App extends Component {
           />
           <Switch>
             <Route exact path="/" component={Bands} />
-            {/* <Route exact path="/login" component={Login} /> */}
             <Route exact path="/bands" component={Bands} />
             <Route exact path="/allbands" component={AllBands} />
             <Route exact path="/api/bands/:id" component={Profile} />

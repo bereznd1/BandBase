@@ -5,18 +5,16 @@ import genres from "../../utils/genres.json";
 
 import Profile from "../Profile";
 
-// import Jumbotron from "../../components/Jumbotron";
 import Alert from "../../components/Alert/Alert";
 import Hero from "../../components/Hero/Hero";
 import Footer from "../../components/Footer";
-import ThankModal from "../../components/ThankModal"; 
+import ThankModal from "../../components/ThankModal";
 import API from "../../utils/API";
 import { Link } from "react-router-dom";
 import { Col, Row, Container } from "../../components/Grid";
 import SignInModal from "../../components/SignInModal";
 import { Input, TextArea, Select, FormBtn } from "../../components/Form";
 import "./Bands.css";
-import bgTexture from "../texture.jpg";
 
 const Background = "tri.png";
 const style = {
@@ -29,7 +27,7 @@ class Bands extends Component {
     filteredBands: [],
     name: "",
     location: "",
-    sortedcities: cities.sort(function (a, b) {
+    sortedcities: cities.sort(function(a, b) {
       var cityA = a.city.toLowerCase(),
         cityB = b.city.toLowerCase();
       if (cityA < cityB)
@@ -112,35 +110,62 @@ class Bands extends Component {
   };
 
   getFilteredBands = () => {
-    console.log('location filter', this.state.locationsearch);
-    console.log('availability filter', this.state.availabilitysearch);
-    console.log('genre search', this.state.genresearch);
-    console.log('name search', this.state.namesearch);
+    console.log("location filter", this.state.locationsearch);
+    console.log("availability filter", this.state.availabilitysearch);
+    console.log("genre search", this.state.genresearch);
+    console.log("name search", this.state.namesearch);
 
-    const filteredBands = this.state.bands.filter((band) => {
-      return band.name && band.name.toLowerCase().indexOf(this.state.namesearch.toLowerCase()) !== -1;
-    }).filter((band) => {
-      return band.location && band.location.toLowerCase().indexOf(this.state.locationsearch.toLowerCase()) !== -1;
-    }).filter(band => {
-      return band.genre && band.genre.toLowerCase().indexOf(this.state.genresearch.toLowerCase()) !== -1;
-    }).filter(band => {
-      return (
-        band.availability && band.availability.toLowerCase().indexOf(this.state.availabilitysearch.toLowerCase()) !== -1
-      );
-    });
+    const filteredBands = this.state.bands
+      .filter(band => {
+        return (
+          band.name &&
+          band.name
+            .toLowerCase()
+            .indexOf(this.state.namesearch.toLowerCase()) !== -1
+        );
+      })
+      .filter(band => {
+        return (
+          band.location &&
+          band.location
+            .toLowerCase()
+            .indexOf(this.state.locationsearch.toLowerCase()) !== -1
+        );
+      })
+      .filter(band => {
+        return (
+          band.genre &&
+          band.genre
+            .toLowerCase()
+            .indexOf(this.state.genresearch.toLowerCase()) !== -1
+        );
+      })
+      .filter(band => {
+        return (
+          band.availability &&
+          band.availability
+            .toLowerCase()
+            .indexOf(this.state.availabilitysearch.toLowerCase()) !== -1
+        );
+      });
 
-    if (this.state.namesearch || this.state.locationsearch || this.state.genresearch || this.state.availabilitysearch) {
+    if (
+      this.state.namesearch ||
+      this.state.locationsearch ||
+      this.state.genresearch ||
+      this.state.availabilitysearch
+    ) {
       return filteredBands;
     } else {
       return [];
     }
-  }
+  };
 
   handleNameFilterChange = event => {
     const { name, value } = event.target;
 
     this.setState({
-      [name]: value,
+      [name]: value
       // locationsearch: "",
       // genresearch: "",
       // availabilitysearch: ""
@@ -162,7 +187,7 @@ class Bands extends Component {
     const { name, value } = event.target;
 
     this.setState({
-      [name]: value,
+      [name]: value
       // namesearch: "",
       // genresearch: "",
       // availabilitysearch: ""
@@ -184,7 +209,7 @@ class Bands extends Component {
     const { name, value } = event.target;
 
     this.setState({
-      [name]: value,
+      [name]: value
       // namesearch: "",
       // locationsearch: "",
       // availabilitysearch: ""
@@ -206,7 +231,7 @@ class Bands extends Component {
     const { name, value } = event.target;
 
     this.setState({
-      [name]: value,
+      [name]: value
       // namesearch: "",
       // locationsearch: "",
       // genresearch: ""
@@ -245,18 +270,13 @@ class Bands extends Component {
     console.log(this.getFilteredBands());
     return (
       <div className="main-content">
+        <Hero>
+          <h1>BandBase</h1>
+          <h2>The Ultimate Online Network For Bands & Artists</h2>
+        </Hero>
         <Container fluid>
-          <Row>
-            <Col size="md-12">
-              <Hero>
-                <h1>BandBase</h1>
-                <h2>The Ultimate Online Network For Bands & Artists</h2>
-              </Hero>
-            </Col>
-          </Row>
           <div className="bandtable" style={style}>
             <Row>
-
               <Col size="md-12">
                 <center>
                   <h2>Filter Bands By Keyword...</h2>
@@ -264,9 +284,10 @@ class Bands extends Component {
                 </center>
                 <br />
                 <center>
-                  <Link to="/allbands">View All Bands!</Link>
+                  <p className="backlink"><Link to="/allbands">View All Bands!</Link></p>
                 </center>
-                <br /><br />
+                <br />
+                <br />
                 <Row>
                   <Col size="md-2" />
 
@@ -340,20 +361,13 @@ class Bands extends Component {
                           <td>{band.availability}</td>
 
 
-                          {/* <td>{band.datePosted.toDateString()}</td> */}
-
-                          {/* </Link> */}
-                          {/* <DeleteBtn onClick={() => this.deleteBand(band._id)} /> */}
-                          {/* </ListItem> */}
                         </tr>
                       ))}
                     </tbody>
                   </table>
-
                 ) : (
-                    ""
-                  )}
-
+                  ""
+                )}
 
                 <br />
                 <br />

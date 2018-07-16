@@ -19,42 +19,50 @@ router.post('/', (req, res) => {
 	User.find ({ $or:[ {'username':username}, {'name':name}, {'facebook':facebook}, {'email':email}, {'bandcamp':bandcamp}, {'soundcloud':soundcloud}, {'img':img} ]}, 
 	
 	(err, users) => {
-		var errors = "";
+		var errors = {
+			username: "",
+			name: "",
+			facebook: "",
+			email: "",
+			bandcamp: "",
+			soundcloud: "",
+			img: ""
+		};
 		if (users && users.length>0) {
 			if (users[0].username === username)
 			{
-				errors += `Sorry, already a user with the Username: ${username}. Please enter a different Username. \n\n`;
+				errors.username= `Sorry, already a user with the Username: ${username}.`;
 			}
 
 			if (users[0].name.toLowerCase() === name.toLowerCase())
 			{
-				errors += `Sorry, already a user with the Band Name: ${name}. Please enter a different Band Name. \n\n`;
+				errors.name=`Sorry, already a user with the Band Name: ${name}.`;
 			}
 
 
-			if (users[0].facebook === facebook)
+			if (users[0].facebook === facebook && facebook !== "")
 			{
-				errors += `Sorry, already a user with the Facebook URL that you entered. Please enter a different Facebook URL. \n\n`;
+				errors.facebook=`Sorry, already a user with the Facebook URL that you entered.`;
 			}
 
-			if (users[0].email === email)
+			if (users[0].email === email && email !== "")
 			{
-				errors += `Sorry, already a user with the Email Address: ${email}. Please enter a different one. \n\n`;
+				errors.email=`Sorry, already a user with the Email Address: ${email}.`;
 			}
 
-			if (users[0].bandcamp === bandcamp)
+			if (users[0].bandcamp === bandcamp && bandcamp !== "")
 			{
-				errors += `Sorry, already a user with the Bandcamp URL that you entered. Please enter a different Bandcamp URL. \n\n`;
+				errors.bandcamp = `Sorry, already a user with the Bandcamp URL that you entered.`;
 			}
 
-			if (users[0].soundcloud === soundcloud)
+			if (users[0].soundcloud === soundcloud && soundcloud !== "")
 			{
-				errors += `Sorry, already a user with the Soundcloud URL that you entered. Please enter a different Soundcloud URL. \n\n`;
+				errors.soundcloud= `Sorry, already a user with the Soundcloud URL that you entered.`;
 			}
 
 			if (users[0].img === img)
 			{
-				errors += `Sorry, already a user with the Img URL that you entered. Please enter a different Img URL. \n\n`;
+				errors.img = `Sorry, already a user with the Img URL that you entered.`;
 			}
 
 			if (errors)
@@ -117,29 +125,16 @@ router.post('/', (req, res) => {
 			return res.status(400).send("Please select an availability.");
 		}
 
-		if (!newUser.email )
+		if (!newUser.email && !newUser.facebook && !newUser.phone )
 		{
-			return res.status(400).send("Please enter your email.");
+			return res.status(400).send("Please enter your contact info.");
 		}
 
-		if (!newUser.facebook) {
-			return res.status(400).send("Please enter your Facebook URL.");
+		if (!newUser.bandcamp && !newUser.soundcloud )
+		{
+			return res.status(400).send("Please enter your URL for a music sharing site.");
 		}
 
-		if (!newUser.phone)
-		{
-			return res.status(400).send("Please enter your phone number.");
-		}
-
-		if (!newUser.bandcamp)
-		{
-			return res.status(400).send("Please enter your bandcamp embed.");
-		}
-
-		if (!newUser.soundcloud )
-		{
-			return res.status(400).send("Please enter your soundcloud embed.");
-		}
 
 		if (!newUser.img )
 		{
