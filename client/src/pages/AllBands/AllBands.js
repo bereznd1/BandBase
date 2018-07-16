@@ -190,7 +190,7 @@ class Bands extends Component {
         
           <Hero>
             <h1>BandBase</h1>
-            <h2 className="lead">>The Ultimate Online Network For Bands & Artists</h2>
+            <h2 className="lead">The Ultimate Online Network For Bands & Artists</h2>
           </Hero>
           <Container fluid>
             <div className="bandtable" style={style}>

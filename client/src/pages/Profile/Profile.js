@@ -11,6 +11,7 @@ import Hero from "../../components/Hero/Hero";
 import SignInModal from "../../components/SignInModal";
 import Footer from "../../components/Footer";
 import API from "../../utils/API";
+import UpdateModal from "../../components/UpdateModal";
 import email from "./email-icon.png";
 import fb from "./fb-icon.png";
 import phone from "./phone-icon.png";

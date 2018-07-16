@@ -14,6 +14,13 @@ export default {
   //   return axios.delete("/api/books/" + id);
   // },
   // Saves a book to the database
+
+  updateBand: function (id) {
+    return axios.put("/api/bands/" + id);
+  },
+
+  
+
   saveBand: function(bandData) {
     return axios.post("/auth/signup", bandData);
   },

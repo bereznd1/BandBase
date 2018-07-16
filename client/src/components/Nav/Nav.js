@@ -2,11 +2,11 @@ import React from "react";
 import "./Nav.css";
 import AboutModal from "../../components/AboutModal";
 import SignInModal from "../../components/SignInModal";
+import UpdateModal from "../../components/UpdateModal";
 import LogInModal from "../../components/LogInModal";
 import LogOutButton from "../../components/LogOutButton";
 import { ButtonToolbar, DropdownButton, MenuItem } from "react-bootstrap";
 import { Link } from "react-router-dom";
-
 
 const Nav = props => (
   <nav className="navbar">
@@ -71,11 +71,16 @@ const Nav = props => (
           </li>
         )}
         {props.loggedIn && (
-          <li className="user-link" >
+          <li className="user-link">
             <Link className="user-link" to={"/api/bands/" + props.userID}>
               <span className="glyphicon glyphicon-user" /> Welcome,{" "}
               {props.currentUser}!
             </Link>
+          </li>
+        )}
+        {props.loggedIn && (
+          <li>
+            <UpdateModal userID = {props.userID} />
           </li>
         )}
         {props.loggedIn && (
