@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import createHistory from "history/createBrowserHistory";
 import ReactHtmlParser, {
   processNodes,
   convertNodeToElement,
@@ -29,10 +30,25 @@ class Profile extends Component {
   // When this component mounts, grab the band with the _id of this.props.match.params.id
   // e.g. localhost:3000/books/599dcb67f0f16317844583fc
   componentDidMount() {
-    API.getBand(this.props.match.params.id)
+    debugger;
+    API.getBand(this.props.bandID)
       .then(res => this.setState({ band: res.data }))
       .catch(err => console.log(err));
+
+     
   }
+
+  componentWillReceiveProps() {
+
+    const url = window.location.pathname;
+    const urlArray = url.split('/');
+    const parsedID = urlArray.pop();
+    console.log("url array", urlArray);
+    API.getBand(parsedID)
+    .then(res => this.setState({ band: res.data }))
+    .catch(err => console.log(err));
+  }
+  
 
   render() {
     return (

@@ -8,6 +8,7 @@ import LogOutButton from "../../components/LogOutButton";
 import { ButtonToolbar, DropdownButton, MenuItem } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
+
 const Nav = props => (
   <nav className="navbar">
     <div className="visible-xs">
@@ -33,6 +34,7 @@ const Nav = props => (
                 <span className="glyphicon glyphicon-user" /> Welcome,{" "}
                 {props.currentUser}!
               </Link>
+              
             </MenuItem>
           )}
 
