@@ -30,6 +30,7 @@ class Profile extends Component {
   // When this component mounts, grab the band with the _id of this.props.match.params.id
   // e.g. localhost:3000/books/599dcb67f0f16317844583fc
   componentDidMount() {
+    debugger;
     API.getBand(this.props.bandID)
       .then(res => this.setState({ band: res.data }))
       .catch(err => console.log(err));
@@ -38,7 +39,12 @@ class Profile extends Component {
   }
 
   componentWillReceiveProps() {
-    API.getBand(this.props.bandID)
+
+    const url = window.location.pathname;
+    const urlArray = url.split('/');
+    const parsedID = urlArray.pop();
+    console.log("url array", urlArray);
+    API.getBand(parsedID)
     .then(res => this.setState({ band: res.data }))
     .catch(err => console.log(err));
   }

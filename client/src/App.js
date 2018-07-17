@@ -79,7 +79,7 @@ class App extends Component {
             <Route exact path="/" component={Bands} />
             <Route exact path="/bands" component={Bands} />
             <Route exact path="/allbands" component={AllBands} />
-            <Route exact path="/bands/:id" render={props => <Profile bandID={props.match.params.id} {...props} />} />
+            <Route exact path="/api/bands/:id" render={props => <Profile bandID={props.match.params.id} {...props} />} />
             <Route component={NoMatch} />
           </Switch>
         </div>
