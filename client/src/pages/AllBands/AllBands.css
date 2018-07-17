@@ -45,3 +45,8 @@ h2 {
     font-weight: bold;
     font-family: 'Electrolize', sans-serif;
 }
+
+@media(max-width:767px){  
+    .table{overflow: auto;}
+  
+}

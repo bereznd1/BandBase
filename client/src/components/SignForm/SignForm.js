@@ -206,9 +206,8 @@ class SignForm extends React.Component {
 
             console.log("FRONT END DUPS" + res.data.error);
           } else {
-            window.location.reload();
             if (this.props.onSubmit) {
-              this.props.onSubmit();
+              this.props.onSubmit(); 
             }
           }
         })
