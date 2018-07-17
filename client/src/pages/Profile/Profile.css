@@ -74,6 +74,14 @@
     background-color: #ffffff;
 }
 
+.avail {
+    padding: 20px;
+    background-color: #ffffff;
+    font-size: 30px;
+    text-align: center;
+    font-weight: bold;
+}
+
 
 
 .img-thumbnail {

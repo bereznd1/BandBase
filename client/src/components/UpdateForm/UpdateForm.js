@@ -42,8 +42,7 @@ class UpdateForm extends React.Component {
     facebook: "",
     email: "",
     phone: "",
-    bandcamp: "",
-    soundcloud: "",
+    musicsample: "",
     img: "",
     dupErrors: {},
 
@@ -81,14 +80,10 @@ class UpdateForm extends React.Component {
     formValid: false
   };
 
-
-
   componentDidMount() {
-    
     API.getBand(this.props.bandData._id)
       .then(res => this.setState({ band: res.data }))
       .catch(err => console.log(err));
-     
   }
 
   handleInputChange = event => {
@@ -155,9 +150,7 @@ class UpdateForm extends React.Component {
 
   validateForm() {
     this.setState({
-      formValid:
-        this.state.usernameValid &&
-        this.state.passwordValid 
+      formValid: this.state.usernameValid && this.state.passwordValid
     });
   }
 
@@ -184,11 +177,10 @@ class UpdateForm extends React.Component {
       this.state.location &&
       this.state.genre &&
       this.state.availability &&
-      (this.state.facebook ||
-        this.state.email ||
-        this.state.phone) &&
-      (this.state.bandcamp ||
-      this.state.soundcloud) &&
+      this.state.facebook &&
+      this.state.email &&
+      this.state.phone &&
+      this.state.musicsample &&
       this.state.img &&
       this.state.formValid
       // this.state.img &&
@@ -207,8 +199,7 @@ class UpdateForm extends React.Component {
         facebook: this.state.facebook,
         email: this.state.email,
         phone: this.state.phone,
-        bandcamp: this.state.bandcamp,
-        soundcloud: this.state.soundcloud,
+        musicsample: this.state.musicsample,
         img: this.state.img
       })
         .then(res => {
@@ -281,11 +272,10 @@ class UpdateForm extends React.Component {
 
         <Row>
           <Col size="md-12">
-
-          
             <p>
               <strong>
-                Current Band Name:<span className="asterisk">*</span> {this.state.band.username}
+                Current Band Name:<span className="asterisk">*</span>{" "}
+                {this.state.band.username}
               </strong>
             </p>
             <Input
@@ -430,44 +420,18 @@ class UpdateForm extends React.Component {
 
             <p>
               <strong>
-                <em>
-                  Please enter embed codes for the following music sharing
-                  sites:
-                </em>
-              </strong>
-            </p>
-
-            <br />
-
-            <p>
-              <strong>Bandcamp:</strong>
-            </p>
-
-            <Input
-              value={this.state.bandcamp}
-              onChange={this.handleInputChange}
-              name="bandcamp"
-              placeholder="Bandcamp Embed Code"
-            />
-            <div className="duplicates">{this.state.dupErrors.bandcamp}</div>
-            <br />
-            {/* <p style="font-size: 10px"><strong><em>Please select either 'Slim' or 'Standard' (No Artwork or Tracklist) option</em></strong></p>
-
-            <br/> */}
-
-            <p>
-              <strong>
-                SoundCloud <em>(Please disable Autoplay)</em>:
+                Please enter embed code from a music sharing site (i.e. Bandcamp
+                or Soundcloud) for others to hear your work:
               </strong>
             </p>
 
             <Input
-              value={this.state.soundcloud}
+              value={this.state.musicsample}
               onChange={this.handleInputChange}
-              name="soundcloud"
-              placeholder="SoundCloud Embed Code"
+              name="musicsample"
+              placeholder="Music Sharing Embed Code"
             />
-            <div className="duplicates">{this.state.dupErrors.soundcloud}</div>
+            <div className="duplicates">{this.state.dupErrors.musicsample}</div>
             <br />
           </Col>
         </Row>
@@ -515,16 +479,14 @@ class UpdateForm extends React.Component {
                   this.state.location &&
                   this.state.genre &&
                   this.state.availability &&
-                  (this.state.facebook ||
-                    this.state.email ||
-                    this.state.phone) &&
-                  (this.state.bandcamp ||
-                  this.state.soundcloud) &&
+                  this.state.facebook &&
+                  this.state.email &&
+                  this.state.phone &&
+                  this.state.musicsample &&
                   this.state.img &&
                   this.state.formValid
-                ) 
+                )
 
-                
                 // this.state.formValid
               }
               onClick={this.handleFormSubmit}
