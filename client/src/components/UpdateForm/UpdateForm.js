@@ -170,18 +170,23 @@ class UpdateForm extends React.Component {
 
   handleFormSubmit = event => {
     event.preventDefault();
+
+
+  
+    
+
     if (
-      this.state.username &&
-      this.state.password &&
-      this.state.name &&
-      this.state.location &&
-      this.state.genre &&
-      this.state.availability &&
-      this.state.facebook &&
-      this.state.email &&
-      this.state.phone &&
-      this.state.musicsample &&
-      this.state.img &&
+      this.state.username ||
+      this.state.password ||
+      this.state.name ||
+      this.state.location ||
+      this.state.genre ||
+      this.state.availability ||
+      this.state.facebook ||
+      this.state.email ||
+      this.state.phone ||
+      this.state.musicsample ||
+      this.state.img ||
       this.state.formValid
       // this.state.img &&
       // this.state.usernameValid &&
@@ -190,17 +195,18 @@ class UpdateForm extends React.Component {
       // this.state.phoneValid
     ) {
       API.updateBand({
-        username: this.state.username,
-        password: this.state.password,
-        name: this.state.name,
-        location: this.state.location,
-        genre: this.state.genre,
-        availability: this.state.availability,
-        facebook: this.state.facebook,
-        email: this.state.email,
-        phone: this.state.phone,
-        musicsample: this.state.musicsample,
-        img: this.state.img
+        id: this.state.band._id,
+        username: this.state.username || this.state.band.username,
+        password: this.state.password || this.state.band.password,
+        name: this.state.name || this.state.band.name,
+        location: this.state.location || this.state.band.location,
+        genre: this.state.genre || this.state.band.genre,
+        availability: this.state.availability || this.state.band.availability,
+        facebook: this.state.facebook || this.state.band.facebook,
+        email: this.state.email || this.state.band.email,
+        phone: this.state.phone || this.state.band.phone,
+        musicsample: this.state.musicsample || this.state.band.musicsample,
+        img: this.state.img || this.state.band.img
       })
         .then(res => {
           if (res.data.error) {
@@ -208,7 +214,8 @@ class UpdateForm extends React.Component {
             // this.state.dupErrors.split(',').join("<br />");
 
             console.log("FRONT END DUPS" + res.data.error);
-          } else {
+          } 
+          else {
             window.location.reload();
             if (this.props.onSubmit) {
               this.props.onSubmit();
@@ -237,17 +244,26 @@ class UpdateForm extends React.Component {
         <Row>
           <Col size="md-6">
             {/* <form> */}
+            <p>
+              <strong>
+                Current User Name:</strong>
+                
+                 
+                {this.state.band.username}
+              
+            </p>
 
             <p>
               <strong>
-                User Name:<span className="asterisk">*</span>
+                New User Name:<span className="asterisk">* </span> 
               </strong>
             </p>
+
             <Input
               value={this.state.username}
               onChange={this.handleInputChange}
               name="username"
-              placeholder="User Name"
+              placeholder="New User Name"
             />
 
             <div className="duplicates">{this.state.dupErrors.username}</div>
@@ -257,7 +273,7 @@ class UpdateForm extends React.Component {
           <Col size="md-6">
             <p>
               <strong>
-                Password:<span className="asterisk">*</span>
+               New Password:<span className="asterisk">* </span>
               </strong>
             </p>
             <Input
@@ -265,17 +281,26 @@ class UpdateForm extends React.Component {
               onChange={this.handleInputChange}
               name="password"
               type="password"
-              placeholder="Password"
+              placeholder="New Password"
             />
           </Col>
         </Row>
 
         <Row>
           <Col size="md-12">
+            <br/>
             <p>
               <strong>
-                Current Band Name:<span className="asterisk">*</span>{" "}
-                {this.state.band.username}
+                Current Band Name:</strong>
+                
+                
+                {this.state.band.name}
+              
+            </p>
+
+            <p>
+              <strong>
+                New Band Name:<span className="asterisk">* </span>
               </strong>
             </p>
             <Input
@@ -291,18 +316,30 @@ class UpdateForm extends React.Component {
 
         <Row>
           <Col size="md-6">
+
+            <br/>
             <p>
               <strong>
-                Genre:<span className="asterisk">*</span>
+                Current Genre:</strong>
+                
+                
+                {this.state.band.genre}
+              
+            </p>
+
+            <p>
+              <strong>
+                New Genre:<span className="asterisk">* </span>
               </strong>
             </p>
+
             <Select
               value={this.state.genre}
               onChange={this.handleInputChange}
               name="genre"
             >
               <option value="" hidden>
-                Select Genre
+                Select New Genre
               </option>
 
               {genres.map(genre => <option key={genre}>{genre}</option>)}
@@ -310,11 +347,24 @@ class UpdateForm extends React.Component {
           </Col>
 
           <Col size="md-6">
+
+            <br/>
             <p>
               <strong>
-                Location:<span className="asterisk">*</span>
+                Current Location:</strong>
+                
+                
+                {this.state.band.location}
+              
+            </p>
+
+            <p>
+              <strong>
+                New Location:<span className="asterisk">* </span>
               </strong>
             </p>
+
+
             <Select
               value={this.state.location}
               onChange={this.handleInputChange}
@@ -337,11 +387,25 @@ class UpdateForm extends React.Component {
 
         <Row>
           <Col size="md-8">
+
+            <br/>
             <p>
               <strong>
-                Availability:<span className="asterisk">*</span>
+                Current Availability:</strong>
+                
+                
+                {this.state.band.availability}
+              
+            </p>
+
+            <p>
+              <strong>
+                New Availability:<span className="asterisk">* </span>
               </strong>
             </p>
+
+
+
             <Select
               value={this.state.availability}
               onChange={this.handleInputChange}
@@ -365,21 +429,33 @@ class UpdateForm extends React.Component {
 
             <p>
               <strong>
-                <em>Please enter at least all contact methods:</em>
+                <em>Please enter all contact methods:</em>
               </strong>
             </p>
 
             <br />
 
+            <br/>
             <p>
-              <strong>Facebook URL:</strong>
+              <strong>
+                Old Facebook URL:</strong>
+                
+                
+                {this.state.band.facebook}
+              
+            </p>
+
+            <p>
+              <strong>
+                New Facebook URL:<span className="asterisk">* </span>
+              </strong>
             </p>
 
             <Input
               value={this.state.facebook}
               onChange={this.handleInputChange}
               name="facebook"
-              placeholder="Facebook URL"
+              placeholder="New Facebook URL"
             />
             <div className="duplicates">{this.state.dupErrors.facebook}</div>
             <br />
@@ -388,28 +464,56 @@ class UpdateForm extends React.Component {
 
         <Row>
           <Col size="md-6">
+
+            <br/>
             <p>
-              <strong>Email Address:</strong>
+              <strong>
+                Current Email Address:</strong>
+                
+                
+                {this.state.band.email}
+              
             </p>
+
+            <p>
+              <strong>
+                New Email Address:<span className="asterisk">* </span>
+              </strong>
+            </p>
+
             <Input
               value={this.state.email}
               onChange={this.handleInputChange}
               name="email"
-              placeholder="Email Address"
+              placeholder="New Email Address"
             />
             <div className="duplicates">{this.state.dupErrors.email}</div>
             <br />
           </Col>
 
           <Col size="md-6">
+
+            <br/>
             <p>
-              <strong>Phone Number (XXX-XXX-XXXX):</strong>
+              <strong>
+                Current Phone Number:</strong>
+                
+                
+                {this.state.band.phone}
+              
             </p>
+
+            <p>
+              <strong>
+                New Phone Number (XXX-XXX-XXXX):<span className="asterisk">* </span> 
+              </strong>
+            </p>
+
             <Input
               value={this.state.phone}
               onChange={this.handleInputChange}
               name="phone"
-              placeholder="Phone Number"
+              placeholder="New Phone Number"
             />
           </Col>
         </Row>
@@ -420,16 +524,17 @@ class UpdateForm extends React.Component {
 
             <p>
               <strong>
-                Please enter embed code from a music sharing site (i.e. Bandcamp
-                or Soundcloud) for others to hear your work:
+                Please enter a <em>NEW</em> embed code from a music sharing site (i.e. Bandcamp
+                or Soundcloud) for others to hear your work:<span className="asterisk">* </span>
               </strong>
             </p>
+
 
             <Input
               value={this.state.musicsample}
               onChange={this.handleInputChange}
               name="musicsample"
-              placeholder="Music Sharing Embed Code"
+              placeholder="New Music Sharing Embed Code"
             />
             <div className="duplicates">{this.state.dupErrors.musicsample}</div>
             <br />
@@ -440,7 +545,7 @@ class UpdateForm extends React.Component {
           <Col size="md-12">
             <p>
               <strong>
-                Band Img URL:<span className="asterisk">*</span>
+                New Band Img URL:<span className="asterisk">* </span>
               </strong>
             </p>
 
@@ -448,7 +553,7 @@ class UpdateForm extends React.Component {
               value={this.state.img}
               onChange={this.handleInputChange}
               name="img"
-              placeholder="Band Img URL"
+              placeholder="New Band Img URL"
             />
             <div className="duplicates">{this.state.dupErrors.img}</div>
             <br />
@@ -462,7 +567,7 @@ class UpdateForm extends React.Component {
 
           <center>
             <p>
-              <span className="asterisk">*</span>
+              <span className="asterisk">* </span>
               <strong> = Required Fields</strong>
             </p>
           </center>
@@ -473,17 +578,17 @@ class UpdateForm extends React.Component {
             <FormBtn
               disabled={
                 !(
-                  this.state.username &&
-                  this.state.password &&
-                  this.state.name &&
-                  this.state.location &&
-                  this.state.genre &&
-                  this.state.availability &&
-                  this.state.facebook &&
-                  this.state.email &&
-                  this.state.phone &&
-                  this.state.musicsample &&
-                  this.state.img &&
+                  this.state.username ||
+                  this.state.password ||
+                  this.state.name ||
+                  this.state.location ||
+                  this.state.genre ||
+                  this.state.availability ||
+                  this.state.facebook ||
+                  this.state.email ||
+                  this.state.phone ||
+                  this.state.musicsample ||
+                  this.state.img ||
                   this.state.formValid
                 )
 
@@ -491,7 +596,7 @@ class UpdateForm extends React.Component {
               }
               onClick={this.handleFormSubmit}
             >
-              Submit Band
+              Update Profile
             </FormBtn>
           </Col>
         </Row>

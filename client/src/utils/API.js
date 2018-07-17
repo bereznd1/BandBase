@@ -15,8 +15,8 @@ export default {
   // },
   // Saves a book to the database
 
-  updateBand: function (id) {
-    return axios.put("/api/bands/" + id);
+  updateBand: function (updatedBand) {
+    return axios.put("/api/bands/" + updatedBand.id, updatedBand);
   },
 
   
