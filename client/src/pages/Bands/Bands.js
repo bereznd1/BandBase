@@ -342,7 +342,7 @@ class Bands extends Component {
 
                 {this.getFilteredBands().length ? (
                   <div className="table-responsive">
-                  <table className="table table-hover table-responsive">
+                  <table className="table table-hover">
                     <thead>
                       <tr>
                         <th scope="col">Name</th>

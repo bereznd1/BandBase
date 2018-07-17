@@ -63,8 +63,7 @@ h4 {
 }
 
 
-@media(max-width:767px){  
-    .table{
-width:100%;
+    @media(max-width:767px){  
+        .table{overflow: auto;}
+        
     }
-}
