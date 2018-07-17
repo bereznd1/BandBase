@@ -14,6 +14,7 @@ const style = {
   backgroundImage: `url(${Background})`
 };
 
+
 class Bands extends Component {
   state = {
     bands: [],
@@ -255,7 +256,8 @@ class Bands extends Component {
                   <br />
 
                   {this.state.bands.length ? (
-                    <table className="table table-hover">
+                    <div className="table-responsive">
+                    <table className="table table-hover table-responsive">
                       <thead>
                         <tr>
                           <th scope="col">Name</th>
@@ -279,6 +281,7 @@ class Bands extends Component {
                         ))}
                       </tbody>
                     </table>
+                    </div>
                   ) : (
                     <center>
                       <h3>No Results to Display</h3>
