@@ -47,5 +47,5 @@ h2 {
 }
 
 @media(max-width:767px){  
-    td { overflow: hidden; }
+    .table{overflow: auto;}
 }
