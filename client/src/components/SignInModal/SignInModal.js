@@ -30,8 +30,9 @@ class SignInModal extends React.Component {
   }
 
   showThanks() {
-    this.handleClose();
+    //this.handleClose();
     this.setState({showThanks: true});
+    this.setState({show:true}); 
   }
 
   render() {
