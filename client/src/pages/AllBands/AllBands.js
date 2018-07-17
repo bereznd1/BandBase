@@ -21,6 +21,7 @@ const style = {
   backgroundImage: `url(${Background})`
 };
 
+
 class Bands extends Component {
   state = {
     bands: [],

@@ -27,6 +27,7 @@ class SignInModal extends React.Component {
 
   closeThanks() {
     this.setState({showThanks: false});
+    window.location.reload();
   }
 
   showThanks() {
