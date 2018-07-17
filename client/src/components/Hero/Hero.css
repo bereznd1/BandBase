@@ -56,3 +56,14 @@
 }
 
 }
+
+@media (max-width: 991.98px) {  .hero h1{
+  font-size:48px;
+text-align:center;
+}
+
+.hero h2{
+font-size:22px;
+text-align:center;
+
+}}
