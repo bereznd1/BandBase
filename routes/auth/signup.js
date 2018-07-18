@@ -1,12 +1,11 @@
+//======================================================
+//This page tests handles what happens on the back-end when a new user is signing up for an account.
+//======================================================
+
 const router = require("express").Router();
-// const bandsController = require("../../controllers/bandsController");
 const User = require("../../models/band");
 
-// router.get('/', (req,res) => {
-//     console.log('signup is working')
-//     res.json(200);
-// })
-
+//When a post request is sent by the user who has filled out the sign-up form...
 router.post("/", (req, res) => {
   const {
     username,
@@ -21,10 +20,8 @@ router.post("/", (req, res) => {
     musicsample,
     img
   } = req.body;
-  // ADD VALIDATION
-  console.log("hit  the endpoint");
 
-  //CHECKING FOR DUPLICATES
+  //The app first checks if any of the values from the form which are not allowed to be duplicates between multiple users already exist within the DB.
   User.find(
     {
       $or: [
@@ -37,6 +34,7 @@ router.post("/", (req, res) => {
       ]
     },
 
+	//If users are returned with the same values that the new user is attempting to submit...
     (err, users) => {
       var errors = {
         username: "",
@@ -45,7 +43,9 @@ router.post("/", (req, res) => {
         email: "",
         musicsample: "",
         img: ""
-      };
+	  };
+	  
+	  //Custom error messages are created for each specific field that is a duplicate.
       if (users && users.length > 0) {
         if (users[0].username === username) {
           errors.username = `Sorry, already a user with the Username: ${username}.`;
@@ -71,12 +71,15 @@ router.post("/", (req, res) => {
           errors.img = `Sorry, already a user with the Img URL that you entered.`;
         }
 
+		//These errors are then sent back to the front-end, and will be saved in the Sign-Up form's state.
         if (errors) {
           return res.json({
             error: errors
           });
         }
-      }
+	  }
+	  
+	  //An object is created containing all of the data in the req.body
       const newUser = new User({
         username: username,
         password: password,
@@ -89,12 +92,9 @@ router.post("/", (req, res) => {
         phone: phone,
         musicsample: musicsample,
         img: img
-        // 'img.data': fs.readFileSync(req.files.img.path),
       });
 
-      // newUser.img.data = fs.readFileSync(req.files.img.path);
-      // newUser.img.contentType = 'image/png';
-
+	  //If any of the required fields wasn't filled in, sends a custom error message.
       if (!newUser.username) {
         return res.status(400).send("Please enter a username.");
       }
@@ -137,21 +137,15 @@ router.post("/", (req, res) => {
           .send("Please enter your Music Sharing site URL.");
       }
 
-
       if (!newUser.img) {
         return res.status(400).send("Please enter an image URL.");
       }
 
+	  //Saves the new user to the database.
       newUser.save((err, savedUser) => {
-        console.log("made it here");
-
         if (err) return res.json(err);
-        console.log("Saved user", savedUser);
-        console.log("error", err);
         return res.json(savedUser);
       });
-
-      console.log("new user", newUser);
     }
   );
 });

@@ -1,5 +1,5 @@
-const refresh = (link) => {
-    window.location.href = link;
-}
+const refresh = link => {
+  window.location.href = link;
+};
 
 export { refresh };

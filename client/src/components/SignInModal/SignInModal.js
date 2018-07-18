@@ -1,6 +1,11 @@
+//=======================================
+//This component is the modal which displays the SIGN UP form.
+//=======================================
+
+//Importing necessary components
 import React from "react";
 import "./SignInModal.css";
-import { Modal, Button, Popover, Tooltip, OverlayTrigger } from 'react-bootstrap';
+import { Modal } from "react-bootstrap";
 import SignForm from "../../components/SignForm";
 import ThankModal from "../ThankModal";
 
@@ -25,33 +30,34 @@ class SignInModal extends React.Component {
     this.setState({ show: true });
   }
 
+  //Handles whether or not a "Thank You For Signing Up" modal will display after submission.
   closeThanks() {
-    this.setState({showThanks: false});
+    this.setState({ showThanks: false });
     window.location.reload();
   }
 
   showThanks() {
     this.handleClose();
-    this.setState({showThanks: true});
+    this.setState({ showThanks: true });
   }
 
   render() {
-
-
     return (
       <div>
+        <a href="#" onClick={this.handleShow}>
+          <span className="glyphicon glyphicon-user" /> Sign Up
+        </a>
 
-        <a href="#" onClick={this.handleShow}><span className="glyphicon glyphicon-user"></span> Sign Up</a>
-        {/* <Button bsStyle="primary" bsSize="large" style={text} >
-            About
-          </Button> */}
-
-        <ThankModal 
+        <ThankModal
           show={this.state.showThanks}
           handleClose={this.closeThanks.bind(this)}
-        /> 
+        />
 
-        <Modal show={this.state.show} onHide={this.handleClose} className="modal-main">
+        <Modal
+          show={this.state.show}
+          onHide={this.handleClose}
+          className="modal-main"
+        >
           <Modal.Header closeButton>
             <Modal.Title>Sign Up</Modal.Title>
           </Modal.Header>
@@ -63,6 +69,5 @@ class SignInModal extends React.Component {
     );
   }
 }
-
 
 export default SignInModal;

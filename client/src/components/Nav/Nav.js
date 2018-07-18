@@ -1,3 +1,10 @@
+//=======================================
+//This component is the navbar that appears on every page.
+// Depending on whether or not the user is logged in, different menu items will appear.
+// Whether or not the user is logged in is determined by props passed down from the App component.
+//=======================================
+
+//importing necessary components
 import React from "react";
 import "./Nav.css";
 import AboutModal from "../../components/AboutModal";
@@ -8,10 +15,11 @@ import LogOutButton from "../../components/LogOutButton";
 import { ButtonToolbar, DropdownButton, MenuItem } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
-
 const Nav = props => (
   <nav className="navbar">
     <div className="visible-xs">
+      {/* This part of the navbar handles the creation of a mobile menu. */}
+
       <ButtonToolbar>
         <DropdownButton
           bsStyle="default"
@@ -34,16 +42,23 @@ const Nav = props => (
                 <span className="glyphicon glyphicon-user" /> Welcome,{" "}
                 {props.currentUser}!
               </Link>
-              
             </MenuItem>
           )}
 
+          {props.loggedIn && (
+            <li>
+              <MenuItem eventKey="3">
+                <UpdateModal userID={props.userID} />
+              </MenuItem>
+            </li>
+          )}
+
           {!props.loggedIn ? (
-            <MenuItem eventKey="3">
+            <MenuItem eventKey="4">
               <LogInModal _login={props._login} loggedIn={props.loggedIn} />
             </MenuItem>
           ) : (
-            <MenuItem eventKey="3">
+            <MenuItem eventKey="4">
               <LogOutButton />
             </MenuItem>
           )}
@@ -51,6 +66,7 @@ const Nav = props => (
       </ButtonToolbar>
     </div>
 
+    {/* This part of the navbar is what displays on standard desktop screens. */}
     <div className="container-fluid">
       <div className="navbar-header">
         <a className="navbar-brand hidden-xs" href="/">
@@ -82,7 +98,7 @@ const Nav = props => (
         )}
         {props.loggedIn && (
           <li>
-            <UpdateModal userID = {props.userID} />
+            <UpdateModal userID={props.userID} />
           </li>
         )}
         {props.loggedIn && (
