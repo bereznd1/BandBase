@@ -25,21 +25,25 @@
   padding-top: 40px;
   margin-top: 0;
   color: #000000;
-  font-weight: bold;
+  text-shadow: 4px 4px black;
+  /* font-weight: bold; */
   -webkit-text-fill-color: white; /* Will override color (regardless of order) */
-  -webkit-text-stroke-width: 1px;
-  -webkit-text-stroke-color: black;
+  /* -webkit-text-stroke-width: 1px; */
+  /* -webkit-text-stroke-color: black; */
 }
 
 .hero h2 {
-  font-family: 'Righteous', cursive;
-  font-size: 40px;
+  /* font-family: 'Righteous', cursive; */
+  font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+  font-size: 36px;
   color: #ffffff;
-  font-weight: bold;
+  font-weight: lighter;
   font-style: italic;
-  -webkit-text-fill-color: white; /* Will override color (regardless of order) */
+  text-shadow: 2px 2px black;
+  -webkit-font-smoothing: antialiased;
+  /* -webkit-text-fill-color: white; Will override color (regardless of order) */
   -webkit-text-stroke-width: 1px;
-  -webkit-text-stroke-color: black;
+  /* -webkit-text-stroke-color: black; */
 }
 
 
@@ -56,3 +60,14 @@
 }
 
 }
+
+@media (max-width: 991.98px) {  .hero h1{
+  font-size:48px;
+text-align:center;
+}
+
+.hero h2{
+font-size:22px;
+text-align:center;
+
+}}

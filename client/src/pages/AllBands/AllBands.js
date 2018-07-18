@@ -252,35 +252,35 @@ class Bands extends Component {
                 If there are no bands in the state yet, the code displays a message to the user explaining this.*/}
 
                 {this.getFilteredBands().length ? (
-                  <table className="table table-hover">
-                    <thead>
-                      <tr>
-                        <th scope="col">Name</th>
-                        <th scope="col">Location</th>
-                        <th scope="col">Genre</th>
-                        <th scope="col">Availability</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {this.getFilteredBands().map(band => (
-                        <tr key={band._id}>
-                          <td className="name">
-                            {/*This creates a link to each band's profile by hitting the URL defined in the routes that will query the database for all information on the specific band whose ID is sent in as a parameter.*/}
-                            <Link to={"/api/bands/" + band._id}>
-                              <strong>{band.name}</strong>
-                            </Link>
-                          </td>
-                          <td>{band.location}</td>
-                          <td>{band.genre}</td>
-                          <td>{band.availability}</td>
+                  <div className="table-responsive">
+                    <table className="table table-hover">
+                      <thead>
+                        <tr>
+                          <th scope="col">Name</th>
+                          <th scope="col">Location</th>
+                          <th scope="col">Genre</th>
+                          <th scope="col">Availability</th>
                         </tr>
-                      ))}
-                    </tbody>
-                  </table>
+                      </thead>
+                      <tbody>
+                        {this.getFilteredBands().map(band => (
+                          <tr key={band._id}>
+                            <td className="name">
+                              {/*This creates a link to each band's profile by hitting the URL defined in the routes that will query the database for all information on the specific band whose ID is sent in as a parameter.*/}
+                              <Link to={"/api/bands/" + band._id}>
+                                <strong>{band.name}</strong>
+                              </Link>
+                            </td>
+                            <td>{band.location}</td>
+                            <td>{band.genre}</td>
+                            <td>{band.availability}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
                 ) : (
-                  <h4>
-                    No bands to display.
-                  </h4>
+                  <h4>No bands to display.</h4>
                 )}
 
                 <br />

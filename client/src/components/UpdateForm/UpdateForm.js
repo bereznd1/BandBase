@@ -187,7 +187,7 @@ class UpdateForm extends React.Component {
       <form>
         <Row>
           <Col size="md-12">
-          {/* This displays any ongoing Front End validation errors (those dealing with format & value length) */}
+            {/* This displays any ongoing Front End validation errors (those dealing with format & value length) */}
             <div className="panel panel-default realtimeErrors">
               <FormErrors formErrors={this.state.formErrors} />
             </div>
@@ -430,14 +430,7 @@ class UpdateForm extends React.Component {
         </Row>
 
         <Row>
-          <Col size="md-3">
-            <DeleteBtn onClick={this.deleteBand}>Delete Profile</DeleteBtn>
-          </Col>
-
-          <Col size="md-6" />
-
-          <Col size="md-3">
-          {/* The button to actually send your band submission will be disabled unless at least 1 of the fields has been filled out, and the form has been verified as valid on the front end. */}
+          <Col size="md-12">
             <FormBtn
               disabled={
                 !(
@@ -458,6 +451,8 @@ class UpdateForm extends React.Component {
             >
               Update Profile
             </FormBtn>
+
+            <DeleteBtn onClick={this.deleteBand}>Delete Profile</DeleteBtn>
           </Col>
         </Row>
       </form>

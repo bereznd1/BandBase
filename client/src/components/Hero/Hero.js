@@ -1,6 +1,7 @@
 import React from "react";
 import "./Hero.css";
-import BackgroundHero from "./banner.png";
+
+import BackgroundHero from "./banner3.jpg";
 
 const style = {
   backgroundImage: `url(${BackgroundHero})`,
