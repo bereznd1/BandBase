@@ -21,8 +21,6 @@ const style = {
   backgroundImage: `url(${Background})`
 };
 
-
-
 class Bands extends Component {
   state = {
     bands: [],
@@ -33,7 +31,7 @@ class Bands extends Component {
       var cityA = a.city.toLowerCase(),
         cityB = b.city.toLowerCase();
       if (cityA < cityB)
-        //sort string ascending
+        //sort string ascendingå
         return -1;
       if (cityA > cityB) return 1;
       return 0; //default return value (no sorting)
@@ -341,7 +339,6 @@ class Bands extends Component {
                 <br />
 
                 {this.getFilteredBands().length ? (
-                  <div className="table-responsive">
                   <table className="table table-hover">
                     <thead>
                       <tr>
@@ -368,7 +365,6 @@ class Bands extends Component {
                       ))}
                     </tbody>
                   </table>
-                  </div>
                 ) : (
                   ""
                 )}
