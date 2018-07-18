@@ -260,33 +260,31 @@ class Bands extends Component {
                 {/*This code checks whether there are currently any filtered bands in the state, and if there are, it displays a table that contains a row for each band, with each cell in that row corresponding to a particular field, such as location or genre.*/}
 
                 {this.getFilteredBands().length ? (
-                  <div className="table-responsive">
-                    <table className="table table-hover">
-                      <thead>
-                        <tr>
-                          <th scope="col">Name</th>
-                          <th scope="col">Location</th>
-                          <th scope="col">Genre</th>
-                          <th scope="col">Availability</th>
+                  <table className="table table-hover">
+                    <thead>
+                      <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Location</th>
+                        <th scope="col">Genre</th>
+                        <th scope="col">Availability</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {this.getFilteredBands().map(band => (
+                        <tr key={band._id}>
+                          <td className="name">
+                            {/*This creates a link to each band's profile by hitting the URL defined in the routes that will query the database for all information on the specific band whose ID is sent in as a parameter.*/}
+                            <Link to={"/api/bands/" + band._id}>
+                              <strong>{band.name}</strong>
+                            </Link>
+                          </td>
+                          <td>{band.location}</td>
+                          <td>{band.genre}</td>
+                          <td>{band.availability}</td>
                         </tr>
-                      </thead>
-                      <tbody>
-                        {this.getFilteredBands().map(band => (
-                          <tr key={band._id}>
-                            <td className="name">
-                              {/*This creates a link to each band's profile by hitting the URL defined in the routes that will query the database for all information on the specific band whose ID is sent in as a parameter.*/}
-                              <Link to={"/api/bands/" + band._id}>
-                                <strong>{band.name}</strong>
-                              </Link>
-                            </td>
-                            <td>{band.location}</td>
-                            <td>{band.genre}</td>
-                            <td>{band.availability}</td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </div>
+                      ))}
+                    </tbody>
+                  </table>
                 ) : (
                   ""
                 )}
