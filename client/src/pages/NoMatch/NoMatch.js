@@ -1,5 +1,8 @@
+//==================================
+// This component is rendered if the URL in the browser doesn't match any of the website routes that were defined in the App.js file.
+//==================================
+
 import React from "react";
-import { Col, Row, Container } from "../../components/Grid";
 import Hero from "../../components/Hero/Hero";
 import { Link } from "react-router-dom";
 import Footer from "../../components/Footer";
@@ -15,7 +18,9 @@ const NoMatch = () => (
       </h1>
     </Hero>
     <center>
-      <p style={{fontSize: "25px"}}><Link to="/">Back to Bands!</Link></p>
+      <p style={{ fontSize: "25px" }}>
+        <Link to="/">Back to Bands!</Link>
+      </p>
     </center>
     <Footer />
   </div>

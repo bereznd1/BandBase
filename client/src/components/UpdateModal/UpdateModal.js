@@ -1,12 +1,14 @@
+//=======================================
+//This component is a modal that contains the actual Update Profile form inside of it.
+//=======================================
+
+//importing necessary components
 import React from "react";
 import "./UpdateModal.css";
-import { Modal, Button, Popover, Tooltip, OverlayTrigger } from 'react-bootstrap';
+import { Modal } from "react-bootstrap";
 import UpdateForm from "../../components/UpdateForm";
 import ThankModal from "../ThankModal";
 import API from "../../utils/API";
-import { Link } from "react-router-dom";
-
-
 
 class UpdateModal extends React.Component {
   constructor(props, context) {
@@ -22,19 +24,13 @@ class UpdateModal extends React.Component {
     };
   }
 
-
-  componentDidMount = (props) => {
-    
-    
+  //When the component mounts, send a request to the API using the userID (passed in as a prop) of the band that is currently logged in.
+  //The response back will contain all of that band's profile information & will be saved to the band object in the state.
+  componentDidMount = props => {
     API.getBand(this.props.userID)
       .then(res => this.setState({ band: res.data }))
       .catch(err => console.log(err));
-
-      console.log(this.state.band)
-     
-  }
-
-
+  };
 
   handleClose() {
     this.setState({ show: false });
@@ -45,46 +41,45 @@ class UpdateModal extends React.Component {
   }
 
   closeThanks() {
-    this.setState({showThanks: false});
+    this.setState({ showThanks: false });
   }
 
   showThanks() {
     this.handleClose();
-    this.setState({showThanks: true});
+    this.setState({ showThanks: true });
   }
 
   render() {
-
-
     return (
       <div>
+        <a href="#" onClick={this.handleShow}>
+          <span className="glyphicon glyphicon-pencil" /> Update/Delete Profile
+        </a>
 
-        {/* <Link to={"/api/bands/" + props.userID}> */}
-<a href="#" onClick={this.handleShow}><span className="glyphicon glyphicon-user"></span> Update</a>
-
-{/* </Link> */}
-
-        {/* <Button bsStyle="primary" bsSize="large" style={text} >
-            About
-          </Button> */}
-
-        <ThankModal 
+        <ThankModal
           show={this.state.showThanks}
           handleClose={this.closeThanks.bind(this)}
-        /> 
+        />
 
-        <Modal show={this.state.show} onHide={this.handleClose} className="modal-main">
+        <Modal
+          show={this.state.show}
+          onHide={this.handleClose}
+          className="modal-main"
+        >
           <Modal.Header closeButton>
             <Modal.Title>Update Profile</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <UpdateForm onSubmit={this.showThanks.bind(this)} bandData = {this.state.band} />
+            {/* This will display the actual Update Form inside of the modal, and will pass in the logged in band's data as a prop to the form. */}
+            <UpdateForm
+              onSubmit={this.showThanks.bind(this)}
+              bandData={this.state.band}
+            />
           </Modal.Body>
         </Modal>
       </div>
     );
   }
 }
-
 
 export default UpdateModal;

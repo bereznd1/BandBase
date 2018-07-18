@@ -1,11 +1,11 @@
+//importing necessary components
 import React from "react";
 import "./DeleteBtn.css";
 
-// The ...props means, spread all of the passed props onto this element
-// That way we don't have to define them all individually
+//Exporting the component that will be rendered to the page
 const DeleteBtn = props => (
   <span className="delete-btn" {...props}>
-    ✗
+    ✗ Delete Profile
   </span>
 );
 

@@ -1,3 +1,13 @@
-li{
-    margin-right:5px;
+li {
+  margin-right: 5px;
+}
+
+p {
+  font-family: "Electrolize", sans-serif;
+}
+
+.headline {
+  font-weight: bold;
+  font-style: italic;
+  text-align: left;
 }

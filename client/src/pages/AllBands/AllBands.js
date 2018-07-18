@@ -1,19 +1,16 @@
+// ======================================================================
+// This component represents the page of the App that displays, within a table, all the registered bands within the database.
+// Users can then filter all of these bands by typing in specific keywords.
+// ======================================================================
+
+//importing necessary components
 import React, { Component } from "react";
-
-import cities from "../../utils/cities.json";
-import genres from "../../utils/genres.json";
-
-import Profile from "../Profile";
-
-import Alert from "../../components/Alert/Alert";
 import Hero from "../../components/Hero/Hero";
 import Footer from "../../components/Footer";
-import ThankModal from "../../components/ThankModal";
 import API from "../../utils/API";
 import { Link } from "react-router-dom";
 import { Col, Row, Container } from "../../components/Grid";
-import SignInModal from "../../components/SignInModal";
-import { Input, TextArea, Select, FormBtn } from "../../components/Form";
+import { Input } from "../../components/Form";
 import "./AllBands.css";
 
 const Background = "tri.png";
@@ -21,30 +18,19 @@ const style = {
   backgroundImage: `url(${Background})`
 };
 
-
+//The intial state contains blank values for the various filters that will be applied to the table of bands.
+//It also contains an empty "bands" array & an empty "filteredBands" array that will be populated once the API loads all of the bands from the DB.
 class Bands extends Component {
   state = {
     bands: [],
     filteredBands: [],
-    name: "",
-    location: "",
-    sortedcities: cities.sort(function(a, b) {
-      var cityA = a.city.toLowerCase(),
-        cityB = b.city.toLowerCase();
-      if (cityA < cityB)
-        //sort string ascendingå
-        return -1;
-      if (cityA > cityB) return 1;
-      return 0; //default return value (no sorting)
-    }),
-    genre: "",
-    availability: "",
     namesearch: "",
     locationsearch: "",
     genresearch: "",
     availabilitysearch: ""
   };
 
+  //When the component mounts, call the loadBands method, which will access the API to load all the bands in the DB and populate the bands arrays in the state with the results.
   componentDidMount() {
     this.loadBands();
   }
@@ -54,24 +40,13 @@ class Bands extends Component {
       .then(res =>
         this.setState({
           bands: res.data,
-          filteredBands: res.data,
-          username: "",
-          password: "",
-          name: "",
-          location: "",
-          genre: "",
-          availability: ""
+          filteredBands: res.data
         })
       )
       .catch(err => console.log(err));
   };
 
-  // getBand = id => {
-  //   API.getBand(id)
-  //     .then()
-  //     .catch(err => console.log(err));
-  // };
-
+  //When the value of field on the page is changed, update the state accordingly.
   handleInputChange = event => {
     const { name, value } = event.target;
     this.setState({
@@ -79,43 +54,9 @@ class Bands extends Component {
     });
   };
 
-  // handleChange = (selectedOption) => {
-  //   this.setState({ selectedOption });
-  //   // selectedOption can be null when the `x` (close) button is clicked
-  //   if (selectedOption) {
-  //     console.log(`Selected: ${selectedOption.label}`);
-  //   }
-  // }
-
-  handleFormSubmit = event => {
-    event.preventDefault();
-    if (
-      this.state.username &&
-      this.state.password &&
-      this.state.name &&
-      this.state.location &&
-      this.state.genre &&
-      this.state.availability
-    ) {
-      API.saveBand({
-        username: this.state.username,
-        password: this.state.password,
-        name: this.state.name,
-        location: this.state.location,
-        genre: this.state.genre,
-        availability: this.state.availability
-      })
-        .then(res => this.loadBands())
-        .catch(err => console.log(err));
-    }
-  };
-
+  //This allows the app to filter the table and only display bands that match the search terms that the user typed in.
+  //This code takes all of the bands that were loaded up into the component's state, and uses the "filter" method to return only those bands which contain the user's search terms in their corresponding fields.
   getFilteredBands = () => {
-    console.log("location filter", this.state.locationsearch);
-    console.log("availability filter", this.state.availabilitysearch);
-    console.log("genre search", this.state.genresearch);
-    console.log("name search", this.state.namesearch);
-
     const filteredBands = this.state.bands
       .filter(band => {
         return (
@@ -149,27 +90,15 @@ class Bands extends Component {
             .indexOf(this.state.availabilitysearch.toLowerCase()) !== -1
         );
       });
-      return filteredBands;
-    // if (
-    //   this.state.namesearch ||
-    //   this.state.locationsearch ||
-    //   this.state.genresearch ||
-    //   this.state.availabilitysearch
-    // ) {
-    //   return filteredBands;
-    // } else {
-    //   return filteredBands;
-    // }
+    return filteredBands;
   };
 
+  //This code handles what happens to each specific filter that the user may type in & how that affects the component's state.
   handleNameFilterChange = event => {
     const { name, value } = event.target;
 
     this.setState({
       [name]: value
-      // locationsearch: "",
-      // genresearch: "",
-      // availabilitysearch: ""
     });
 
     if (value !== "") {
@@ -189,9 +118,6 @@ class Bands extends Component {
 
     this.setState({
       [name]: value
-      // namesearch: "",
-      // genresearch: "",
-      // availabilitysearch: ""
     });
 
     if (value !== "") {
@@ -211,9 +137,6 @@ class Bands extends Component {
 
     this.setState({
       [name]: value
-      // namesearch: "",
-      // locationsearch: "",
-      // availabilitysearch: ""
     });
 
     if (value !== "") {
@@ -233,9 +156,6 @@ class Bands extends Component {
 
     this.setState({
       [name]: value
-      // namesearch: "",
-      // locationsearch: "",
-      // genresearch: ""
     });
 
     if (value !== "") {
@@ -252,23 +172,7 @@ class Bands extends Component {
     }
   };
 
-  // handleFilterSubmit = event => {
-  //   event.preventDefault();
-  //   if (
-  //     this.state.namesearch ||
-  //     this.state.locationsearch ||
-  //     this.state.genresearch ||
-  //     this.state.availabilitysearch
-  //   ) {
-
-  //     API.
-
-  //   }
-
-  // };
-
   render() {
-    console.log(this.getFilteredBands());
     return (
       <div className="main-content">
         <Hero>
@@ -285,12 +189,17 @@ class Bands extends Component {
                 </center>
                 <br />
                 <center>
-                  <p className="backlink"><Link to="/allbands">View All Bands!</Link></p>
+                  <p className="backlink">
+                    <Link to="/">← Back to Bands</Link>
+                  </p>
                 </center>
                 <br />
                 <br />
                 <Row>
                   <Col size="md-2" />
+
+                  {/*The input fields below allow users to type in different search terms that will filter the database. 
+                  The value of each field is bound to the corresponding field in the state, and when that value is changed, the corresponding filter change method is activated.*/}
 
                   <Col size="md-2">
                     <Input
@@ -339,6 +248,9 @@ class Bands extends Component {
               <Col size="md-8">
                 <br />
 
+                {/*This code checks whether there are currently any filtered bands in the state, and if there are, it displays a table that contains a row for each band, with each cell in that row corresponding to a particular field, such as location or genre.
+                If there are no bands in the state yet, the code displays a message to the user explaining this.*/}
+
                 {this.getFilteredBands().length ? (
                   <table className="table table-hover">
                     <thead>
@@ -353,6 +265,7 @@ class Bands extends Component {
                       {this.getFilteredBands().map(band => (
                         <tr key={band._id}>
                           <td className="name">
+                            {/*This creates a link to each band's profile by hitting the URL defined in the routes that will query the database for all information on the specific band whose ID is sent in as a parameter.*/}
                             <Link to={"/api/bands/" + band._id}>
                               <strong>{band.name}</strong>
                             </Link>
@@ -365,7 +278,9 @@ class Bands extends Component {
                     </tbody>
                   </table>
                 ) : (
-                  ""
+                  <h4>
+                    No bands to display.
+                  </h4>
                 )}
 
                 <br />

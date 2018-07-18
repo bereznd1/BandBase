@@ -1,32 +1,23 @@
-import React, { Component } from "react";
-import Router from "react-router-dom";
+//=======================================
+//This component is the SIGN UP form that a new user will fill out.
+//=======================================
+
+//importing necessary components
+import React from "react";
 import "./SignForm.css";
 import FormErrors from "../formErrors.js";
 import cities from "../../utils/cities.json";
 import genres from "../../utils/genres.json";
-import ThankModal from "../ThankModal";
 import API from "../../utils/API";
-import { Link } from "react-router-dom";
-import { Col, Row, Container } from "../Grid";
-// import SignInModal from "../../components/SignInModal";
-import { Input, InputPassword, TextArea, Select, FormBtn } from "../Form";
+import { Col, Row } from "../Grid";
+import { Input, Select, FormBtn } from "../Form";
 
 class SignForm extends React.Component {
-  // constructor(props, context) {
-  //   super(props, context);
-
-  //   // this.handleChange = this.handleChange.bind(this);
-
-  //   this.state = {
-  //     userName: '',
-  //     password:''
-
-  //   };
-  // }
-
+  //The initial state contains blank values for the various fields that will be filled out.
   state = {
     name: "",
     location: "",
+    //This accesses the JSON file of Cities and sorts it in alphabetical order to be later on displayed in a Select field within the form.
     sortedcities: cities.sort(function(a, b) {
       var cityA = a.city.toLowerCase(),
         cityB = b.city.toLowerCase();
@@ -43,70 +34,46 @@ class SignForm extends React.Component {
     phone: "",
     musicsample: "",
     img: "",
+
+    //This will hold any errors that are returned by the API, that will indicate if there is already an existing user with the same information. "Duplicate Errors".
     dupErrors: {},
 
-    //NAME OF ERROR FROM BACKEND AFTER ATTEMPTED SUBMISSION
-    // backendError: ""
-
-    //FRONT END ERRORS
-
+    //This takes care of Front End Error handling that is done by React.
     formErrors: {
       username: "",
       password: "",
-      // name: "",
-      // location: "",
-      // genre: "",
-      // availability: "",
-      // facebook: "",
       email: "",
       phone: ""
-      // bandcamp: "",
-      // soundcloud: "",
-      // img: ""
     },
     usernameValid: false,
     passwordValid: false,
-    // nameValid: false,
-    // locationValid: false,
-    // genreValid: false,
-    // availabilityValid: false,
-    // facebookValid: false,
     emailValid: false,
     phoneValid: false,
-    // bandcampValid: false,
-    // soundcloudValid: false,
-    // imgValid: false,
     formValid: false
   };
 
+  //When new information is entered into the form, update the state.
   handleInputChange = event => {
     const { name, value } = event.target;
     this.setState(
       {
         [name]: value
       },
+      //Also, make sure that each new field is validated.
       () => {
         this.validateField(name, value);
       }
     );
   };
 
+  //This runs a "switch statement" on several fields whose format needs to be validated before they can be submitted.
+  //The username & password must be a certain length, and the email & phone values need to match a specific rejex pattern.
   validateField(fieldName, value) {
     let fieldValidationErrors = this.state.formErrors;
     let usernameValid = this.state.usernameValid;
     let passwordValid = this.state.passwordValid;
-    // let nameValid = this.state.nameValid;
-    // let locationValid = this.state.locationValid;
-    // let genreValid = this.state.genreValid;
-    // let availabilityValid = this.state.availabilityValid;
-    // let facebookValid = this.state.facebookValid;
     let emailValid = this.state.emailValid;
     let phoneValid = this.state.phoneValid;
-    // let bandcampValid = this.state.bandcampValid;
-    // let soundcloudValid = this.state.soundcloudValid;
-    // let imgValid = this.state.imgValid;
-    // let formValid = this.state.formValid;
-
     switch (fieldName) {
       case "username":
         usernameValid = value.length >= 4;
@@ -120,7 +87,6 @@ class SignForm extends React.Component {
         emailValid = value.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i);
         fieldValidationErrors.email = emailValid ? "" : " is invalid";
         break;
-
       case "phone":
         phoneValid = value.match(/^[0-9]{3}-[0-9]{3}-[0-9]{4}$/i);
         fieldValidationErrors.phone = phoneValid ? "" : " is invalid";
@@ -141,6 +107,7 @@ class SignForm extends React.Component {
     );
   }
 
+  //This sets the state of the form as "valid" IF the validation of several specific fields (which was checked in the above method), was successful.
   validateForm() {
     this.setState({
       formValid:
@@ -151,20 +118,7 @@ class SignForm extends React.Component {
     });
   }
 
-  // organizeDupErrors = ()  => {
-
-  //   for (let i = 0; i < this.state.dupErrors.length; i++) {
-
-  //         this.state.dupErrors[i]
-
-  //     }
-
-  // }
-
-  // errorClass(error) {
-  //   return error.length === 0 ? "" : "has-error";
-  // }
-
+  //When the form is submitted, if all the fields have been filled out, send a request to the API which will save the new user in the Database.
   handleFormSubmit = event => {
     event.preventDefault();
     if (
@@ -180,11 +134,6 @@ class SignForm extends React.Component {
       this.state.musicsample &&
       this.state.img &&
       this.state.formValid
-      // this.state.img &&
-      // this.state.usernameValid &&
-      // this.state.passwordValid &&
-      // this.state.emailValid &&
-      // this.state.phoneValid
     ) {
       API.saveBand({
         username: this.state.username,
@@ -199,21 +148,18 @@ class SignForm extends React.Component {
         musicsample: this.state.musicsample,
         img: this.state.img
       })
+
+        //If it turns out that some of the fields (those which must be unique to each individual user) match other values in the database, save those errors to the state. These errors will be displayed on the page.
         .then(res => {
           if (res.data.error) {
             this.setState({ dupErrors: res.data.error });
-            // this.state.dupErrors.split(',').join("<br />");
-
-            console.log("FRONT END DUPS" + res.data.error);
           } else {
             if (this.props.onSubmit) {
-              this.props.onSubmit(); 
+              this.props.onSubmit();
             }
           }
         })
-        //this is the error being sent from "signup.js" by all the individual validation checks
         .catch(err => {
-          console.log("Error:");
           console.log(err);
         });
     }
@@ -221,9 +167,11 @@ class SignForm extends React.Component {
 
   render() {
     return (
+      // This form contains input fields for all the neccessary data. The value of each field is bound to the corresponding item in the state & whenever that field is changed, the state updates accordingly.
       <form>
         <Row>
           <Col size="md-12">
+            {/* This displays any ongoing Front End validation errors (those dealing with format & value length) */}
             <div className="panel panel-default realtimeErrors">
               <FormErrors formErrors={this.state.formErrors} />
             </div>
@@ -232,11 +180,10 @@ class SignForm extends React.Component {
 
         <Row>
           <Col size="md-6">
-            {/* <form> */}
-
             <p>
               <strong>
-                User Name:<span className="asterisk">*</span>
+                User Name<em>(at least 4 characters):</em>
+                <span className="asterisk">*</span>
               </strong>
             </p>
             <Input
@@ -315,8 +262,6 @@ class SignForm extends React.Component {
               onChange={this.handleInputChange}
               name="location"
             >
-              {/* placeholder="Filter by availability" */}
-
               <option value="" hidden>
                 Select Nearest City
               </option>
@@ -356,9 +301,9 @@ class SignForm extends React.Component {
 
         <Row>
           <Col size="md-12">
-            <br />
+            <hr />
 
-            <p>
+            <p style={{ fontSize: "20px" }}>
               <strong>
                 <em>Please enter all contact methods:</em>
               </strong>
@@ -367,7 +312,9 @@ class SignForm extends React.Component {
             <br />
 
             <p>
-              <strong>Facebook URL:</strong>
+              <strong>
+                Facebook URL:<span className="asterisk">*</span>
+              </strong>
             </p>
 
             <Input
@@ -384,7 +331,9 @@ class SignForm extends React.Component {
         <Row>
           <Col size="md-6">
             <p>
-              <strong>Email Address:</strong>
+              <strong>
+                Email Address:<span className="asterisk">*</span>
+              </strong>
             </p>
             <Input
               value={this.state.email}
@@ -393,12 +342,13 @@ class SignForm extends React.Component {
               placeholder="Email Address"
             />
             <div className="duplicates">{this.state.dupErrors.email}</div>
-            <br />
           </Col>
 
           <Col size="md-6">
             <p>
-              <strong>Phone Number (XXX-XXX-XXXX):</strong>
+              <strong>
+                Phone Number (XXX-XXX-XXXX):<span className="asterisk">*</span>
+              </strong>
             </p>
             <Input
               value={this.state.phone}
@@ -413,10 +363,14 @@ class SignForm extends React.Component {
           <Col size="md-12">
             <br />
 
+            <hr />
+
             <p>
               <strong>
                 Please enter embed code from a music sharing site (i.e. Bandcamp
-                or Soundcloud) for others to hear your work:
+                or Soundcloud) for others to hear your work:<span className="asterisk">
+                  *
+                </span>
               </strong>
             </p>
 
@@ -465,6 +419,7 @@ class SignForm extends React.Component {
 
         <Row>
           <Col size="md-12">
+            {/* The button to actually send your band submission will be disabled unless all of the fields have been filled out. */}
             <FormBtn
               disabled={
                 !(
@@ -481,12 +436,10 @@ class SignForm extends React.Component {
                   this.state.img &&
                   this.state.formValid
                 )
-
-                // this.state.formValid
               }
               onClick={this.handleFormSubmit}
             >
-              Submit Band
+              Sign Up!
             </FormBtn>
           </Col>
         </Row>

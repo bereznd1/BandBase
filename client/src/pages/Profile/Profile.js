@@ -1,18 +1,15 @@
+//===============================================================
+// This component represents the page of the app that displays an individual band's profile
+//===============================================================
+
+//importing necessary components
 import React, { Component } from "react";
-import createHistory from "history/createBrowserHistory";
-import ReactHtmlParser, {
-  processNodes,
-  convertNodeToElement,
-  htmlparser2
-} from "react-html-parser";
+import ReactHtmlParser from "react-html-parser";
 import { Link } from "react-router-dom";
 import { Col, Row, Container } from "../../components/Grid";
-import { Panel } from "react-bootstrap";
 import Hero from "../../components/Hero/Hero";
-import SignInModal from "../../components/SignInModal";
 import Footer from "../../components/Footer";
 import API from "../../utils/API";
-import UpdateModal from "../../components/UpdateModal";
 import email from "./email-icon.png";
 import fb from "./fb-icon.png";
 import phone from "./phone-icon.png";
@@ -23,33 +20,31 @@ const style = {
   backgroundImage: `url(${Background})`
 };
 
+//The initial state of the component contains an empty "band" object that will later on be filled with the data of the band whose profile it is.
 class Profile extends Component {
   state = {
     band: {}
   };
-  // When this component mounts, grab the band with the _id of this.props.match.params.id
-  // e.g. localhost:3000/books/599dcb67f0f16317844583fc
+
+  //When this component mounts, it sends a request to the API to grab the data for the band in question by sending it that band's ID as a parameter.
+  //The band's ID is passed in as a prop from a different component.
+  //Once the band's data is received, it is saved into this component's state for later use.
   componentDidMount() {
-    debugger;
     API.getBand(this.props.bandID)
       .then(res => this.setState({ band: res.data }))
       .catch(err => console.log(err));
-
-     
   }
 
   componentWillReceiveProps() {
-
     const url = window.location.pathname;
-    const urlArray = url.split('/');
+    const urlArray = url.split("/");
     const parsedID = urlArray.pop();
-    console.log("url array", urlArray);
     API.getBand(parsedID)
-    .then(res => this.setState({ band: res.data }))
-    .catch(err => console.log(err));
+      .then(res => this.setState({ band: res.data }))
+      .catch(err => console.log(err));
   }
-  
 
+  //A profile template is rendered and filled in with the data of the specific band whose profile it is, by accessing the properties of the "band" object in the state.
   render() {
     return (
       <div>
@@ -84,6 +79,7 @@ class Profile extends Component {
                 <Col size="md-1" />
 
                 <Col size="md-4">
+                  {/*ReactHTMLParser is used to parse any raw HTML code that the user typed into the Sign Up form.*/}
                   <center>
                     <img
                       src={ReactHtmlParser(this.state.band.img)}
@@ -95,32 +91,17 @@ class Profile extends Component {
                   <br />
 
                   <center>
-                    {this.state.band.facebook ? (
-                      <a href={this.state.band.facebook} target="_blank">
-                        <img className="contact-img" src={fb} alt="" />
-                      </a>
-                    ) : (
-                      ""
-                    )}
+                    <a href={this.state.band.facebook} target="_blank">
+                      <img className="contact-img" src={fb} alt="" />
+                    </a>
 
-                    {this.state.band.email ? (
-                      <a
-                        href={`mailto:${this.state.band.email}`}
-                        target="_blank"
-                      >
-                        <img className="contact-img" src={email} alt="" />
-                      </a>
-                    ) : (
-                      ""
-                    )}
+                    <a href={`mailto:${this.state.band.email}`} target="_blank">
+                      <img className="contact-img" src={email} alt="" />
+                    </a>
 
-                    {this.state.band.phone ? (
-                      <a href={`tel:${this.state.band.phone}`} target="_blank">
-                        <img className="contact-img" src={phone} alt="" />
-                      </a>
-                    ) : (
-                      ""
-                    )}
+                    <a href={`tel:${this.state.band.phone}`} target="_blank">
+                      <img className="contact-img" src={phone} alt="" />
+                    </a>
                   </center>
 
                   <br />
@@ -167,9 +148,7 @@ class Profile extends Component {
                     </div>
 
                     <div className="profile-panel-main avail">
-                      <p>
-                        {this.state.band.availability}
-                      </p>
+                      <p>{this.state.band.availability}</p>
                     </div>
                   </div>
                 </Col>

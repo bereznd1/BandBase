@@ -1,33 +1,26 @@
-import React, { Component } from "react";
-import Router from "react-router-dom";
+//=======================================
+//This component is the UPDATE form that a Logged-In user can use to edit his/her profile info.
+//=======================================
+
+//importing necessary components
+import React from "react";
 import "./UpdateForm.css";
 import FormErrors from "../formErrors.js";
 import cities from "../../utils/cities.json";
 import genres from "../../utils/genres.json";
-import ThankModal from "../ThankModal";
 import API from "../../utils/API";
-import { Link } from "react-router-dom";
-import { Col, Row, Container } from "../Grid";
-// import SignInModal from "../../components/SignInModal";
-import { Input, InputPassword, TextArea, Select, FormBtn } from "../Form";
+import { Col, Row } from "../Grid";
+import { Input, Select, FormBtn } from "../Form";
+import DeleteBtn from "../DeleteBtn";
 
 class UpdateForm extends React.Component {
-  // constructor(props, context) {
-  //   super(props, context);
-
-  //   // this.handleChange = this.handleChange.bind(this);
-
-  //   this.state = {
-  //     userName: '',
-  //     password:''
-
-  //   };
-  // }
-
+  //The initial state contains blank values for the various fields that will be filled out.
+  //There is also a blank object for "band". This will be populated when the component mounts, with the information from the database that corresponds to the data of the Logged-In user.
   state = {
     band: {},
     name: "",
     location: "",
+    //This accesses the JSON file of Cities and sorts it in alphabetical order to be later on displayed in a Select field within the form.
     sortedcities: cities.sort(function(a, b) {
       var cityA = a.city.toLowerCase(),
         cityB = b.city.toLowerCase();
@@ -44,84 +37,52 @@ class UpdateForm extends React.Component {
     phone: "",
     musicsample: "",
     img: "",
-    dupErrors: {},
 
-    //NAME OF ERROR FROM BACKEND AFTER ATTEMPTED SUBMISSION
-    // backendError: ""
-
-    //FRONT END ERRORS
-
+    //This takes care of Front End Error handling that is done by React.
     formErrors: {
       username: "",
-      password: "",
-      // name: "",
-      // location: "",
-      // genre: "",
-      // availability: "",
-      // facebook: "",
       email: "",
       phone: ""
-      // bandcamp: "",
-      // soundcloud: "",
-      // img: ""
     },
     usernameValid: false,
-    passwordValid: false,
-    // nameValid: false,
-    // locationValid: false,
-    // genreValid: false,
-    // availabilityValid: false,
-    // facebookValid: false,
     emailValid: false,
     phoneValid: false,
-    // bandcampValid: false,
-    // soundcloudValid: false,
-    // imgValid: false,
     formValid: false
   };
 
+  //When the component mounts, send a request to the API request to get the currently logged-in user's information and save it to the state.
   componentDidMount() {
     API.getBand(this.props.bandData._id)
       .then(res => this.setState({ band: res.data }))
       .catch(err => console.log(err));
   }
 
+  //When new information is entered into the form, update the state.
   handleInputChange = event => {
     const { name, value } = event.target;
     this.setState(
       {
         [name]: value
       },
+      //Also, make sure that each new field is validated.
       () => {
         this.validateField(name, value);
       }
     );
   };
 
+  //This runs a "switch statement" on several fields whose format needs to be validated before they can be submitted.
+  //The username must be a certain length, and the email & phone values need to match a specific rejex pattern.
   validateField(fieldName, value) {
     let fieldValidationErrors = this.state.formErrors;
     let usernameValid = this.state.usernameValid;
-    let passwordValid = this.state.passwordValid;
-    // let nameValid = this.state.nameValid;
-    // let locationValid = this.state.locationValid;
-    // let genreValid = this.state.genreValid;
-    // let availabilityValid = this.state.availabilityValid;
-    // let facebookValid = this.state.facebookValid;
     let emailValid = this.state.emailValid;
     let phoneValid = this.state.phoneValid;
-    // let bandcampValid = this.state.bandcampValid;
-    // let soundcloudValid = this.state.soundcloudValid;
-    // let imgValid = this.state.imgValid;
-    // let formValid = this.state.formValid;
 
     switch (fieldName) {
       case "username":
         usernameValid = value.length >= 4;
         fieldValidationErrors.username = usernameValid ? "" : " is too short";
-        break;
-      case "password":
-        passwordValid = value.length >= 6;
-        fieldValidationErrors.password = passwordValid ? "" : " is too short";
         break;
       case "email":
         emailValid = value.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i);
@@ -140,7 +101,6 @@ class UpdateForm extends React.Component {
       {
         formErrors: fieldValidationErrors,
         usernameValid: usernameValid,
-        passwordValid: passwordValid,
         emailValid: emailValid,
         phoneValid: phoneValid
       },
@@ -148,36 +108,29 @@ class UpdateForm extends React.Component {
     );
   }
 
+  //This sets the state of the form as "valid" IF the validation of several specific fields (which was checked in the above method), was successful.
   validateForm() {
     this.setState({
-      formValid: this.state.usernameValid && this.state.passwordValid
+      formValid:
+        this.state.name ||
+        this.state.location ||
+        this.state.genre ||
+        this.state.availability ||
+        this.state.facebook ||
+        this.state.musicsample ||
+        this.state.img ||
+        (this.state.username && this.state.usernameValid) ||
+        (this.state.email && this.state.emailValid) ||
+        (this.state.phone && this.state.phoneValid)
     });
   }
 
-  // organizeDupErrors = ()  => {
-
-  //   for (let i = 0; i < this.state.dupErrors.length; i++) {
-
-  //         this.state.dupErrors[i]
-
-  //     }
-
-  // }
-
-  // errorClass(error) {
-  //   return error.length === 0 ? "" : "has-error";
-  // }
-
+  //When the form is submitted, if any of the fields have been changed (doesn't have to be all, like in the Sign Up form, since a user may only want to update 1 or 2 fields)...
   handleFormSubmit = event => {
     event.preventDefault();
 
-
-  
-    
-
     if (
       this.state.username ||
-      this.state.password ||
       this.state.name ||
       this.state.location ||
       this.state.genre ||
@@ -188,16 +141,11 @@ class UpdateForm extends React.Component {
       this.state.musicsample ||
       this.state.img ||
       this.state.formValid
-      // this.state.img &&
-      // this.state.usernameValid &&
-      // this.state.passwordValid &&
-      // this.state.emailValid &&
-      // this.state.phoneValid
     ) {
+      //Send a request to the API that will update the info of the user in the database whose ID matches the ID of the currently logged in user (which is saved in the state within the "band" object)
       API.updateBand({
         id: this.state.band._id,
         username: this.state.username || this.state.band.username,
-        password: this.state.password || this.state.band.password,
         name: this.state.name || this.state.band.name,
         location: this.state.location || this.state.band.location,
         genre: this.state.genre || this.state.band.genre,
@@ -209,32 +157,37 @@ class UpdateForm extends React.Component {
         img: this.state.img || this.state.band.img
       })
         .then(res => {
-          if (res.data.error) {
-            this.setState({ dupErrors: res.data.error });
-            // this.state.dupErrors.split(',').join("<br />");
-
-            console.log("FRONT END DUPS" + res.data.error);
-          } 
-          else {
-            window.location.reload();
-            if (this.props.onSubmit) {
-              this.props.onSubmit();
-            }
+          window.location.reload();
+          if (this.props.onSubmit) {
+            this.props.onSubmit();
           }
         })
-        //this is the error being sent from "signup.js" by all the individual validation checks
+
         .catch(err => {
-          console.log("Error:");
           console.log(err);
         });
     }
   };
 
+  //This method will delete the user from the Database whose ID matches the ID of the currently logged in user
+  deleteBand = () => {
+    API.deleteBand(this.state.band._id)
+      .then(res => {
+        window.location.href = "/";
+      })
+
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
   render() {
     return (
+      // This form contains input fields for all the neccessary data. The value of each field is bound to the corresponding item in the state & whenever that field is changed, the state updates accordingly.
       <form>
         <Row>
           <Col size="md-12">
+          {/* This displays any ongoing Front End validation errors (those dealing with format & value length) */}
             <div className="panel panel-default realtimeErrors">
               <FormErrors formErrors={this.state.formErrors} />
             </div>
@@ -243,19 +196,15 @@ class UpdateForm extends React.Component {
 
         <Row>
           <Col size="md-6">
-            {/* <form> */}
             <p>
-              <strong>
-                Current User Name:</strong>
-                
-                 
-                {this.state.band.username}
-              
+              <strong>Current User Name: </strong>
+
+              {this.state.band.username}
             </p>
 
             <p>
               <strong>
-                New User Name:<span className="asterisk">* </span> 
+                New User Name <em>(at least 4 characters)</em>:
               </strong>
             </p>
 
@@ -265,43 +214,17 @@ class UpdateForm extends React.Component {
               name="username"
               placeholder="New User Name"
             />
-
-            <div className="duplicates">{this.state.dupErrors.username}</div>
-            <br />
           </Col>
 
           <Col size="md-6">
             <p>
-              <strong>
-               New Password:<span className="asterisk">* </span>
-              </strong>
-            </p>
-            <Input
-              value={this.state.password}
-              onChange={this.handleInputChange}
-              name="password"
-              type="password"
-              placeholder="New Password"
-            />
-          </Col>
-        </Row>
+              <strong>Current Band Name: </strong>
 
-        <Row>
-          <Col size="md-12">
-            <br/>
-            <p>
-              <strong>
-                Current Band Name:</strong>
-                
-                
-                {this.state.band.name}
-              
+              {this.state.band.name}
             </p>
 
             <p>
-              <strong>
-                New Band Name:<span className="asterisk">* </span>
-              </strong>
+              <strong>New Band Name:</strong>
             </p>
             <Input
               value={this.state.name}
@@ -309,28 +232,20 @@ class UpdateForm extends React.Component {
               name="name"
               placeholder="New Band Name"
             />
-            <div className="duplicates">{this.state.dupErrors.name}</div>
-            <br />
           </Col>
         </Row>
 
         <Row>
           <Col size="md-6">
-
-            <br/>
+            <br />
             <p>
-              <strong>
-                Current Genre:</strong>
-                
-                
-                {this.state.band.genre}
-              
+              <strong>Current Genre: </strong>
+
+              {this.state.band.genre}
             </p>
 
             <p>
-              <strong>
-                New Genre:<span className="asterisk">* </span>
-              </strong>
+              <strong>New Genre:</strong>
             </p>
 
             <Select
@@ -347,31 +262,22 @@ class UpdateForm extends React.Component {
           </Col>
 
           <Col size="md-6">
-
-            <br/>
+            <br />
             <p>
-              <strong>
-                Current Location:</strong>
-                
-                
-                {this.state.band.location}
-              
+              <strong>Current Location: </strong>
+
+              {this.state.band.location}
             </p>
 
             <p>
-              <strong>
-                New Location:<span className="asterisk">* </span>
-              </strong>
+              <strong>New Location:</strong>
             </p>
-
 
             <Select
               value={this.state.location}
               onChange={this.handleInputChange}
               name="location"
             >
-              {/* placeholder="Filter by availability" */}
-
               <option value="" hidden>
                 Select Nearest City
               </option>
@@ -387,24 +293,16 @@ class UpdateForm extends React.Component {
 
         <Row>
           <Col size="md-8">
-
-            <br/>
+            <br />
             <p>
-              <strong>
-                Current Availability:</strong>
-                
-                
-                {this.state.band.availability}
-              
+              <strong>Current Availability: </strong>
+
+              {this.state.band.availability}
             </p>
 
             <p>
-              <strong>
-                New Availability:<span className="asterisk">* </span>
-              </strong>
+              <strong>New Availability:</strong>
             </p>
-
-
 
             <Select
               value={this.state.availability}
@@ -412,7 +310,7 @@ class UpdateForm extends React.Component {
               name="availability"
             >
               <option value="" hidden>
-                Select Availability
+                Select New Availability
               </option>
               <option>On Tour Currently</option>
               <option>On Hiatus</option>
@@ -425,30 +323,15 @@ class UpdateForm extends React.Component {
 
         <Row>
           <Col size="md-12">
-            <br />
-
+            <hr />
             <p>
-              <strong>
-                <em>Please enter all contact methods:</em>
-              </strong>
-            </p>
+              <strong>Current Facebook URL: </strong>
 
-            <br />
-
-            <br/>
-            <p>
-              <strong>
-                Old Facebook URL:</strong>
-                
-                
-                {this.state.band.facebook}
-              
+              {this.state.band.facebook}
             </p>
 
             <p>
-              <strong>
-                New Facebook URL:<span className="asterisk">* </span>
-              </strong>
+              <strong>New Facebook URL:</strong>
             </p>
 
             <Input
@@ -457,28 +340,20 @@ class UpdateForm extends React.Component {
               name="facebook"
               placeholder="New Facebook URL"
             />
-            <div className="duplicates">{this.state.dupErrors.facebook}</div>
-            <br />
           </Col>
         </Row>
 
         <Row>
           <Col size="md-6">
-
-            <br/>
+            <br />
             <p>
-              <strong>
-                Current Email Address:</strong>
-                
-                
-                {this.state.band.email}
-              
+              <strong>Current Email Address: </strong>
+
+              {this.state.band.email}
             </p>
 
             <p>
-              <strong>
-                New Email Address:<span className="asterisk">* </span>
-              </strong>
+              <strong>New Email Address:</strong>
             </p>
 
             <Input
@@ -487,26 +362,19 @@ class UpdateForm extends React.Component {
               name="email"
               placeholder="New Email Address"
             />
-            <div className="duplicates">{this.state.dupErrors.email}</div>
             <br />
           </Col>
 
           <Col size="md-6">
-
-            <br/>
+            <br />
             <p>
-              <strong>
-                Current Phone Number:</strong>
-                
-                
-                {this.state.band.phone}
-              
+              <strong>Current Phone Number: </strong>
+
+              {this.state.band.phone}
             </p>
 
             <p>
-              <strong>
-                New Phone Number (XXX-XXX-XXXX):<span className="asterisk">* </span> 
-              </strong>
+              <strong>New Phone Number (XXX-XXX-XXXX):</strong>
             </p>
 
             <Input
@@ -520,15 +388,14 @@ class UpdateForm extends React.Component {
 
         <Row>
           <Col size="md-12">
-            <br />
+            <hr />
 
             <p>
               <strong>
-                Please enter a <em>NEW</em> embed code from a music sharing site (i.e. Bandcamp
-                or Soundcloud) for others to hear your work:<span className="asterisk">* </span>
+                <em>NEW</em> embed code from a music sharing site (i.e. Bandcamp
+                or Soundcloud):
               </strong>
             </p>
-
 
             <Input
               value={this.state.musicsample}
@@ -536,7 +403,6 @@ class UpdateForm extends React.Component {
               name="musicsample"
               placeholder="New Music Sharing Embed Code"
             />
-            <div className="duplicates">{this.state.dupErrors.musicsample}</div>
             <br />
           </Col>
         </Row>
@@ -544,9 +410,7 @@ class UpdateForm extends React.Component {
         <Row>
           <Col size="md-12">
             <p>
-              <strong>
-                New Band Img URL:<span className="asterisk">* </span>
-              </strong>
+              <strong>New Band Img URL:</strong>
             </p>
 
             <Input
@@ -555,7 +419,6 @@ class UpdateForm extends React.Component {
               name="img"
               placeholder="New Band Img URL"
             />
-            <div className="duplicates">{this.state.dupErrors.img}</div>
             <br />
 
             <div className="panel panel-default realtimeErrors">
@@ -564,35 +427,32 @@ class UpdateForm extends React.Component {
           </Col>
 
           <br />
-
-          <center>
-            <p>
-              <span className="asterisk">* </span>
-              <strong> = Required Fields</strong>
-            </p>
-          </center>
         </Row>
 
         <Row>
-          <Col size="md-12">
+          <Col size="md-3">
+            <DeleteBtn onClick={this.deleteBand}>Delete Profile</DeleteBtn>
+          </Col>
+
+          <Col size="md-6" />
+
+          <Col size="md-3">
+          {/* The button to actually send your band submission will be disabled unless at least 1 of the fields has been filled out, and the form has been verified as valid on the front end. */}
             <FormBtn
               disabled={
                 !(
-                  this.state.username ||
-                  this.state.password ||
-                  this.state.name ||
-                  this.state.location ||
-                  this.state.genre ||
-                  this.state.availability ||
-                  this.state.facebook ||
-                  this.state.email ||
-                  this.state.phone ||
-                  this.state.musicsample ||
-                  this.state.img ||
+                  (this.state.username ||
+                    this.state.name ||
+                    this.state.location ||
+                    this.state.genre ||
+                    this.state.availability ||
+                    this.state.facebook ||
+                    this.state.email ||
+                    this.state.phone ||
+                    this.state.musicsample ||
+                    this.state.img) &&
                   this.state.formValid
                 )
-
-                // this.state.formValid
               }
               onClick={this.handleFormSubmit}
             >

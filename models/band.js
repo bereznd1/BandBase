@@ -1,8 +1,14 @@
+//==========================================
+//This page defines the MongooseJS model for interacting with the database.
+//It specifically defines the model for a new band/user that is being saved to the DB.
+//==========================================
+
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const bcrypt = require("bcryptjs");
 mongoose.promise = Promise;
 
+//This schema defines the different fields that each document in the "bands" collection will contain.
 const bandSchema = new Schema({
   username: {
     type: String,
@@ -11,7 +17,7 @@ const bandSchema = new Schema({
     required: true,
     index: true,
     validate: [
-      // Function takes in the new `longstring` value to be saved as an argument
+      // Function takes in the value to be saved as an argument
       function(input) {
         // If this returns true, proceed. If not, return the error message below
         return input.length >= 4;
@@ -25,7 +31,7 @@ const bandSchema = new Schema({
     trim: true,
     required: true,
     validate: [
-      // Function takes in the new `longstring` value to be saved as an argument
+      // Function takes in the value to be saved as an argument
       function(input) {
         // If this returns true, proceed. If not, return the error message below
         return input.length >= 6;
@@ -72,8 +78,10 @@ const bandSchema = new Schema({
   phone: {
     type: String,
     trim: true,
-    match: [/^[0-9]{3}-[0-9]{3}-[0-9]{4}$/, "Please enter a valid phone number in the format 555-555-5555"]
-    // //  [^[0-9]{3}-[0-9]{3}-[0-9]{4}$, "Please enter a valid phone number in the format 555-555-5555"]
+    match: [
+      /^[0-9]{3}-[0-9]{3}-[0-9]{4}$/,
+      "Please enter a valid phone number in the format 555-555-5555"
+    ]
   },
 
   musicsample: {
@@ -93,22 +101,10 @@ const bandSchema = new Schema({
     type: Date,
     default: Date.now
   }
-
-  // // 'comment' is an array of comment objects that stores each comment's ID
-  // // The ref property links the ObjectId to the Comment model
-  // // This allows us to populate the Article with an associated Comment
-  // comment: [
-  //   {
-  //     //"Schema.Types.ObjectID" is a special mongoose type that finds the ID of that item in the Comments collection
-  //     type: Schema.Types.ObjectId,
-
-  //     //This looks into that collection & finds the ID of each item in it
-  //     ref: "Comment"
-  //   }
-  // ]
 });
 
 // Define schema methods
+// Encrypts user's passwords
 bandSchema.methods = {
   checkPassword: function(inputPassword) {
     return bcrypt.compareSync(inputPassword, this.password);
@@ -121,14 +117,11 @@ bandSchema.methods = {
 // Define hooks for pre-saving
 bandSchema.pre("save", function(next) {
   if (!this.password) {
-    console.log("=======NO PASSWORD PROVIDED=======");
     next();
   } else {
     this.password = this.hashPassword(this.password);
     next();
   }
-  // this.password = this.hashPassword(this.password)
-  // next()
 });
 
 const Band = mongoose.model("Band", bandSchema);

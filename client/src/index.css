@@ -1,17 +1,17 @@
-body{
-    padding-top:60px;
-    background-color: #9dd2dd;
+body {
+  padding-top: 60px;
+  background-color: #9dd2dd;
 }
 
-.table{
-    background-color:black;
-    color:white;
+.table {
+  background-color: black;
+  color: white;
 }
 
-td{
-    color:grey;
+td {
+  color: grey;
 }
 
-tr{
-    color:white;
+tr {
+  color: white;
 }

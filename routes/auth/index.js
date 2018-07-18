@@ -5,7 +5,7 @@ const logoutRoutes = require("./logout");
 const authTestRoutes = require("./authtest");
 const updateRoutes = require("./update");
 
-// Book routes
+//Tells the router to use the routes defined in the various "auth" api files.
 router.use("/signup", signupRoutes);
 router.use("/login", loginRoutes);
 router.use("/logout", logoutRoutes);

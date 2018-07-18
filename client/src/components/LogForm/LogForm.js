@@ -1,30 +1,22 @@
+//==================================================
+// This component handles the Logging-In portion of the app
+//==================================================
+
+//Importing necessary components
 import React from "react";
-import "./LogForm.css";
-import {
-  FormGroup,
-  FormControl,
-  HelpBlock,
-  ControlLabel,
-  OverlayTrigger
-} from "react-bootstrap";
-import { Input, TextArea, Select, FormBtn } from "../Form";
-
+import { FormGroup, ControlLabel } from "react-bootstrap";
+import { Input, FormBtn } from "../Form";
 import API from "../../utils/API";
+
+//Extends the React Component
 class LogForm extends React.Component {
-  // constructor(props, context) {
-  //   super(props, context);
-
-  //   // this.state = {
-  //   //   username: '',
-  //   //   password:''
-  //   // };
-  // }
-
   state = {
     username: "",
-    password: ""
+    password: "",
+    error: ""
   };
 
+  //When something new is entered into the form, update the state
   handleInputChange = event => {
     const { name, value } = event.target;
     this.setState({
@@ -32,6 +24,7 @@ class LogForm extends React.Component {
     });
   };
 
+  //When the form is submitted, if both the username & password are filled in, send an API request to the Log In route
   handleFormSubmit = event => {
     event.preventDefault();
     if (this.state.username && this.state.password) {
@@ -39,34 +32,31 @@ class LogForm extends React.Component {
         username: this.state.username,
         password: this.state.password
       })
+
+        //If a response is received with no error, then login
         .then(res => {
-          console.log(res);
-          console.log(
-            "hello " + res.data.user.name + ". Thank you for logging in"
-          );
-          this.props._login();
-          window.location.reload();
+          if (res.status !== 401) {
+            this.props._login();
+            window.location.reload();
+            if (this.props.onSubmit) {
+              this.props.onSubmit();
+            }
+          }
         })
+
+        //If an error is caught (the username or password didn't log in successfully), save it to the state
         .catch(err => {
-          console.log(err.response);
           if (err.response.status === 401) {
-            console.log("wrong username or password!");
+            this.setState({ error: "Wrong Username or Password!" });
           }
         });
-    }
-
-    if (this.props.onSubmit) {
-      this.props.onSubmit();
     }
   };
 
   render() {
     return (
       <form>
-        <FormGroup
-          controlId="formBasicText"
-          // validationState={this.getValidationState()}
-        >
+        <FormGroup controlId="formBasicText">
           <ControlLabel>Username</ControlLabel>
           <Input
             type="text"
@@ -84,14 +74,17 @@ class LogForm extends React.Component {
             placeholder="Password"
             onChange={this.handleInputChange}
           />
+
+          <p style={{ color: "#ff0000", fontWeight: "bold" }}>
+            {this.state.error}
+          </p>
+
           <FormBtn
             disabled={!(this.state.username && this.state.password)}
             onClick={this.handleFormSubmit}
           >
             Login
           </FormBtn>
-          {/* <FormControl.Feedback /> */}
-          {/* <HelpBlock>Validation is based on string length.</HelpBlock> */}
         </FormGroup>
         <br />
         <br />
