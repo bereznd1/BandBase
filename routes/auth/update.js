@@ -14,7 +14,7 @@ router.put("/:id", (req, res) => {
     new: true
   })
     .then(dbModel => {
-      return res.json(dbModel);
+      console.log(dbModel); 
     })
     .catch(err => res.status(422).json(err));
 
