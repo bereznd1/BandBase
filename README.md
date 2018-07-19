@@ -1,7 +1,7 @@
 # BandBase 
 
-**All bands within the database displayed on the page:**
-![All Bands Page](allbandspage.png)
+**The home page of the app, ready for users to filter bands:**
+![Bands Page](bandspage.png)
 
 **Result after a user has implemented chosen filters:**
 ![Filters Implemented](filters.png)
