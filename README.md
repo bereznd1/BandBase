@@ -6,7 +6,7 @@
 **Result after a user has implemented chosen filters:**
 ![Filters Implemented](filters.png)
 
-[View Live!](https://mighty-ridge-41365.herokuapp.com/)
+[View Live!](https://mighty-ridge-41365.herokuapp.com/) | [View Video Demonstration](https://tinytake.s3.amazonaws.com/pulse/dennisb23/attachments/8373928/TinyTake25-07-2018-03-30-46.mp4)
 
 ## General Description:
 BandBase is a one of a kind app that allows bands/artists from around the country to connect with one another in order to book shows together if they plan to go on tour in a particular area. Promoters can use the database as well to find artists in specific locations who play specific genres of music, which will then help them get in contact with these artists to book them for gigs.
